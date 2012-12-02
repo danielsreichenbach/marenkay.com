@@ -1,0 +1,16 @@
+/* TEAM */
+Your title: Daniel S. Reichenbach
+Site: daniel [at] kogitoapp.com
+Twitter: qmarenkay.
+Location: Cologne, Germany.
+
+/* THANKS */
+Name: Kroc Camen
+Site: http://camendesign.com/
+For: ReMarkable syntax
+
+/* SITE */
+Last update: 2012/11/27
+Standards: HTML5, CSS3
+Components: Modernizr, MooTools, Prettify
+Software: Sublime Text 2
