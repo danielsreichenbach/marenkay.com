@@ -10,6 +10,7 @@
 # Application - render cache, sitemap, and configuration
 /.cache/*
 /.system/config.php
+/.system/deploy.rb
 /.system/sitemap.xml
 
 # Marker file to keep empty directories required for the application

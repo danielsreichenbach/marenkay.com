@@ -1,0 +1,6 @@
+<?php
+
+define('APP_HOST', 'marenkay.dev');                                 // preferred domain
+define('APP_PREVIEW_SIZE', 640);                                    // width (in px) of image previews
+define('ANALYTICS_KEY', 'UA-12345678-1');                           // google analytics key
+define('DEVELOPMENT', true);                                        // enable for development mode

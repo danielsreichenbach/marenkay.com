@@ -1,986 +1,889 @@
-/* ====================================================================================================================== */
-/* camendesign.com · cc-by3 © kroc camen · HTML5, no DIVs/SPANs, no IDs and no classes
-   ====================================================================================================================== */
-/* a note on browser support and how to follow this stylesheet:
-   CSS3 media queries are used to cleanly divide support for desktop browsers and iPhone, however there’s no real good
-   fallback for browsers that don’t support media queries. since there’s a number of CSS3 features used only available in
-   Firefox 3.5+ and Safari 4, I’ve decided to present browsers without media query support a lo-fi design, and the media
-   queries then build in the structure, colour and effects for supporting browsers
+/* ====================================================================== */
+/* [Marenkay](http://marenkay.com)       ·       © http://kogitoapp.com/  */
+/*                                                                        */
+/* Colour palette:                                                          */
+/* foreground = #4d4d4c                                                   */
+/* background = #fafafa                                                   */
+/* selection  = #d6d6d6                                                   */
+/* line       = #efefef                                                   */
+/* comment    = #8e908c                                                   */
+/* red        = #c82829                                                   */
+/* orange     = #f5871f                                                   */
+/* yellow     = #eab700                                                   */
+/* green      = #718c00                                                   */
+/* aqua       = #3e999f                                                   */
+/* blue       = #4271ae                                                   */
+/* purple     = #8959a8                                                   */
+/* window     = #efefef                                                   */
+/*                                                                        */
+/* ====================================================================== */
 
-   a grid is used throughout, the site is 980px wide divided in 20px wide blocks. every line is 19px or a multiple thereof
-   19px is used because it also happens to be 5mm on a standard printout, meaning you can print this site on lined paper!
+/* = HTML5 reset ======================================================== */
+header, nav, footer, section,
+aside, article, figure, figcaption {
+    display: block;
+}
 
-   kroccamen@gmail.com
-   ---------------------------------------------------------------------------------------------------------------------- */
-header, nav, footer, section,   /* blockify some HTML5 elements for browsers without a specific HTML5 parser */
- aside, article, figure,
- figcaption         {display: block;}
+/* = Selection style ==================================================== */
+::selection             { background-color: #d6d6d6; text-shadow: none; }
 
-@font-face          /* the creative-commons logos are done using embedded fonts */
-                {font-family: "CC Icons";
-                 src: url("fonts/cc-icons.svgz#cc") format("svg"),
-                      url("fonts/cc-icons.ttf")     format("truetype");}
+/* = Shared styles for all devices ====================================== */
+html, body              { margin: 0 auto; text-align: justify;
+                         font: normal 12px/1.5em "Droid Serif",
+                         Georgia, Palatino, 'Palatino Linotype',
+                         Times, 'Times New Roman',
+                         serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
 
-/* these selection declarations have to be separate
-   no text-shadow: <twitter.com/miketaylr/status/12228805301> */
-::-moz-selection        {background-color: #aab; color: #eee; text-shadow: none;}
-::selection             {background-color: #aab; color: #eee; text-shadow: none;}
+body                    { /* force a scrollbar on the right for short pages.
+                          when clicking the next / previous article links the
+                          centre shifts about depending on page length and
+                          this is undesired */
+                          overflow-y: scroll; }
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
-/* this first section is shared between printers and browsers and defines very generic typographical and structural layout
-   suitable for all devices */
-html, body          {margin: 0 auto; text-align: justify;
-                 font: normal 12px/19px Verdana, sans-serif;}
-body                {/* force a scrollbar on the right for short pages. when clicking the next / previous
-                    article links the centre shifts about depending on page length and this is undesired */
-                 overflow-y: scroll;}
+p                       { margin: 0 0 19px; }
+p+p, p+aside+p          { text-indent: 20px; }
 
-p               {margin: 0 0 19px;}
-p+p, p+aside+p          {text-indent: 20px;}
+ul, ol                  { margin: 0 0 19px; padding: 0;}
+ul ul, ol ol, ul ol,
+ol ul                   { margin-left: 20px; }
 
-ul, ol              {margin: 0 0 19px; padding: 0;}
-ul ul, ol ol, ul ol, ol ul  {margin-left: 20px;}
+dl                      { margin-bottom: 38px; }
+dt                      { font-weight: bold; }
+dd                      { margin: 0 0 19px 40px; }
+dt+dt                   { /* when a definiton term `<dt>` is given without
+                          a definition `<dd>`, then space the two adjacent
+                          terms */
+                          margin-top: 19px; }
 
-dl              {margin-bottom: 38px;}
-dt              {font-weight: bold;}
-dd              {margin: 0 0 19px 40px;}
-dt+dt               {/* when a definiton term `<dt>` is given without a definition `<dd>`,
-                    then space the two adjacent terms */
-                 margin-top: 19px;}
+a img                   { border: none; }
 
-a img               {border: none;}
-
-video, iframe,          /* non-inline images in articles: */
- article>img, section>img,  /* (ReMarkable will not wrap an `<img>` in `<p>` if it’s the only element on the line) */
-      dd>img,      li>img   {display: block; margin: 0 auto 19px;}
+/* non-inline images in articles:
+   (ReMarkable will not wrap an `<img>` in `<p>` if it’s the only element
+   on the line) */
+video, iframe,
+article>img, section>img,
+dd>img, li>img
+                        { display: block; margin: 0 auto 19px; }
 
 /* work around a centering bug in Gecko 1.9.0 ~ Firefox 3.0, Camino 2
    said block images above just won’t center without some coercing */
-article             {text-align: center;}
-article>*           {text-align: justify;}
-section             {text-align: center;}
-section>*           {text-align: justify;}
+article                 { text-align: center; }
+article>*               { text-align: justify; }
+section                 { text-align: center; }
+section>*               { text-align: justify; }
 
-/* --- inline ----------------------------------------------------------------------------------------------------------- */
-abbr                {border: none;}
-dfn             {font-style: normal;}
+/* ensure table headers will be aligned top by default */
+th[scope='row']         { vertical-align: top; }
 
-sup             {vertical-align: text-top;} /* `<sup>` extends the line-height, don’t do this */
-sub             {vertical-align: baseline;} /* and `<sub>` too */
+/* - inline ------------------------------------------------------------- */
+abbr                    { border: none; }
+dfn                     { font-style: normal; }
 
-small               {vertical-align: top; font: 12px/19px Georgia, serif;}
+/* `<sup>` and `<sub>` extend the line-height.
+   Do not do this. */
+sup                     { vertical-align: text-top; }
+sub                     { vertical-align: baseline; }
 
-/* --- monospace -------------------------------------------------------------------------------------------------------- */
-samp, code          {/* `<samp>` does not align correctly with the baseline and increases line-height
-                    also, monospace fonts look too large in large text like title / quotes… */
-                 font-size: 75%; line-height: 0;}
-samp, code, pre         {font-family: Menlo, Monaco, Consolas, monospace;}
-section samp, section code, /* …but too small in normal text */
- figure samp,  figure code  {font-size: 90%;}
+small                   { vertical-align: top; }
 
-pre             {margin-bottom: 19px; padding: 18px 0; border: 1px dotted #666;
-                 font-size: 75%; white-space: pre-wrap;}
-pre code            {font-size: 100%;}
+/* - monospace ---------------------------------------------------------- */
+/* `<samp>` does not align correctly with the baseline and increases
+   line-height. Also, monospace fonts look too large in large text like
+   title / quotes… */
+samp, code              { font-size: 75%; line-height: 0; }
+samp, code, pre         { font-family: "Meslo LG M DZ", monospace; }
 
-/* --- quotes ----------------------------------------------------------------------------------------------------------- */
-q               {font-style: italic;}
+/* …but too small in normal text */
+section samp,
+section code,
+figure samp,
+figure code             { font-size: 90%; }
 
-blockquote          {position: relative; margin: 19px 40px 0px;
-                 font: 16px/19px Baskerville, Georgia, serif; color: #666;}
-blockquote:before,      /* large quotes, top and bottom */
- blockquote:after       {display: block; height: 38px; overflow: hidden;
-                 font: 72px/76px "Baskerville Old Face", Georgia, serif;}
-blockquote:before       {content: "\201C"; margin-left: -40px; margin-bottom: -40px; line-height: 64px;}
-blockquote:after        {content: "\201D"; float: right; margin-top: -45px; margin-right: -40px;
-                 /* compatibility with Firefox 3.0 / Camino 2: */
-                 padding-left: 10px; margin-left: 100%;}
+pre                     { margin-bottom: 19px; padding: 18px 0;
+                          border: 1px dotted #d6d6d6;
+                          font-size: 75%; white-space: pre-wrap; }
+pre code                { font-size: 100%; }
 
-blockquote>p+p          {text-indent: 0;}
-blockquote>cite         {display: block; margin-bottom: 19px; font-size: 13px;}
-blockquote>cite:last-child  {text-align: right;}
+/* - quotes ------------------------------------------------------------- */
+q                       { font-style: italic; }
 
-/* --- typographical flourishes ----------------------------------------------------------------------------------------- */
-ins             {text-decoration: none;}
-ins:before          {content: "[";}
-ins:after           {content: "]";}
+blockquote              { position: relative; margin: 19px 40px 0px;
+                          font: 16px/19px "Droid Serif", Georgia,
+                          Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          color: #4d4d4c; }
+
+/* large quotes, top and bottom */
+blockquote:before,
+blockquote:after        { display: block; height: 38px; overflow: hidden;
+                          font: 72px/76px "Droid Serif", Georgia,
+                          Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
+blockquote:before       { content: "\201C"; margin-left: -40px;
+                          margin-bottom: -40px; line-height: 64px; }
+blockquote:after        { content: "\201D"; float: right;
+                          margin-top: -45px; margin-right: -40px;
+                          /* compatibility with Firefox 3.0 / Camino 2: */
+                          padding-left: 10px; margin-left: 100%; }
+
+blockquote>p+p          { text-indent: 0; }
+blockquote>cite         { display: block; margin-bottom: 19px;
+                          font-size: 13px; }
+blockquote
+ >cite:last-child       { text-align: right; }
+
+/* - typographical flourished ------------------------------------------- */
+ins                     { text-decoration: none; }
+ins:before              { content: "["; }
+ins:after               { content: "]"; }
 
 /* drop cap */
 article>section:first-of-type
  >p:first-of-type:first-letter,
- hr+p:first-letter      {display: block; float: left; padding: 8px 2px 0 0;
-                 font: 40px/24px Baskerville, "Times New Roman", serif;}
+hr+p:first-letter       { display: block; float: left; padding: 8px 2px 0 0;
+                          font: 40px/24px "Droid Serif", Georgia,
+                          Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
 
 /* plush “et cetera” */
 /* Mac: try for a combined ‘e’ and ‘t’ style, Windows: try match Palatino’s style. “Constantia” is a Vista font */
-abbr[title="et cetera"]     {font-family: "Hoefler Text", Palatino, Constantia, "Palatino Linotype", cursive;
-                 font-style: italic; font-size: 1.2em; line-height: 0;}
+abbr[title="et cetera"] { font-family: cursive;
+                          font-style: italic; font-size: 1.2em; line-height: 0; }
 
 /* book like `<hr />` “thematic break”, i.e. “---------- ◆ ----------” */
-hr              {margin: 0 20% 55px; padding: 19px 0; line-height: 38px;
-                 border: none; border-bottom: 1px solid black; text-align: center;
-                 color: inherit; background-color: inherit;}
-hr:before           {content: "\25C6"; display: inline-block; float: left; position: relative; left: -8px;
-                 margin: 0 50%; padding: 0 4px; background-color: inherit; cursor: default;}
-section, figure         {/* required to get the diamond to inherit a background */
-                 background-color: white;}
+hr                      { margin: 0 20% 55px; padding: 19px 0;
+                          line-height: 38px; border: none;
+                          border-bottom: 1px solid #d6d6d6;
+                          text-align: center; color: inherit;
+                          background-color: inherit; }
+hr:before               { content: "\25C6"; display: inline-block;
+                          float: left; position: relative; left: -8px;
+                          margin: 0 50%; padding: 0 4px;
+                          background-color: inherit; cursor: default; }
 
+/* required to get the diamond to inherit a background */
+article, section,
+figure                  { background-color: white; }
 
-/* === headings ========================================================================================================= */
-h1              {font: 26px/38px "Century Gothic", sans-serif;
-                 /* this prevents an insane WebKit bug that makes H1s disappear when navigating */
-                 display: block !important;}
-h1, h2, h3, h4          {margin: 0 0 19px 0; text-align: left;}
-h2, h3              {/* use padding-top for headers so that clicking a bookmark link (`#id`) spaces the
-                    header from the top of the browser window */
-                 padding-top: 19px;}
-h2              {font: normal small-caps 19px/38px Georgia, serif; letter-spacing: 1px;}
-h4, h5, h6          {text-decoration: underline;}
+/* - headings ----------------------------------------------------------- */
+h1                      { font: 26px/38px "Droid Serif", Georgia,
+                          Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          /* this prevents an insane WebKit bug that makes
+                             H1s disappear when navigating */
+                          display: block !important; }
+h1, h2, h3, h4          { margin: 0 0 19px 0; text-align: left; }
+h2, h3                  { /* use padding-top for headers so that clicking
+                             a bookmark link (`#id`) spaces the header from
+                             the top of the browser window */
+                          padding-top: 19px; }
+h2                      { font: normal small-caps 19px/38px "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          letter-spacing: 1px; }
+h4, h5, h6              { text-decoration: underline; }
 
-h1:empty            {/* don’t display the title if none given (semantically “untitled”) */
-                 display: none;}
+/* don’t display the title if none given (semantically “untitled”) */
+h1:empty                { display: none; }
 
-                /* title for link / poem pages */
-article>h1          {padding-top: 19px; margin-bottom: 19px;}
-article>h1+a            {display: block !important; margin-bottom: 19px; margin-top: -19px;}
+/* title for link / poem pages */
+article > h1            { padding-top: 19px; margin-bottom: 19px; }
+article > h1 + a        { display: block !important;
+                          margin-bottom: 19px; margin-top: -19px; }
 
-article>header+figure       /* the distinctive header in the photo / art categories */
- >figcaption            {font: 26px/38px "Marker Felt", "Lucida Handwriting", cursive; text-align: center;}
+/* the distinctive header in the photo / art categories */
+article > header + figure
+ >figcaption            { font: 26px/38px cursive; text-align: center; }
 
-/* --- table of contents ------------------------------------------------------------------------------------------------ */
+/* - table of contents -------------------------------------------------- */
 /* use an `<ol>` as the very first element in the blog entry to generate an auto numbered table of contents,
    numbers will be added to all the headings that have IDs */
+section > h1+ol,
+section >h1+ol ol       { margin-right: 0; list-style-type: none;
+                          font-family: "Droid Serif", Georgia,
+                          Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          counter-reset: toc h2 h3; }
 
-section>h1+ol, section>h1+ol ol {margin-right: 0; list-style-type: none; font-family: Georgia,serif;
-                 counter-reset: toc h2 h3;}
-section>h1+ol li:before     {/* add the numbering. `counters` is recursive,giving us “1.1”, “1.1.1” etc. */
-                 counter-increment: toc; content: counters(toc, ".") ". ";}
+/* add the numbering. `counters` is recursive,giving us “1.1”, “1.1.1” etc. */
+section>h1+ol li:before { counter-increment: toc; content: counters(toc, ".") ". ";}
 
-section>h1+ol a         {text-decoration: none; color: inherit;}
-section>h1+ol a:hover       {text-decoration: underline;}
+section>h1+ol a         { text-decoration: none; color: inherit; }
+section>h1+ol a:hover   { text-decoration: underline; }
 
 /* on the right for articles */
-section>h1+ol           {float: right; margin-left: 20px; padding-left: 19px; border-left: 1px dotted #333;}
+section>h1+ol           { float: right;
+                          margin-left: 20px; padding-left: 19px;
+                          border-left: 1px dotted #d6d6d6; }
 
-/* --- heading auto-numbering ------------------------------------------------------------------------------------------- */
+/* - heading auto-numbering --------------------------------------------- */
 /* shunt the first numbered heading below the TOC */
-section>h1+ol~h2[id]        {clear: right;}
+section>h1+ol~h2[id]    { clear: right; }
 
-section>h2[id]          {counter-reset: h3;}
-section>h1+ol~h2[id]:before {counter-increment: h2; content: counter(h2) ". ";}
-section>h1+ol~h3[id]:before {counter-increment: h3; content: counter(h2) "." counter(h3) ". ";}
+section>h2[id]          { counter-reset: h3; }
+section
+ >h1+ol~h2[id]:before   { counter-increment: h2; content: counter(h2) ". ";}
+section
+ >h1+ol~h3[id]:before   { counter-increment: h3; content: counter(h2) "." counter(h3) ". ";}
 
-
-/* === white space ====================================================================================================== */
-/* some typographical / vertical space adjustments for prettiness */
-
-/* if an image is first in an article, increase the space below,
-   e.g. <camendesign.com/code/uth7_floaty-abbrs> */
-section>h1+img          {margin-bottom: 38px;}
+/* - white space -------------------------------------------------------- */
+/* if an image is first in an article, increase the space below */
+section>h1+img          { margin-bottom: 38px; }
 
 /* don’t double-space with headings */
 h1+h2, h2+h3, hr+h2, hr+h3,
- dl+h2, dl+h3, img+h2, img+h3   {padding-top: 0;}
+dl+h2, dl+h3,
+img+h2, img+h3          { padding-top: 0; }
 
 /* odd spacing cases with `<hr />` */
-dl+hr               {margin-top: -19px;}
+dl+hr                   { margin-top: -19px; }
 
-/* nowhere else to put this really…
-   minimise space in figures, the figure frame is already there */
+/* minimise space in figures, the figure frame is already there */
 article>header+figure>figcaption:first-child:not(:empty)
-                {margin: 0 0 19px 0 !important;}
+                        { margin: 0 0 19px 0 !important; }
 article>header+figure>figcaption:last-child:not(:empty)
-                {margin: 19px 0 0 0;}
+                        { margin: 19px 0 0 0; }
+
+li>figure:last-child    { margin-bottom: 19px !important; }
 
 /* when using more than one section, space between them */
-article>section:not(:last-child){margin-bottom: 20px;}
+article>section:not(:last-child)
+                        { margin-bottom: 20px; }
 
-
-/* ====================================================================================================================== */
-/* / / printing / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* strictly printer-only overrides and features since much of the default style is allowed as fallback to el-cheapo
-   browsers that don’t support CSS3 media queries */
-/* ---------------------------------------------------------------------------------------------------------------------- */
-/* CSS printing is basically a joke. support has languised for 10 years, nobody cares about it, and we can’t even begin to
-   attain parity with real print like footnotes, endnotes, table of contents—with real page numbers &c.
-   Microsoft, Mozilla, Google, Opera—you all suck for this and you should be ashamed */
+/* = print style ======================================================== */
 @media print {
+  /* stuff not needed in the printout, basically anything that isn’t
+     content */
+  header, footer        { display: none; }
 
-/* stuff not needed in the printout, basically anything that isn’t content */
-header, footer          {display: none;}
+  /* avoid a header right at the bottom of the page */
+  h2, h3, h4            { page-break-after: avoid; }
 
-/* avoid a header right at the bottom of the page */
-h2, h3, h4          {page-break-after: avoid;}
+  /* add the URL after a hyperlink */
+  a                     { text-decoration: none; color: inherit; }
+  a:not([href^="#"]):before
+                        { content: "<"; font: 90% "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          color: #4d4d4c; }
+  a:not([href^="#"]):after
+                        { content: " " attr(href) ">";
+                        font: 90% "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          color: #4d4d4c;
+                          /* allow the long URLs to break anywhere */
+                          word-wrap: break-word; white-space: pre; }
+  /* prefix relative URLs with absolute location  */
+  a[href^="/"]:after    { content: " http://marenkay.com" attr(href) ">"; }
 
-/* add the URL after a hyperlink */
-a               {text-decoration: none; color: inherit;}
-a:not([href^="#"]):before   {content: "<"; font: 90% Georgia, sans-serif; color: #666;}
-a:not([href^="#"]):after    {content: " " attr(href) ">"; font: 90% Georgia, sans-serif; color: #666;
-                 /* allow the long URLs to break anywhere */
-                 word-wrap: break-word; white-space: pre;}
-a[href^="/"]:after      {/* prefix relative URLs with absolute location  */
-                 content: " http://camendesign.com" attr(href) ">";}
-figure a:before,        /* don’t do this on the photo / art images */
- figure a:after         {content: "";}
+  /* don’t do this on the photo / art images */
+  figure a:before,
+  figure a:after        { content: ""; }
 
-/* the long hyperlink URLs wreak havoc with justified text */
-article>*, section>*        {text-align: left;}
+  /* the long hyperlink URLs wreak havoc with justified text */
+  article>*, section>*  { text-align: left; }
 
-/* don’t split images over pages, duh
-   very little browser support for this */
-img             {page-break-inside: avoid;}
-
-
-
+  /* don’t split images over pages */
+  img                   { page-break-inside: avoid; }
 }
-/* ====================================================================================================================== */
-/* / / all browsers (lo-fi) / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* these are visual styles shared by all browsers (including iPhone), but primarily designed to enhance the default
-   raw style into a basic, but usable interface for browsers that do not support full CSS3 media queries (Firefox 3.0) */
+
+/* = browser style (lo-fi) ============================================== */
 @media screen, projection {
 
-html                {width: 980px; padding-top: 19px;}
-body                {width: 720px; margin: 0 0 0 120px;}
+  /* - basic page styles ------------------------------------------------ */
+  html                  { width: 980px; padding-top: 19px; }
+  body                  { width: 720px; margin: 0 0 0 120px; }
 
-img             {/* style the alt text, so if an image fails or is slow to load, at least this looks good */
-                 font-size: 11px; color: #888;}
+  /* style the alt text, if an image fails or is slow to load */
+  img                   { font-size: 11px; color: #4d4d4c; }
 
-pre             {margin-left: -40px; margin-right: -40px; padding-left: 40px;
-                 background-color: #eee;}
-dd pre, dd li pre,
- blockquote>pre         {margin-left: -80px; padding-left: 80px;}
-blockquote>pre          {margin-right: -80px;}
-section>h1+pre          {margin-top: -19px;}
+  pre                   { margin-left: -40px; margin-right: -40px;
+                          padding-left: 40px; background-color: #efefef;}
+  dd pre, dd li pre,
+  blockquote>pre        { margin-left: -80px; padding-left: 80px; }
+  blockquote>pre        { margin-right: -80px; }
+  section>h1+pre        { margin-top: -19px; }
 
-/* display the bookmark anchor after a heading */
-h2[id]:hover:after,     /* due to a 10-year-old bug (!) in Gecko, you can’t select this text */
- h3[id]:hover:after     {display: inline; content: " #" attr(id); color: #888; font-variant: normal;}
+  /* display the bookmark anchor after a heading */
+  h2[id]:hover:after,
+  h3[id]:hover:after    { display: inline; content: " #" attr(id);
+                          color: #4d4d4c; font-variant: normal; }
 
-/* clicking a link to a footnote, highlights that item */
-dt[id]:target, li[id]:target    {color: #c72; text-shadow: #ddd 0 -1px 0, white 0 1px 0;}
+  /* clicking a link to a footnote, highlights that item */
+  dt[id]:target,
+  li[id]:target         { color: #d6d6d6;
+                          text-shadow: #efefef 0 -1px 0, white 0 1px 0; }
 
-/* --- fixed-footer ----------------------------------------------------------------------------------------------------- */
-/* the site uses a simple (yet very complex to decipher) fixed-footer (the area with the view-source links and search)
-   the footer appears at the bottom of the window if the content is short, but after the content if it’s longer
-   this is done by first forcing the body to stretch to the screen height (not default behaviour) and then forcing the
-   `<article>` to be at least screen height too. switching to a box-model that doesn’t include the padding, we can then
-   exclude the height of the footer from ‘100%’ so that it sits at the bottom of the window */
-html, body          {height: 100%;
-                 -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                         box-sizing: border-box;}
+  /* - fixed footer ----------------------------------------------------- */
+  html, body            { height: 100%;
+                          box-sizing: border-box; }
 
-/* the lo-fi style doesn’t use a float for the cite, so the extra margin everybody else uses is not required */
-blockquote          {margin-bottom: 19px;}
+  /* the lo-fi style doesn’t use a float for the cite, so the extra margin
+     everybody else uses is not required */
+  blockquote            { margin-bottom: 19px; }
 
-/* === all : links ====================================================================================================== */
-/* the link underline is not a typographical emphasis, it is a functional designation
-   due to the hyperlink, the typographical underline has died out, and that’s a bad thing */
-a               {text-decoration: none;}
-a:hover             {text-decoration: underline;}
+  /* - links ------------------------------------------------------------ */
+  a                     { text-decoration: none; }
+  a:hover               { text-decoration: underline; }
 
-/* direct links to files will be preceeded by a file-type icon,
-   (ReMarkable automatically inserts the mime-types for links to file types it knows) */
-a[type]:before          {content: ""; display: inline-block; width: 16px; height: 16px; margin-right: 4px;
-                 text-indent: 0; line-height: 13px; vertical-align: text-top;
-                 background: url("img/icons/document.png") no-repeat 3px center;}
+  /* direct links to files will be preceeded by a file-type icon */
+  a[type]:before        { content: ""; display: inline-block;
+                          width: 16px; height: 16px; margin-right: 4px;
+                          text-indent: 0; line-height: 13px;
+                          vertical-align: text-top;
+                          background: url("img/icons/document.png") no-repeat 3px center; }
 
-/* the file type icons:     Fugue © Yusuke Kamiyamane cc-by3 <pinvoke.com>*/
-a[type$="/plain"]:before    {background: url("img/icons/txt.png") no-repeat 3px center;}
-a[type$="/png"]:before,
- a[type$="/jpeg"]:before,
- a[type$="/gif"]:before     {background: url("img/icons/png.png") no-repeat 0 center;}
-a[type$="/zip"]:before      {background: url("img/icons/zip.png") no-repeat 3px center;}
-a[type="/pdf"]:before       {background: url("img/icons/pdf.png") no-repeat 0 center;}
-a[type$="-php"]:before      {/* todo */}
-a[type$="/css"]:before      {/* todo */}
+  /* the file type icons */
+  a[type$="/plain"]:before
+                        { background: url("img/icons/txt.png") no-repeat 3px center; }
+  a[type$="/png"]:before,
+  a[type$="/jpeg"]:before,
+  a[type$="/gif"]:before
+                        { background: url("img/icons/png.png") no-repeat 0 center; }
+  a[type$="/zip"]:before
+                        { background: url("img/icons/zip.png") no-repeat 3px center; }
+  a[type="/pdf"]:before { background: url("img/icons/pdf.png") no-repeat 0 center; }
+  a[type$="-php"]:before
+                        { background: url("img/icons/php.png") no-repeat 0 center; }
+  a[type$="/css"]:before
+                        { background: url("img/icons/css.png") no-repeat 0 center; }
 
+  /* - header ----------------------------------------------------------- */
+  body>header           { font: 13px/19px "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
+  body>header h1 a      { display: block; padding: 19px 20px;
+                          text-indent: -9999px; }
+  body>header ul        { list-style-type: none; }
+  body>header ul+ul+ul  { display: block; font-size: 11px; }
+  body>header a[rel=next],
+  body>header a[rel=previous]
+                        { display: block; width: 120px; text-align: right; }
 
-/* === all :  header ==================================================================================================== */
-/* the site header, containing the logo, category links and next /prev buttons:
-   it might look like a footer, but the content is header stuff and it’s a header in the HTML; where it appears on screen
-   and how it looks is not relevant to its semantic meaning and that’s why CSS is so good */
+  /* - header (lo-fi) --------------------------------------------------- */
+  body>header           { position: relative; margin: 0 -140px 0 -120px;
+                          border-bottom: 1px solid #d6d6d6; }
+  body>header h1        { position: absolute; }
+  body>header h1 a      { width: 65px; height: 26px;
+                          background: url("img/logo.png") no-repeat 20px 0; }
 
-/* some definitions that _are_ shared across all browsers, including the good ones */
-body>header         {font: 13px/19px "Euphemia UCAS", "Trebuchet MS", sans-serif;}
-body>header h1 a        {display: block; padding: 19px 20px; text-indent: -9999px;}
-body>header ul          {list-style-type: none;}
-body>header ul+ul+ul        {display: block; font-size: 11px;}
-body>header a[rel=next],
- body>header a[rel=previous]    {display: block; width: 120px; text-align: right;}
+  body>header nav       { padding: 0 0 38px 120px; }
+  body>header ul,
+  body>header li        { float: left; margin: 0; }
+  body>header li        { padding-right: 10px; }
+  body>header ul+ul     { position: absolute; margin-left: 140px; }
+  body>header ul+ul+ul  { position: static; float: none; clear: left;
+                          margin-left: 140px; }
 
-/* lo-fi header:
-   the definitions here are for browsers that don’t support CSS3 media queries, and we layout a low-tech header
-   see the desktop section further down for the proper layout (which is why this is so compact and uncommented) */
-/* ---------------------------------------------------------------------------------------------------------------------- */
-body>header         {position: relative; margin: 0 -140px 0 -120px; border-bottom: 1px solid black;}
-body>header h1          {position: absolute;}
-body>header h1 a        {width: 65px; height: 26px; background: url("img/logo.png") no-repeat 20px 0;}
-body>header nav         {padding: 0 0 38px 120px;}
-body>header ul, body>header li  {float: left; margin: 0;}
-body>header li          {padding-right: 10px;}
-body>header ul+ul       {position: absolute; margin-left: 140px;}
-body>header ul+ul+ul        {position: static; float: none; clear: left; margin-left: 140px;}
-body>header a[rel=next],    /* ‘next / previous article’ links */
- body>header a[rel=previous]    {position: absolute; top: 19px; right: 0; padding: 0 20px 19px; text-align: right;}
-body>header a[rel=next]     {top: -19px; padding: 19px 20px 0; text-align: left;}
+  /* ‘next / previous article’ links */
+  body>header a[rel=next],
+  body>header a[rel=previous]
+                        { position: absolute; top: 19px; right: 0;
+                          padding: 0 20px 19px; text-align: right; }
+  body>header a[rel=next]
+                        { top: -19px; padding: 19px 20px 0;
+                          text-align: left; }
 
+  /* - article ---------------------------------------------------------- */
+  article               { padding: 18px 19px 42px;
+                          border: 1px dotted #d6d6d6;
+                          border-width: 0 1px; }
 
-/* === all : article ==================================================================================================== */
-article             {padding: 18px 19px 19px; border: 1px dotted #333; border-width: 0 1px;}
+  /* text and everything gets indented so that blockquotes, figures and
+     block images can overhang nicely */
+  article>*             { margin-left: 20px; margin-right: 20px; }
 
-/* text and everything gets indented so that blockquotes, figures and block images can overhang nicely */
-article>*           {margin-left: 20px; margin-right: 20px;}
+  /* the article meta information in the column to the left */
+  article>header        { float: left; width: 120px; margin-left: -140px;
+                          font: 12px/19px "Droid Serif",
+                         Georgia, Palatino, 'Palatino Linotype',
+                         Times, 'Times New Roman',
+                         serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
+  article>header>*      { display: block; padding: 18px 20px 19px 0;
+                          margin: 0; border-top: 1px dotted #d6d6d6; }
 
-/* the article meta information in the column to the left */
-article>header          {float: left; width: 120px; margin-left: -140px;
-                 font: 12px/19px "Euphemia UCAS", "Trebuchet MS", sans-serif;}
-article>header>*        {display: block; padding: 18px 20px 19px 0; margin: 0;
-                 border-top: 1px dotted #333;}
-article>header>:first-child /* dotted line between blocks (excluding above the first item) */
-                {border-top: none !important; padding-top: 0 !important;}
+  /* dotted line between blocks (excluding above the first item) */
+  article>header>:first-child
+                        { border-top: none !important;
+                          padding-top: 0 !important; }
 
-/* --- meta: time ------------------------------------------------------------------------------------------------------- */
-article>header time     {font: 26px/38px "Century Gothic", sans-serif; text-transform: uppercase; text-align: right;}
-article>header time sup     {display: block; font-size: 12px; line-height: 19px;}
-article>header time sup abbr    {/* not all browsers / platforms render a hair-space >:[ */
-                 padding-left: 1px;}
+  /* - article: meta: time ---------------------------------------------- */
+  article>header time   { font: 26px/38px "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          text-transform: uppercase;
+                          text-align: right; }
+  article>header time sup
+                        { display: block;
+                          font-size: 12px;
+                          line-height: 19px; }
+  /* not all browsers / platforms render a hair-space >:[ */
+  article>header time sup abbr
+                        { padding-left: 1px; }
 
-/* --- meta: tags ------------------------------------------------------------------------------------------------------- */
-article>header li       {display: block; height: 19px; text-align: right; line-height: 17px;}
-article>header li a:after   {display: inline-block; width: 10px; margin-left: 10px; text-align: center;
-                 content: "\2022"; font-family: Verdana, sans-serif;}
-article>header ul       /* first tag is the type, the permalink */
- >li:first-child a:after    {content: "\2605"; font-size: 11px;}
+  /* - article: meta: tags ---------------------------------------------- */
+  article>header li     { display: block; height: 19px; text-align: right;
+                          line-height: 17px; }
+  article>header li a:after
+                        { display: inline-block; width: 10px;
+                          margin-left: 10px; text-align: center;
+                          content: "\2022"; font-family: "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          color: #718c00; }
+  /* first tag is the type, the permalink */
+  article>header ul
+   >li:first-child a:after
+                        { content: "\2605"; font-size: 11px; color: #718c00;}
 
-/* --- meta: licence ---------------------------------------------------------------------------------------------------- */
-article>header small        {font: inherit; text-align: center;}
-article>header small em a   {text-decoration: underline;}
+  /* - article: meta: license ------------------------------------------- */
+  article>header small  { font: inherit; text-align: center; }
+  article>header small em a
+                        { text-decoration: underline; }
 
-article>header small        /* large copyright sign */
- abbr[title="copyright"]    {display: block; padding-top: 15px;
-                 font: 138px/100px Trebuchet, sans-serif;}
+  /* large copyright sign */
+  article>header small
+   abbr[title="copyright"]
+                        { display: block; width: 100px; height: 114px;
+                          text-indent: -9999px;
+                          background: url("img/icons/copyright.png") no-repeat; }
 
-article>header small        /* creative-commons logos */
- a[rel~=license]        {display: block; width: 100px; height: 114px; text-indent: -9999px;
-                 background: url("icons/cc.png") no-repeat;}
+  /* creative-commons logos */
+  article>header small
+   a[rel~=license]      { display: block; width: 100px; height: 114px;
+                          text-indent: -9999px;
+                          background: url("img/icons/cc.png") no-repeat; }
 
-/* --- meta: enclosure -------------------------------------------------------------------------------------------------- */
-/* this inherits from the link decs higher up that add an icon to the left of `a[type]` */
+  /* article: meta: enclosure ------------------------------------------- */
+  /* file name, size */
+  article>header>a      { display: block; text-align: center;
+                          word-wrap: break-word; font-size: 11px; }
+  article>header>a+a    { padding-top: 0; border-top: none; }
+  article>header>a>em   { display: block; font-size: 10px; }
 
-/* file name, size */
-article>header>a        {display: block; text-align: center; word-wrap: break-word; font-size: 11px;}
-article>header>a+a      {padding-top: 0; border-top: none;}
-article>header>a>em     {display: block; font-size: 10px;}
+  /* large file icon positioning */
+  header>a[type]:before { content: ""; display: block;
+                          width: 128px; height: 128px; margin: 0 -14px;
+                          background: url("img/icons/document.png") no-repeat; }
 
-/* large file icon positioning */
-header>a[type]:before       {content: ""; display: block; width: 128px; height: 128px; margin: 0 -14px;
-                 background: url("icons/document.png") no-repeat;}
+  header>a[type$="/plain"]:before
+                        { background-image: url("img/icons/txt.png"); }
+  header>a[type$="/png"]:before
+                        { background-image: url("img/icons/png.png"); }
+  header>a[type$="/jpeg"]:before
+                        { background-image: url("img/icons/jpg.png"); }
+  header>a[type$="/zip"]:before
+                        { background-image: url("img/icons/zip.png"); }
+  header>a[type$="-php"]:before
+                        { background-image: url("img/icons/php.png"); }
+  header>a[type$="/css"]:before
+                        { background-image: url("img/icons/css.png"); }
+  header>a[type$="/pdf"]:before
+                        { background-image: url("img/icons/pdf.png"); }
+  header>a[type$="/mpeg"]:before
+                        { background-image: url("img/icons/mp3.png"); }
 
-/* the large enclosure icons:   MINIUMº  © RAD.E8 DESIGN <rad-e8.com>
-                DOCUNIUM © Cyril Seillet <rimshotdesign.com> */
-header>a[type$="/plain"]:before {background-image: url("icons/txt.png");}
-header>a[type$="/png"]:before   {background-image: url("icons/png.png");}
-header>a[type$="/jpeg"]:before  {background-image: url("icons/jpg.png");}
-header>a[type$="/zip"]:before   {background-image: url("icons/zip.png");}
-header>a[type$="-php"]:before   {background-image: url("icons/php.png");}
-header>a[type$="/css"]:before   {background-image: url("icons/css.png");}
-header>a[type$="/pdf"]:before   {background-image: url("icons/pdf.png");}
-header>a[type$="/mpeg"]:before  {background-image: url("icons/mp3.png");}
+  /* - section ---------------------------------------------------------- */
+  section>header        { margin-bottom: 19px; text-align: right;
+                          color: #4d4d4c; }
+  section>header+h2     { padding-top: 0; }
 
-/* === all : section ==================================================================================================== */
-/* `<section>` is used on this site as the piece of paper in the middle for blog-like content */
+  section h1            { margin: 0 -40px 19px; padding: 19px 40px;}
 
-section>header          {margin-bottom: 19px; text-align: right; color: #888;}
-section>header+h2       {padding-top: 0;}
+  /* side text that appears outside of the paper in the right hand column */
+  aside                 { position: absolute; width: 120px;
+                          margin-left: 700px;
+                          font-size: 10px; text-align: left; }
+  aside>p               { text-indent: 0; }
+  dd aside              { margin-left: 660px; }
 
-section h1          {margin: 0 -40px 19px; padding: 19px 40px;}
+  /* block images in articles */
+  video, iframe,
+  section>img:not([width="640"]),
+  li>img:not([width="640"]),
+  dd>img:not([width="600"])
+                        { border-width: 19px 20px; border-style: solid;
+                          border-color: #d6d6d6;
+                          background-color: #efefef; }
+  video, iframe         { border: none; }
 
-/* side text that appears outside of the paper in the right hand column */
-aside               {position: absolute; width: 120px; margin-left: 700px; font-size: 10px; text-align: left;}
-aside>p             {text-indent: 0;}
-dd aside            {margin-left: 660px;}
+  /* - figure ----------------------------------------------------------- */
+  figure, article>img   { display: inline-block; max-width: 640px;
+                          margin: 0 auto; padding: 18px 19px;
+                          background-color: #efefef; }
 
-/* block images in articles */
-video, iframe,
- section>img:not([width="640"]),
-      li>img:not([width="640"]),
-      dd>img:not([width="600"]) {border-width: 19px 20px; border-style: solid; border-color: #eee;
-                 background-color: #eee;}
-video, iframe           {border: none;}
+  /* block images have a bottom margin which is already provided by figure ^ */
+  figure img            { display: block; margin-bottom: 0 !important;
+                          border: none !important;
+                          box-shadow: none !important; }
 
+  /* don’t add an unessecary line between a figure and the footer */
+  figure:not(:last-child),
+  article>img:not(:last-child)
+                        { margin-bottom: 19px; }
 
-/* === all : figure ===================================================================================================== */
-/* the picture frame for photo / art sections. whilst I prefer `<legend>` in `<figure>` the spec changed due to the severe
-   issues with `<legend>` in current browsers
-*/
-figure, article>img     {display: inline-block; max-width: 640px; margin: 0 auto; padding: 18px 19px;
-                 background-color: #eee;}
-figure img          {/* block images have a bottom margin which is already provided by figure ^ */
-                 display: block; margin-bottom: 0 !important; border: none !important;
-                 -webkit-box-shadow: none !important;
-                    -moz-box-shadow: none !important;
-                         box-shadow: none !important;}
-figure:not(:last-child),    /* don’t add an unessecary line between a figure and the footer */
- article>img:not(:last-child)   {margin-bottom: 19px;}
+  figure                { margin-left: -20px; margin-right: -20px; }
 
-figure              {margin-left: -20px; margin-right: -20px;}
+  article>header+figure>figcaption
+                        { color: black; text-shadow: white 0 1px 0; }
+  /* remove the file type icon added to all links with a `type` attribute */
+  figure a[type]:before { content: ""; display: none; }
 
-article>header+figure>figcaption{color: black; text-shadow: white 0 1px 0;}
-figure a[type]:before       {/* remove the file type icon added to all links with a `type` attribute */
-                 content: ""; display: none;}
+  /* the figure’s legend (one line shared across two) */
+  figcaption:not(:empty)
+                        { margin-top: 8px; margin-bottom: -8px;
+                          padding-top: 8px; border-top: 1px dotted #d6d6d6;
+                          text-align: right; color: #4d4d4c;
+                          font-family: "Droid Serif",
+                          Georgia, Palatino, 'Palatino Linotype',
+                          Times, 'Times New Roman',
+                          serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          font-weight: normal; font-style: italic; }
+  figcaption a          { color: inherit; text-decoration: underline; }
+  figcaption a:hover    { color: #4d4d4c; }
 
-/* the figure’s legend (one line shared across two) */
-figcaption:not(:empty)      {margin-top: 8px; margin-bottom: -8px; text-align: right; color: #888;
-                 font-family: Georgia; font-weight: normal; font-style: italic;}
-figcaption a            {color: inherit; text-decoration: underline;}
-figcaption a:hover      {color: #666;}
+  /* - footer ----------------------------------------------------------- */
+  body>footer           { display: table; width: 720px; height: 38px;
+                          padding: 56px 120px 0; margin-left: -120px;
+                          border-top: 1px solid #d6d6d6;
+                          font-size: 11px; }
+  body>footer>*         { display: table-cell; }
+  body>footer>a         { text-align: right; }
+  body>footer>nav       { text-align: center; }
+  body>footer>nav>a     { margin: 0 5px; text-transform: lowercase; }
+  body>footer>form      { text-align: left; }
+  body>footer>nav:first-child
+                        { display: table-caption;
+                          margin-bottom: -57px; padding: 19px 0;
+                          text-align: center; }
 
+  /* - search box ------------------------------------------------------- */
+  footer input[type=search]
+                        { display: inline-block; width: 130px; margin: 0;
+                          padding: 4px 10px 3px 20px; border: none;
+                          border-radius: 3px;
+                          box-shadow: inset 0 1px 2px rgba(0,0,0,.7);
+                          font: 11px "Droid Serif",
+                         Georgia, Palatino, 'Palatino Linotype',
+                         Times, 'Times New Roman',
+                         serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
+                          background: #d6d6d6 url("img/icons/search.png")
+                          no-repeat 5px 5px; }
+  /* replicate the glow around the focused textbox */
+  footer input[type=search]:focus
+                        { box-shadow: 0 0 3px 3px, inset 0 1px 2px rgba(0,0,0,.7);
+                          background-color: #efefef; }
 
-/* === all : footer ===================================================================================================== */
-/* the fixed-footer, at the bottom of the content, containing view-source links and search */
+  /* submit button inside the search field */
+  footer input[type=submit]
+                        { display: none; width: 19px; height: 19px;
+                          cursor: pointer; margin: 0 0 0 -23px;
+                          padding: 0; border: none; text-indent: -9999px;
+                          background: url("img/icons/go.png")
+                          no-repeat 0 4px; }
 
-body>footer         {display: table; width: 720px; height: 38px; padding: 56px 120px 0;
-                 margin-left: -120px; border-top: 1px solid black; font-size: 11px;}
-body>footer>*           {display: table-cell;}
-body>footer>a           {text-align: right;}
-body>footer>nav         {text-align: center;}
-body>footer>nav>a       {margin: 0 5px; text-transform: lowercase;}
-body>footer>form        {text-align: left;}
-body>footer>nav:first-child {display: table-caption; margin-bottom: -57px; padding: 19px 0;
-                 text-align: center;}
+  /* hover / focus effects */
+  input[type=submit]:hover,  input[type=search]:focus+input,
+  input[type=submit]:focus, input[type=search]:hover+input
+                        { display: inline-block; }
+  input[type=submit]:hover,
+  input[type=submit]:focus
+                        { background: url("img/icons/gos.png")
+                          no-repeat 0 4px; }
 
-/* --- search box ------------------------------------------------------------------------------------------------------- */
-/* `<input type="search">` is weird. Apple were the first to implement it in Safari; it inserts a rounded typical Mac-like
-   search control. Safari ignores a background image, and some browsers leave out the background colour entirely (Chrome) */
-footer input[type=search]   {display: inline-block; width: 130px; margin: 0; padding: 4px 10px 3px 20px;
-                 border: none; -moz-border-radius: 10px; -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.7);
-                 font: 11px "Lucida Grande", sans-serif;
-                 background: #ddd url("img/icons/search.png")
-                 no-repeat 5px 5px;}
-footer input[type=search]:focus {/* replicate the glow around the focused textbox */
-                 -webkit-box-shadow: 0 0 3px 3px -webkit-focus-ring-color;
-                    -moz-box-shadow: 0 0 3px 3px -moz-mac-focusring, inset 0 1px 2px rgba(0,0,0,.7);
-                 background-color: #eee;}
+  /* - directory -------------------------------------------------------- */
+  body>ol               { padding-bottom: 120px; }
+  body>ol>li            { display: inline-block;
+                          width: 140px; height: 180px;
+                          text-align: center; vertical-align: top; }
 
-/* submit button inside the search field */
-footer input[type=submit]   {display: none; width: 19px; height: 19px; cursor: pointer;
-                 margin: 0 0 0 -23px; padding: 0; border: none; text-indent: -9999px;
-                 background: url("img/icons/go.png") no-repeat 0 4px;}
+  body>ol>li>a          { text-decoration: none !important;
+                          word-wrap: break-word;
+                          background: none !important; }
 
-/* hover / focus effects */
-input[type=submit]:hover,  input[type=search]:focus+input,
- input[type=submit]:focus, input[type=search]:hover+input
-                {display: inline-block;}
-input[type=submit]:hover,  input[type=submit]:focus
-                {background: url("img/icons/gos.png") no-repeat 0 4px;}
-
-/* === all : directory ================================================================================================== */
-body>ol             {padding-bottom: 120px;}
-body>ol>li          {display: inline-block; width: 140px; height: 180px;
-                 text-align: center; vertical-align: top;}
-
-body>ol>li>a            {text-decoration: none !important; word-wrap: break-word;
-                 background: none !important;}
-
-body>ol>li>a>img        {display: block;}
-body>ol>li>a:not([type]):before,
- body>ol>li>a[type]:before  {content: ""; display: inline-block; margin-right: 0;
-                 text-indent: 0; line-height: 13px; vertical-align: top; background: none;}
-/*
-body>ol>li>a:not([type]):before,
- body>ol>li>a[type]:before  {content: ""; display: inline-block; width: 140px; height: 140px; margin-right: 0;
-                 text-indent: 0; line-height: 13px; vertical-align: top;
-                 background: url("icons/document.png") no-repeat center center;}
-*/
-/* the large file-type icons:   MINIUMº, MINIUM² © RAD.E8 DESIGN <rad-e8.com>
-                DOCUNIUM © Cyril Seillet <rimshotdesign.com> */
-/*body>ol>li>a:not([type]):before       {background-image: url("icons/folder.png");}
-body>ol>li:first-child>a:not([type]):before
-                    {background-image: url("icons/parent.png");}
-body>ol>li>a[type$="/html"]:before  {background-image: url("icons/html.png");}
-body>ol>li>a[type$="/plain"]:before {background-image: url("icons/txt.png");}
-body>ol>li>a[type$="/remarkable"]:before{background-image: url("icons/rem.png");}
-body>ol>li>a[type$="/png"]:before   {background-image: url("icons/png.png");}
-body>ol>li>a[type$="/jpeg"]:before  {background-image: url("icons/jpg.png");}
-body>ol>li>a[type$="/zip"]:before   {background-image: url("icons/zip.png");}
-body>ol>li>a[type$="-php"]:before   {background-image: url("icons/php.png");}
-body>ol>li>a[type$="/css"]:before   {background-image: url("icons/css.png");}
-body>ol>li>a[type$="/javascript"]:before{background-image: url("icons/js.png");}
-body>ol>li>a[type$="/x-sh"]:before  {background-image: url("icons/sh.png");}
-body>ol>li>a[type$="/pdf"]:before   {background-image: url("icons/pdf.png");}
-body>ol>li>a[type$="/mpeg"]:before  {background-image: url("icons/mp3.png");}
-body>ol>li>a[type$="/ogg"]:before   {background-image: url("icons/ogg.png");}
-body>ol>li>a[type$="/ttf"]:before,
- body>ol>li>a[type$="/otf"]:before,
- body>ol>li>a[type$="/x-woff"]:before   {background-image: url("icons/font.png");}*/
+  body>ol>li>a>img      { display: block; }
+  body>ol>li>a:not([type]):before,
+  body>ol>li>a[type]:before
+                        { content: ""; display: inline-block;
+                          margin-right: 0; text-indent: 0;
+                          line-height: 13px; vertical-align: top;
+                          background: none; }
 
 }
-/* ====================================================================================================================== */
-/* / / desktop browsers / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* this is the main design used by desktop web-browsers (mainly Firefox 3.5+, Safari 4 / Chrome 3+), excludes the iPhone
-   these styles are in additon to (and sometimes override) the ones above in the all-browser’s lo-fi secton */
+
+/* = browser style (desktops) =========================================== */
 @media screen and (min-device-width: 480px) {
 
-html                {/* adjustment for the fixed-footer
-                    (excludes this much from the 100% height of the article) */
-                 padding-bottom: 171px;
-                 /* the ‘shadow’ on the background coming from the fixed header at the bottom of the screen
-                    a real shadow, whilst better simply kills the CPU so we replicate with a CSS gradient */
-                 background: -webkit-gradient(linear,0 100%,0 0,color-stop(.4,#b4691e),color-stop(1,#c72))
-                             fixed no-repeat 0 100%;
-                 background: -moz-linear-gradient(bottom,#b4691e 40%,#c72)
-                             fixed no-repeat 0 100%;
-                 -moz-background-size: 100% 240px;
-                      background-size: 100% 240px;
-                 /* fix for Firefox 3.5 which doesn’t support the gradient */
-                 background-color: #c72;}
+  /* adjustment for the fixed-footer
+     (excludes this much from the 100% height of the article) */
+  html                  { padding-bottom: 171px;
+                          /* the ‘shadow’ on the background coming from the
+                             fixed header at the bottom of the screen a real
+                             shadow, whilst better simply kills the CPU so we
+                             replicate with a CSS gradient */
+                          background: linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
+                          background-size: 100% 240px;
+                          /* fix for Firefox 3.5 which doesn’t support the gradient */
+                          background-color: #fafafa; }
 
-body, aside         {/* orange areas have an engraved text effect*/
-                 color: #431; text-shadow: #b61 0 -1px 0, rgba(255,255,255,.2) 0 1px 0;}
+  /* orange areas have an engraved text effect*/
+  body, aside           { color: #4d4d4c;
+                          text-shadow: #d6d6d6 0 -1px 0, rgba(255,255,255,.2) 0 1px 0; }
 
-/* abbr underlines: when you hover over a paragraph of text, underline abbreviations that have descriptions
-   ---------------------------------------------------------------------------------------------------------------------- */
-/* abbreviations are mostly for screen readers / Google’s benefit and litering the page with dotted underlines is ugly.
-   instead, what I do is only show the dotted underline when you mouse over the containing paragraph of text. unfortunately
-   this is not easy to do as there are a variety of elements that would class as a block of text, and the abbreviation could
-   appear at varying depths; inside a hyperlink or cite or within list items which may or may not contain paragrahs */
+  /* - abbreviations: underlines ----------------------------------------- */
+  /* begin with the basics; abbreviations in items that do not contain
+     other nested blocks */
+  p:hover abbr[title], dt:hover abbr[title],
+  /* for the following we are covering two particulars: abbreviations
+     directly within the element, i.e. `dd>abbr`, but also abbreviations
+     that fall within non-block elements such as hyperlinks or cites &c.,
+     i.e. `dd>em>abbr`; we have to use `:not(…)` to prevent highlighting
+     all abbreviations at all levels within nested blocks, e.g.
+     `dd:hover>ul>li>p>abbr` */
+  dd:hover   >abbr[title], dd:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
+  li:hover   >abbr[title], li:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
+  /* generally speaking, bullet lists that do not contain paragraphs for
+     each item are short and tightly spaced; for simplicity, hovering
+     over these kinds of lists will highlight all of the abbreviations
+     in the list */
+  ul:hover>li>abbr[title], ul:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
+  ol:hover>li>abbr[title], ol:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
+  /* --- and again, for `<dfn>`! */
+  p:hover dfn[title], dt:hover dfn[title],
+  dd:hover   >dfn[title], dd:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
+  li:hover   >dfn[title], li:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
+  ul:hover>li>dfn[title], ul:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
+  ol:hover>li>dfn[title], ol:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title]
+                        { border-bottom: 1px dotted #d6d6d6; cursor: help; }
 
-/* begin with the basics; abbreviations in items that do not contain other nested blocks */
-p:hover abbr[title], dt:hover abbr[title],
-/* for the following we are covering two particulars: abbreviations directly within the element, i.e. `dd>abbr`, but also
-   abbreviations that fall within non-block elements such as hyperlinks or cites &c., i.e. `dd>em>abbr`; we have to use
-   `:not(…)` to prevent highlighting all abbreviations at all levels within nested blocks, e.g. `dd:hover>ul>li>p>abbr` */
- dd:hover   >abbr[title], dd:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
- li:hover   >abbr[title], li:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
-/* generally speaking, bullet lists that do not contain paragraphs for each item are short and tightly spaced;
-   for simplicity, hovering over these kinds of lists will highlight all of the abbreviations in the list */
- ul:hover>li>abbr[title], ul:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
- ol:hover>li>abbr[title], ol:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) abbr[title],
-/* --- and again, for `<dfn>`! */
- p:hover dfn[title], dt:hover dfn[title],
- dd:hover   >dfn[title], dd:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
- li:hover   >dfn[title], li:hover   >:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
- ul:hover>li>dfn[title], ul:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title],
- ol:hover>li>dfn[title], ol:hover>li>:not(p):not(dl):not(ul):not(ol):not(blockquote) dfn[title]
-                {border-bottom: 1px dotted #666; cursor: help;}
+  /* - abbreviations: floaty -------------------------------------------- */
+  /* the abbreviation itself: */
+  section abbr[title]:hover,
+  figure abbr[title]:hover
+                        { display: inline-block; position: relative;
+                          margin: -2px -6px; padding: 1px 5px;
+                          line-height: inherit; vertical-align: top;
+                          /* dotted underline previals otherwise */
+                          border: 1px solid #d6d6d6 !important;
+                          border-radius: 0 12px 12px 0;
+                          box-shadow: 0 2px 0 rgba(0,0,0,.4);
+                          color: #4d4d4c; text-indent: 0;
+                          background-color: #fafafa;}
 
+  /* abbreviation description: */
+  section abbr[title]:hover:before,
+  figure abbr[title]:hover:before
+                        { content: attr(title); position: absolute;
+                          display: block; top: -1px; right: 100%;
+                          height: 100%; padding: 0 5px 0 7px;
+                          border: 1px solid #d6d6d6;
+                          border-radius: 12px 0 0 12px;
+                          box-shadow: 0 2px 0 rgba(0,0,0,.4);
+                          color: #4d4d4c; white-space: nowrap;
+                          background-color: #fafafa;}
 
-/* floaty abbrreviations: <camendesign.com/code/uth7_floaty-abbrs>
-   ---------------------------------------------------------------------------------------------------------------------- */
-/* for some reason this doesn’t select at all in WebKit! */
+  /* - desktop: links --------------------------------------------------- */
+  /* links in the orange areas */
+  header a, footer a,
+  aside a, article>a,
+  article>:not(section):not(figure) a
+                        { color: #4271ae; }
+  header a:hover, footer a:hover, aside a:hover,
+  header a:focus, footer a:focus, aside a:focus,
+  article>a:hover, article>:not(section):not(figure) a:hover,
+  article>a:focus, article>:not(section):not(figure) a:focus,
+  a[rel~=tag]           { color: #4d4d4c !important;
+                          text-shadow: #fafafa 1px 1px 0; }
 
-section abbr[title]:hover,  /* the abbreviation itself: */
- figure abbr[title]:hover   {display: inline-block; position: relative; margin: -2px -6px; padding: 1px 5px;
-                 border: 1px solid #aab !important; /* dotted underline previals otherwise */
-                         border-radius: 0 12px 12px 0;
-                    -moz-border-radius: 0 12px 12px 0;
-                    -moz-box-shadow: 0 2px 0 rgba(0,0,0,.4);
-                         box-shadow: 0 2px 0 rgba(0,0,0,.4);
-                 color: #334; text-indent: 0; line-height: inherit; vertical-align: top;
-                 background-color: #aab;}
+  /* links that remain underlined */
+  footer a, aside a, article>a,
+  article>:not(section):not(figure):not(header) a
+                        { text-decoration: underline; }
 
-section abbr[title]:hover:before,/* abbreviation description: */
- figure abbr[title]:hover:before{content: attr(title); position: absolute; display: block;
-                 top: -1px; right: 100%; height: 100%; padding: 0 5px 0 7px;
-                 border: 1px solid #ccd;
-                         border-radius: 12px 0 0 12px;
-                    -moz-border-radius: 12px 0 0 12px;
-                    -moz-box-shadow: 0 2px 0 rgba(0,0,0,.4);
-                         box-shadow: 0 2px 0 rgba(0,0,0,.4);
-                 color: #667; white-space: nowrap;
-                 background-color: #ccd;}
+  /* do not underline these links */
+  header a:hover,
+  header a:focus        { text-decoration: none; }
 
-/* === desktop : links ================================================================================================== */
-/* the reason this is all very complicated is that we specifically work around the white `<section>`/`<figure>` areas so
-   that the native link colours are used there as provided by the browser / chosen by the user */
+  /* links in blockquotes within the orange area */
+  article>blockquote a,
+  article>header+blockquote a
+                        { text-shadow: #f5871f 0 -1px 0, #eab700 0 1px 0; }
 
-/* links in the orange areas: */
-header a,       footer a,       aside a,       article>a,       article>:not(section):not(figure) a
-                {color: #431;}
-header a:hover, footer a:hover, aside a:hover, article>a:hover, article>:not(section):not(figure) a:hover,
-header a:focus, footer a:focus, aside a:focus, article>a:focus, article>:not(section):not(figure) a:focus,
- a[rel~=tag]            {color: #eee !important; text-shadow: #431 1px 1px 0;}
+  /* - desktop: links: icons -------------------------------------------- */
+  a:not([type])[rel~=external],
+  a[href*="mailto:"]    { text-indent: 0;
+                          background: url("img/links/external.png")
+                          no-repeat 4px 4px;}
 
-/* links that remain underlined */
-footer a, aside a, article>a, article>:not(section):not(figure):not(header) a
-                {text-decoration: underline;}
+  /* hide favicon image when not hovering on the link (whilst keeping the
+    image on standby) */
+  a[rel~=external]:not([type]):not(:hover),
+  a[href*="mailto:"]:not(:hover)
+                        { background-image: none; }
 
-/* do not underline these links */
-header a:hover, header a:focus  {text-decoration: none;}
+  /* when you hover over the link, jut the favicon over the left side */
+  a[rel~=external]:not([type]):hover,
+  a[href^="mailto:"]:hover
+                        { margin-left: -20px; padding-left: 20px;
+                          background-color: #efefef;}
 
-/* links in blockquotes within the orange area */
-article>blockquote a,
- article>header+blockquote a    {text-shadow: #b61 0 -1px 0, #d94 0 1px 0;}
+  /* adjust for background color for jutted-out icon when in the page
+     areas */
+  article>:not(section):not(figure) a[rel~=external]:not([type]):hover,
+  article>a[rel~=external]:not([type]):hover,
+  aside a[rel~=external]:not([type]):hover
+                        { display: inline-block;
+                          background-color: #fafafa;}
 
-/* link icons
-   ---------------------------------------------------------------------------------------------------------------------- */
-/* links to external sites */
-a:not([type])[rel~=external],
- a[href*="mailto:"]     {text-indent: 0; background: url("img/links/external.png") no-repeat 4px 5px;}
+  /* don’t jut out an icon for links in the large blockquotes in page
+     areas, and the e-mail link in the footer */
+  article>blockquote a[rel~=external]:not([type]):hover,
+  footer a[href*="mailto:"]
+                        { margin-left: 0; padding-left: 0 !important;
+                          padding-bottom: 0; background: none !important; }
 
-/* hide favicon image when not hovering on the link (whilst keeping the image on standby) */
-a[rel~=external]:not([type]):not(:hover),
- a[href*="mailto:"]:not(:hover) {background-image: none;}
+  a[href*="mailto:"]:hover
+                        { background: url("img/links/mailto.png") no-repeat 0 2px;}
 
-/* when you hover over the link, jut the favicon over the left side */
-a[rel~=external]:not([type]):hover,
- a[href^="mailto:"]:hover   {margin-left: -20px; padding-left: 20px; background-color: #eee;}
+  a[href*="osnews.com"]:hover,
+  a[href*="osne.ws"]:hover
+                        {
+                          background: url("img/links/osnews.png") no-repeat 0 0;
+                        }
 
-/* adjust for background color for jutted-out icon when in the orange areas */
-article>:not(section):not(figure) a[rel~=external]:not([type]):hover,
- article>a[rel~=external]:not([type]):hover, aside a[rel~=external]:not([type]):hover
-                {display: inline-block; background-color: #c72;}
+  a[href*="daringfireball."]:hover
+                        {
+                          background: url("img/links/df.png") no-repeat 0 0;
+                        }
 
-/* don’t jut out an icon for links in the large blockquotes in orange areas,
-   and the e-mail link in the footer */
-article>blockquote a[rel~=external]:not([type]):hover, footer a[href*="mailto:"]
-                {margin-left: 0; padding-left: 0 !important; padding-bottom: 0;
-                 background: none !important;}
+  a[href*="wikipedia."]:hover
+                        {
+                          background: url("img/links/wikipedia.png") no-repeat 0 0;
+                        }
 
-a[href*="mailto:"]:hover    {background: url("img/links/mailto.png") no-repeat 0 3px;}
+  a[href*="youtube."]:hover
+                        {
+                          background: url("img/links/youtube.png") no-repeat 0 0;
+                        }
 
-/* www-speech-bubbles: cc-by kroc camen: */
-/* todo: google, mozilla/getfirefox/bugzilla, apple, bbc, archive.org, tinyurl, itms: */
-a[href*="osnews.com"]:hover,
- a[href*="osne.ws"]:hover   {background: url("img/links/osnews.png") no-repeat 0 center;}
-a[href*="daringfireball."]:hover{background: url("img/links/df.png") no-repeat 0 center;}
-a[href*="wikipedia."]:hover {background: url("img/links/wikipedia.png") no-repeat 0 center;}
-a[href*="youtube."]:hover   {background: url("img/links/youtube.png") no-repeat 0 center;}
-a[href*="twitter."]:hover   {background: url("img/links/twitter.png") no-repeat 0 center;}
-a[href*="flickr."]:hover    {background: url("img/links/flickr.png") no-repeat 0 center;}
-a[href*="php."]:hover       {background: url("img/links/phpnet.png") no-repeat 0 center;}
+  a[href*="twitter."]:hover
+                        {
+                          background: url("img/links/twitter.png") no-repeat 0 0;
+                        }
 
+  a[href*="flickr."]:hover
+                        {
+                          background: url("img/links/flickr.png") no-repeat 0 0;
+                        }
 
-/* === desktop : header ================================================================================================= */
-/* specifically override the stuff in the all-browser’s section (lo-fi style) */
-body>header         {margin: 0; border-bottom: none;}
-body>header h1,
- body>header ul+ul,
- body>header ul+ul+ul,
- body>header a[rel=next],
- body>header a[rel=previous]    {position: static;}
-body>header nav         {padding: 0;}
-body>header ul, body>header li  {float: none;}
+  a[href*="php."]:hover
+                        {
+                          background: url("img/links/phpnet.png") no-repeat 0 0;
+                        }
 
-body>header         {position: fixed; z-index: 1; left: 0; bottom: 0; right: 0;
-                 -webkit-box-shadow: 0 0 8px rgba(0,0,0,.3);  /* ↓ super shadow: cool, but kills the CPU */
-                    -moz-box-shadow: 0 0 8px rgba(0,0,0,.3);  /*, 0 -60px 120px rgba(0,0,0,.2);*/
-                         box-shadow: 0 0 8px rgba(0,0,0,.3);  /* (CSS-gradient used on `<html>` instead) */
-                 background: #c72;}
+  /* - desktop: article ------------------------------------------------- */
+  article>h1            { margin-left: 0; }
+  article>h1+a          { margin-left: 0; }
+  article>h1+a:before   { content: '℅ '; }
 
-/* we use the H1 as the centering base for the header, and the hyperlink within as the actual logo */
-body>header h1          {width: 980px; margin: 0 auto; padding: 0;}
-body>header h1 a        {position: absolute; width: 25px; height: 0 !important;
-                 border: 0 solid #c72; border-width: 19px 20px;
-                 background: url("img/logo.png") no-repeat;}
+  /* the set of meta information to the left hand side of an article:
+     (note that most of this is already handled in the all-browser’s
+      section) */
 
-/* the tricky bit with the header is that it must stretch the width of the screen, but menu and stuff must be page-width,
-   we can only do this by making certain blocks within 980px wide and positioning them above each other */
-body>header nav         {width: 980px; margin: 19px auto;}
+  /* the dotted line between items does not connect to the body in the
+     hi-fi design */
+  article>header        { width: 100px; }
+  article>header>*      { padding-right: 0; border-top: 1px dotted #d6d6d6; }
 
-/* menu of content-types and tags */
-body>header ul, body>header li  {display: inline-block;}
-body>header li:not(:last-child) {padding-right: 6px;}
+  /* - desktop: monospace ----------------------------------------------- */
+  pre.prettyprint       { display: block; overflow: auto;
+                          margin-bottom: 2em; padding: .916666667em;
+                          line-height: 2em;
+                          white-space: pre-wrap;
+                          border-top: 1px solid #ccc;
+                          border-bottom: 1px solid #ccc;
+                          color: #4d4d4c; background: #fafafa;
+                          background-size: 4em 4em; background-origin: content-box;
+                          background-image: linear-gradient(#fff 50%, transparent 50%, transparent);
+                          box-shadow: 0px 1px 2px rgba(0,0,0,.1) inset,
+                          0px 1px 0px rgba(255,255,255,.9),
+                          3.083333333em 0 0 #f9f9f9 inset,
+                          3.166666667em 0 0 #ddd inset;
+                          padding-left: 4em; }
 
-body>header nav>ul:first-child  {position: absolute; margin: 0 0 0 140px;}  /* ‘all, projects’ */
-body>header ul+ul       {margin: 0 0 0 295px !important;}       /* both type and tag list */
+  pre.prettyprint code  { border: none; background: none;
+                          font-size: 1.25em ; text-shadow: none; }
 
-body>header nav         /* bullet hole between menus */
- >ul:first-child+ul:before  {position: absolute; content: "\2022\ "; margin-left: -15px;
-                 font-family: Verdana, sans-serif; text-align: center;}
-/* previous / next links */
-body>header a[rel=next],
- body>header a[rel=previous]    {float: right; clear: right; padding-right: 20px; text-align: right;}
-body>header a[rel=previous] {margin-top: -19px; padding-bottom: 19px;}
-body>header a[rel=next]     {margin-top: -76px; padding-top: 19px; padding-right: 37px !important;}
-body>header ul+a[rel=next]  {margin-top: -57px;}
+  .pln { color: #4d4d4c; }  /* plain text */
 
+  .str { color: #718c00; }  /* string content */
+  .kwd { color: #8959a8; }  /* a keyword */
+  .com { color: #8e908c; }  /* a comment */
+  .typ { color: #eab700; }  /* a type name */
+  .lit { color: #718c00; }  /* a literal value */
 
-/* === desktop : article ================================================================================================ */
-/* override the all-browser’s (lo-fi style) section */
-article             {border: none; padding: 0 20px 19px;
-                 /* part of the fixed-footer */
-                 min-height: 100%;}
+  .pun,
+  .opn,
+  .clo { color: #4271ae; }  /* punctuation, lisp open bracket, lisp close bracket */
+  .tag { color: #8959a8; }  /* a markup tag name */
+  .atn { color: #4271ae; }  /* a markup attribute name */
+  .atv { color: #718c00; }  /* a markup attribute value */
+  .dec,
+  .var { color: #c82829; }  /* a declaration; a variable name */
+  .fun { color: #3e999f; }  /* a function name */
 
-/* in the link section, the URL underneath the title */
-article>h1          {margin-left: 0;}
-article>h1+a            {margin-left: 0;}
-article>h1+a:before     {content: '℅ ';}
+  ol.linenums           { margin: 0 -.5em; list-style-position: outside; }
+  ol.linenums li        { padding: 0 .666666667em; }
+  ol.linenums li:hover  { background: #d6d6d6; border-radius: 4px; }
 
-/* the set of meta information to the left hand side of an article:
-   (note that most of this is already handled in the all-browser’s section) */
+  /* - desktop: section ------------------------------------------------- */
+  figure, article>img   { text-shadow: none;
+                          box-shadow: 0 0 8px rgba(0,0,0,.5); }
 
-/* the dotted line between items does not connect to the body in the hi-fi design */
-article>header          {width: 100px; /*margin-left: -140px;*/}
-article>header>*        {padding-right: 0; border-top: 1px dotted #431;}
+  section+section       { margin-top: 19px; }
 
-/* --- meta: licence ---------------------------------------------------------------------------------------------------- */
-/* use font-embedding to add the large logos */
+  /* if a code block is the first element, adjust it against the H1 */
+  section>h1+pre        { border-top: none;
+                          margin-top: -36px; margin-bottom: 38px;
+                          padding-top: 19px; }
 
-article>header small        /* creative-commons logos */
- a[rel~=license]        {text-indent: 0; font: 126px/104px "CC Icons"; background: none;}
+  /* if an image is first in an article, increase the space below */
+  section>h1+img        { margin-top: -36px; margin-bottom: 38px; }
 
+  /* when a pre block finishes a section, merge it to the end */
+  section>pre:last-child
+                        { margin-bottom: -19px; }
 
-/* === desktop : content ================================================================================================ */
-/* content that goes directly on the orange background, e.g. link | poem */
+  /* block images in articles */
+  video, *:not(figure)>iframe,
+  section>img:not([width="640"]),
+  li>img:not([width="640"]),
+  dd>img:not([width="600"])
+                    { border-color: white; background-color: #efefef;
+                      box-shadow: 0 2px 5px rgba(0,0,0,.3); }
 
-/* ‘link’ type title & url */
-article>h1          {color: white; text-shadow: 0 -1px 0 #431;}
+  /* - desktop: figure -------------------------------------------------- */
+  figure img            { /* --- */}
+  section figure        { background: white; }
 
-/* blockquotes in the orange background area */
-blockquote          {text-shadow: #ddd 0 -1px 0, white 0 1px 0;}
-article>blockquote,
- article>:not(section) q    {color: #eee; text-shadow: #431 0 -1px 0;}
-article>header+blockquote   {/* quote section of the site uses large blackquotes */
-                 margin-top: 0; margin-right: -100px; padding-top: 19px;
-                 font-size: 28px; line-height: 38px; text-align: left;}
-article>header+blockquote>cite  {font-size: 18px; line-height: 19px;}
+  figure audio          { width: 100%; margin-top: 8px; }
 
-/* content after a large blockquote in quote section of site is sized to fit the blockquote */
-article>header+blockquote~* {margin-left: 40px; margin-right: 40px;}
-
-
-/* === desktop : section ================================================================================================ */
-section             {background-color: #eee;}
-:not(section)>section       {margin: 0 -20px; padding: 37px 39px;}
-:not(section)>section, figure,
- article>img            {border: 1px solid white; color: #333; text-shadow: none;
-                 -webkit-box-shadow: 0 0 8px rgba(0,0,0,.5);
-                    -moz-box-shadow: 0 0 8px rgba(0,0,0,.5);
-                         box-shadow: 0 0 8px rgba(0,0,0,.5);}
-
-section+section         {margin-top: 19px;}
-
-section h1          {margin: -38px -40px 36px; padding: 19px 20px 18px;
-                 border: 1px solid #eee; border-bottom: 2px groove white;
-                 color: white; text-shadow: #666 0 -1px 0;
-                 background: #ccd;}
-
-pre             {padding-left: 39px; border-left: solid 1px #eee; border-right: 1px solid #eee;
-                 background: #ddd;}
-dd pre, dd li pre       {padding-left: 79px;}
-
-/* if a code block is the first element, adjust it against the H1,
-   e.g. <camendesign.com/code/cleanly-grouping-by> */
-section>h1+pre          {border-top: none; margin-top: -36px; padding-top: 19px; margin-bottom: 38px;
-                 /* add a very subtle gradient. WebKit, Gecko1.9.2 (Firefox 3.6+) only */
-                 background-image: -moz-linear-gradient(top, #eee 133px, #ddd);
-                 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), color-stop(1.0, #ddd));
-                 -webkit-background-size: 100% 133px; background-repeat: repeat-x;}
-
-/* when a pre block finishes a section, merge it to the end */
-section>pre:last-child      {border-bottom: 1px solid #eee; margin-bottom: -40px; padding-bottom: 39px;}
-
-/* block images in articles */
-video, iframe,
- section>img:not([width="640"]),
-      li>img:not([width="640"]),
-      dd>img:not([width="600"]) {border-color: white; background-color: #eee;
-                 -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.3);
-                    -moz-box-shadow: 0 2px 5px rgba(0,0,0,.3);
-                         box-shadow: 0 2px 5px rgba(0,0,0,.3);}
-
-/* === desktop : figure ================================================================================================= */
-figure img          {/*outline: 1px inset rgba(255,255,255,.6); outline-offset: -1px;*/}
-section figure          {background: white;}
-
-figure audio            {width: 100%; margin-top: 8px;}
-
-/* === desktop : fixed-footer =========================================================================================== */
-body>footer         {/* account for the header being fixed to the bottom of the window */
-                 height: 171px; margin: 0; padding: 57px 0 0 0; border-top: none;
-                 /* due to a bug introduced into WebKit with Chrome 4 / Safari 5, the box-model changes
-                    bring done to the body aren’t equal in WebKit / Gecko */
-                 -moz-box-sizing: border-box;}
-body>footer>nav:first-child {font-size: 14px; line-height: 18px; padding-top: 0;}
-body>footer>nav:first-child>a   {text-decoration: none;}
-
-/* === desktop : directory ============================================================================================== */
-body>ol>li>a            {color: #431;}
-body>ol>li>a:hover      {color: #eee !important; text-shadow: #431 1px 1px 0;}
-
+  /* - desktop: directory ----------------------------------------------- */
+  body>ol>li>a          { color: #4271ae; }
+  body>ol>li>a:hover    { color: #4d4d4c !important;
+                          text-shadow: #d6d6d6 1px 1px 0; }
 }
-/* ====================================================================================================================== */
-/* / / lowres / iPad  / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* don’t abuse this, thinking that it’s a certified way of detecting the iPad, it’s _not_. for devices 1024px wide, there
-   isn’t going to be much screen height (with the chrome) to deal with a fixed position header; the iPad also can’t handle
-   fixed positioning properly either */
-@media only screen and (max-device-width: 1024px) {
 
-/* afix the header to the top of the page, instead of positioned absolutely at the bottom of the screen */
-html                {padding-top: 95px; padding-bottom: 95px;
-                 background: #c72 -webkit-gradient(linear,0 0,0 100%,from(#b4691e),to(#c72)) repeat-x;
-                 background: #c72 -moz-linear-gradient(top, #b4691e, #c72) repeat-x;
-                 -webkit-background-size: 100% 240px;}
-body>header         {position: absolute; top: 0; bottom: auto; right: 0;
-                 -webkit-box-shadow: none;
-                    -moz-box-shadow: none;
-                         box-shadow: none;}
-
-/* a couple of pixels of the sprite leak on the iPad for some reason. should come up with a better solution */
-body>header>h1>a        {padding-bottom: 17px;}
-
-/* no space needed at the bottom of the page */
-body>footer         {height: 95px !important;}
-
-
-
-}
-/* ====================================================================================================================== */
-/* / / iPhone / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* the iPhone doesn’t get the desktop-browser’s section, so we can build on top of just the lo-fi style */
-@media only screen and (max-device-width: 480px) {
-
-html, body          {/* important: this stops the iPhone from scaling the portrait display to fit the landscape
-                    display so that the text reflows for the greater width */
-                 -webkit-text-size-adjust: none; overflow: none;
-                 width: 100%; margin: 0; padding: 0; font-size: 13px;
-                 background: #c72;}
-
-/* --- header ----------------------------------------------------------------------------------------------------------- */
-/* the toolbar at the top */
-body>header         {margin: 0; border: none; position: fixed; width: 100%;
-                 background: #c72 -webkit-gradient(linear, 0 0, 0 100%, from(#c72), color-stop(.7,#b4691e));
-                 -webkit-box-shadow: 0 0 114px rgba(0,0,0,.5) repeat-x;}
-
-/* no logo, just use “all” to get back to the home page */
-body>header h1          {display: none !important;}
-
-/* the menu: we have to override and remove a lot of stuff here and it gets complicated. the menu will contain just the
-             “all” and “projects” links, and _only_ the current category, if there is one */
-body>header nav         {padding: 0;}
-body>header ul          {position: static; float: left; clear: none !important; height: 38px; margin: 0;
-                 font-size: 14px; line-height: 38px;}
-body>header li          {float: left; padding: 0; text-align: center;}
-body>header a           {padding: 0 5px; color: white; text-shadow: 0 -1px 0 #431;}
-
-/* hide all the categories, show only the one in use */
-body>header ul+ul a     {display: none;}
-body>header ul+ul a[rel=tag]    {display: inline-block; }
-body>header ul+ul       /* prefix the current category with “in: ” */
- a[rel=tag]:before      {content: "in: "; color: #431; text-shadow: #b61 0 -1px 0, rgba(255,255,255,.2) 0 1px 0;}
-
-/* the back / forward buttons */
-body>header a[rel=previous],
- body>header a[rel=next]    {overflow: hidden; top: 0; width: 40px; height: 38px; padding: 0;}
-body>header a[rel=next]     {right: 40px;}
-
-/* no images needed, we do this with unicode and CSS */
-/* (Unicode only has an up and down filled arrow head, so we rotate them) */
-body>header a[rel=previous]:before,
-body>header a[rel=next]:before  {display: block; width: 40px; height: 38px;
-                 text-indent: 0; text-align: center; font-size: 32px; line-height: 38px; color: white;
-                 text-shadow: 1px 0 0 #431; -webkit-transform: rotate(-90deg);}
-body>header a[rel=next]:before  {content: "\25B2";}
-body>header
- a[rel=previous]:before     {content: "\25BC";}
-
-/* --- article ---------------------------------------------------------------------------------------------------------- */
-article             {border: none; padding: 37px 20px 0; overflow: hidden;
-                 color: #431; text-shadow: #b61 0 -1px 0, rgba(255,255,255,.2) 0 1px 0;}
-article>*           {margin-left: 0; margin-right: 0;}
-article>header          {display: none;}
-
-/* headings */
-h1              {font-size: 18px; line-height: 19px;}
-article>h1          {padding-top: 19px; color: white; text-shadow: 0 -1px 0 #431;}
-article>h1+a            {display: block !important; word-wrap: break-word; white-space: pre;}
-article>h1+a+*          {margin-top: 19px;}
-
-/* links in the orange areas */
-article>a, article>:not(section):not(figure) a
-                {color: #431; text-decoration: underline;}
-article>a:hover, article>:not(section):not(figure) a:hover,
-article>a:focus, article>:not(section):not(figure) a:focus
-                {color: #eee !important; text-shadow: #431 1px 1px 0;}
-
-/* lists. in the iPhone design we don’t hang the markers to save margin space on content */
-ul, ol              {margin-left: 20px;}
-dd              {margin-left: 20px;}
-
-/* blockquotes in the orange background area */
-blockquote          {text-shadow: #ddd 0 -1px 0, white 0 1px 0;}
-article>blockquote      {color: #eee; text-shadow: #431 0 -1px 0;}
-article>header+blockquote   {margin: 19px 25px 57px;}
-
-/* links in blockquotes within the orange area */
-article>blockquote a,
- article>header+blockquote a    {text-shadow: #b61 0 -1px 0, #d94 0 1px 0;}
-
-/* --- section ---------------------------------------------------------------------------------------------------------- */
-:not(section)>section, figure   {margin: 0 -20px; padding: 18px 19px; border: 1px solid white;
-                 color: #333; text-shadow: none; background: #eee;
-                 -webkit-box-shadow: 0 0 8px rgba(0,0,0,.5);
-                         box-shadow: 0 0 8px rgba(0,0,0,.5);}
-
-/* the page notes, usually in the third column in the desktop design */
-aside               {position: static; width: 100%; margin: 0 0 19px -10px; padding: 10px;
-                 font-size: 10px; outline: 1px dotted #666; background: #ddd;}
-
-section             /* adjust the drop-cap to an iPhone-friendly size size */
- >p:first-of-type:first-letter  {padding: 6px 2px 0 0; font: 38px/26px "Baskerville Old Face", "Times New Roman", serif;}
-
-section blockquote,
- figure blockquote      {margin: 0 25px 0; font-size: 15px;}
-
-pre             {background-color: #ddd; font-size: 12px;}
-
-/* force images to fit the width */
-video, iframe           {width: 100%; height: auto;}
-article>img, section>img,
-     dd>img,      li>img    {max-width: 100%; height: auto !important;
-                 -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                         box-sizing: border-box;}
-
-section>img:not([width="640"]),
-     dd>img:not([width="640"]),
-     li>img:not([width="640"])  {background-color: #eee; border-width: 8px; border-style: solid; border-color: white;
-                 -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.3);
-                    -moz-box-shadow: 0 2px 5px rgba(0,0,0,.3);
-                         box-shadow: 0 2px 5px rgba(0,0,0,.3);}
-
-/* --- figure ----------------------------------------------------------------------------------------------------------- */
-figure              {margin: 0 -20px; padding: 8px;}
-figure h1           {color: black; text-shadow: white 0 1px 0; padding-top: 19px;}
-figure img          {max-width: 100%; height: auto !important; margin: 0;
-                 outline: 1px inset rgba(255,255,255,.6); outline-offset: -1px;}
-figure~*            {width: auto;}
-
-/* --- footer ----------------------------------------------------------------------------------------------------------- */
-footer              {display: none !important;}
-
-}
-/* / / iPhone : portrait only / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* iPhone when in portrait view. these styles are in addition to the ones above */
-@media only screen and (max-device-width: 480px) and (max-width: 320px) {
-
-/* screen is a bit too thin to be stretching the text */
-article>blockquote      {text-align: left;}
-
-/* portrait mode is not wide enough to show the table of contents on the right */
-section>h1+ol           {/* override the default style (floated on the right) */
-                 float: none; margin-left: 0; font-size: 12px;
-                 /* and make it look better for single-column */
-                 margin-bottom: 38px; padding: 0 0 18px; border: 1px dotted #666; border-width: 0 0 1px;}
-}
-/* / / iPhone : landscape only  / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / */
-/* ====================================================================================================================== */
-/* iPhone when in landscape view. these styles are in addition to the ones above */
-@media only screen and (max-device-width: 480px) and (min-width: 321px) {
-
-/* in landscape we have enough space to fit the page notes on the side (much like table of contents) */
-aside               {float: right; width: 120px; margin: 0 -10px 10px 20px;}
-h1+ol+aside         {float: none; width: 180px; margin: 0 0 20px 0;}
-
-/* avoid the table of contents completely blocking out the text to the left */
-section>h1+ol           {max-width: 200px;}
-
-
-} /* ==================================================================================================== code is art === */
+/* = Goodbye, my dear friend. Now clear out this place. ================= */

@@ -1,8 +1,13 @@
-<?php //where we watermark hotlinked images
-/* ====================================================================================================================== */
-include "shared.php";
+<?php
 
-/* ============================================================================================================ input === */
+/**
+ * Where we watermark hotlinked images.
+ *
+ */
+
+require_once 'shared.php';
+
+/* ================================================================ input === */
 
 //“hotlink.php?image=path/to/image.png”
 $requested = (preg_match('/^(\.(?!\.)|[-a-z0-9_\/])+\.(jpe?g|png)$/i', @$_GET['image'], $_) ? $_[0] : false) or errorPage(
@@ -10,7 +15,8 @@ $requested = (preg_match('/^(\.(?!\.)|[-a-z0-9_\/])+\.(jpe?g|png)$/i', @$_GET['i
 );
 
 //does the requested file even exist?
-if (!file_exists(APP_ROOT . $requested)) errorPageHTTP(404);
+if (!file_exists(APP_ROOT . $requested))
+    errorPageHTTP(404);
 
 
 /* ========================================================================================================== process === */
@@ -20,10 +26,10 @@ switch ($info[2]) {
     case IMAGETYPE_JPEG :
         $image = imagecreatefromjpeg($requested);
         break;
-    case IMAGETYPE_PNG  :
+    case IMAGETYPE_PNG :
         $image = imagecreatefrompng($requested);
         break;
-    default             :
+    default :
         errorPageHTTP(403);
 }
 //the image filters will cause transparent images to have a black background,
@@ -44,7 +50,7 @@ imagefilter($buffer, IMG_FILTER_CONTRAST, 50);
 imagefilter($buffer, IMG_FILTER_BRIGHTNESS, 50);
 
 //determine which text will fit on the image
-$text = array(
+$text   = array(
     APP_HOST,
     'do not hotlink'
 );
@@ -54,13 +60,17 @@ $widths = array(
 );
 
 //write on the text shadow
-if ($info[0] > $widths[0]) imagestring($buffer, 3, $info[0] - $widths[0], 15, $text[0], 0x000000);
-if ($info[0] > $widths[1]) imagestring($buffer, 1, $info[0] - $widths[1], 30, $text[1], 0x000000);
+if ($info[0] > $widths[0])
+    imagestring($buffer, 3, $info[0] - $widths[0], 15, $text[0], 0x000000);
+if ($info[0] > $widths[1])
+    imagestring($buffer, 1, $info[0] - $widths[1], 30, $text[1], 0x000000);
 imagefilter($buffer, IMG_FILTER_SMOOTH, 0);
 
 //write on the text
-if ($info[0] > $widths[0]) imagestring($buffer, 3, $info[0] - $widths[0], 15, $text[0], 0xFFFFFF);
-if ($info[0] > $widths[1]) imagestring($buffer, 1, $info[0] - $widths[1], 30, $text[1], 0xFFFFFF);
+if ($info[0] > $widths[0])
+    imagestring($buffer, 3, $info[0] - $widths[0], 15, $text[0], 0xFFFFFF);
+if ($info[0] > $widths[1])
+    imagestring($buffer, 1, $info[0] - $widths[1], 30, $text[1], 0xFFFFFF);
 
 
 /* =========================================================================================================== output === */
@@ -74,7 +84,7 @@ switch ($info[2]) {
         imagejpeg($buffer, APP_CACHE . $requested, 80) or errorPageHTTP(403);
         break;
     case IMAGETYPE_PNG:
-        imagepng($buffer, APP_CACHE . $requested)     or errorPageHTTP(403);
+        imagepng($buffer, APP_CACHE . $requested) or errorPageHTTP(403);
         break;
 }
 
@@ -86,4 +96,3 @@ header("Content-Type: " . $info['mime']);
 readfile(APP_CACHE . $requested);
 
 /* =================================================================================================== code is art === */
-?>
