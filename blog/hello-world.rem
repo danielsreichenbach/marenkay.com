@@ -1,0 +1,79 @@
+{
+	"date"		:	201211280856,
+	"updated"	:	201212021415,
+	"licence"	:	"cc-by",
+	"tags"		:	["my-myself-I"]
+}
+
+<section>
+
+# Hello, world! #
+
+Here we are, or better said: _here I am_.  Keeping a blog where I talk about
+things that matter to me as a person, and as a developer has always been way
+too much for me.  While I like working and developing code a lot, I sincerely
+dislike _bragging_ about it, or even showing it off.
+
+But times change, and so do human beings.  It's not like I want to brag about
+my development achievements but rather get them off my mind, and release stuff
+so that others my leverage my work.
+
+## WTF?! ## (#hello-wtf)
+
+fig.	<"Seriously?" /&__HREF__;/wtf.png>
+
+	: Maximum WTF level reached.
+
+Seriously! What is this thing here? It certainly is not <WordPress (//wordpress.org)>
+or any other blogging software to begin with.  Ever since I came accross the
+blog of <Kroc Camen (//camendesign.com)> and learned more about his Markdown
+like syntax <ReMarkable (//camendesign.com/code/remarkable)> I wanted to give
+it a shot, since the idea of focussing on just publishing content without
+loosing focus because of the added overhead of a blogging software on top.
+
+Kroc kindly open sourced his blog, and ReMarkable on <github (//github.com/Kroc)>,
+and thus I forked both projects <here (//github.com/danielsreichenbach/marenkay.com)>
+and <here (//github.com/danielsreichenbach/ReMarkable)> and added my own
+flavour on top.
+
+Changes include a deployment recipe for <Capistrano (//github.com/capistrano/capistrano)>,
+a custom design, addition of a few default pages, and a changes to page
+cache while in development mode.  I also extended ReMarkable to output extra classes
+for syntax highlighting with <google code prettify (//code.google.com/p/google-code-prettify/)>.
+
+Follwing the spirit of Kroc, you can also see the full source code for this
+blog *without any restrictions*!  A template for Capistrano deployment is
+included, and you should be able to customize it for your own blog easily.
+
+## Expect... ## (#hello-expect)
+
+There will be code, sillyness, opionionated talks, probably even slides to
+go further, and a few bits and pieces about family, raising children, and
+travelling around the world to learn more.
+
+I have a strong belief in life being a long journey where one thrives by
+increasing knowledge and understanding of life, and humanity.  Though I
+do have my doubts about human beings and their state of evolution being
+even close to something worthwhile.
+
+Being a nerd, and active in development and system administration ever since
+I started working, it's very likely that you will see posts on topics such
+as Linux, gcc, clang, Puppet, KVM, etc.  There still is the gamer me, who
+surely will rant on, too -- though I'm less of a gamer with my 35 years
+than I was with 25.
+
+These days games usually tickle my sense for development, and while playing
+a game instead of just playing I tend to analyze how certain aspects of a
+game may be built, or probably should not be built.  As such, I started
+work on a project I've not so cleverly dubbed _The Coppermine_ which deals
+with the development of <World of Warcraft (//eu.battle.net/wow)>.
+
+* * *
+
+*I am looking forward* to this whole blogging thing, and will try my best to
+post useful and amusing things as often as my spare time allows me to.
+
+With kind regards,¬
+*Daniel S. Reichenbach*
+
+</section>
