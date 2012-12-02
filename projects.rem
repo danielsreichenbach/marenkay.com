@@ -7,8 +7,13 @@
 	focussed on game history.  The project aims towards showing how <World of
 	Warcraft (//worldofwarcraft.com)> has evolved since its' release in 2004,
 	and initially will look back at game content from patch 1.1 up to patch
-	1.12.¬ All <Coppermine code (//github.com/the-coppermine)> is open source
+	1.12.¬¬ All <Coppermine code (//github.com/the-coppermine)> is open source
 	and freely available, including documentation.
+
+	The projects' goal is to describe, and reveal the full process behind the
+	development of a real world game.  If you are interested in C++, Python,
+	PHP, shell scripting, and build systems -- just to name a few -- this may
+	be something for you.
 
 ((Warcraft(R), World of Warcraft(R), and all World of Warcraft(R) or Warcraft(R)
 art, images, and lore are copyrighted by Blizzard Entertainment, Inc.))
