@@ -1,2 +1,16 @@
-*
+# Add directories, files, and symlinks which shall not be stored within
+# this git repository here.
+
+# PhpStorm - project settings (http://www.jetbrains.com/phpstorm/)
+.idea/
+
+# Sublime Text 2 - project files (http://www.sublimetext.com/)
+*.sublime-*
+
+# Application - render cache, sitemap, and configuration
+/.cache/*
+/.system/config.php
 /.system/sitemap.xml
+
+# Marker file to keep empty directories required for the application
+!*.gitkeep

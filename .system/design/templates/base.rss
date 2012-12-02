@@ -8,13 +8,13 @@
 &__CATTAG__;
 <language>en-gb</language>
 <image>
-	<url>&__DOMAIN__;design/cameneye-ink(c)kroccamen.png</url>
-	<title>camen design&__TITLE__;</title>
-	<link>&__DOMAIN__;&__CATEGORY__;</link>
+    <url>&__DOMAIN__;design/cameneye-ink(c)kroccamen.png</url>
+    <title>camen design&__TITLE__;</title>
+    <link>&__DOMAIN__;&__CATEGORY__;</link>
 </image>
 <pubDate>&__DATE__;</pubDate>
 <lastBuildDate>&__DATE__;</lastBuildDate>
 
 &__ITEMS__;
-	
+
 </channel></rss>
