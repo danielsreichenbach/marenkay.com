@@ -22,6 +22,9 @@ set :repository, "#{git_user}@#{git_host}:#{git_account}/#{git_repository}.git"
 # the branch you want to clone (default is master)
 set :branch, "master"
 
+# tell capistrano to init and update submodules
+set :git_enable_submodules, 1
+
 # ------------------------------------------------------------------------------
 
 # The name of the application.
