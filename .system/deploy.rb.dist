@@ -2,7 +2,7 @@
 # Capistrano recipe for deploying to MediaTemple                               #
 ################################################################################
 
-# Source control settings ------------------------------------------------------
+# - Source control settings -----------------------------------------------
 
 # the source control ssh user
 set :git_user, "git"
@@ -11,10 +11,10 @@ set :git_user, "git"
 set :git_host, "github.com"
 
 # the source control user id
-set :git_account, "danielsreichenbach"
+set :git_account, "your-github-ccount"
 
 # the source control repository name
-set :git_repository, "marenkay.com"
+set :git_repository, "your-domain.com"
 
 # the git-clone url for your repository
 set :repository, "#{git_user}@#{git_host}:#{git_account}/#{git_repository}.git"
@@ -25,7 +25,7 @@ set :branch, "master"
 # tell capistrano to init and update submodules
 set :git_enable_submodules, 1
 
-# ------------------------------------------------------------------------------
+# - Target server structure -----------------------------------------------
 
 # The name of the application.
 set :application, "sUSERID.gridserver.com"
@@ -46,6 +46,8 @@ set :version_dir, "releases"
 # The name to use (relative to deploy_to) for the symlink that points at
 # the current release
 set :current_dir, "html"
+
+# - EDIT BELOW ONLY IF YOU KNOW CAPISTRANO WELL ---------------------------
 
 # The name of the directory under deploy_to that will contain directories and
 # files to be shared between all releases.
@@ -80,7 +82,7 @@ role :app, "#{application}"
 role :web, "#{application}"
 role :db,  "#{application}", :primary => true
 
-# Overloaded methods ###########################################################
+# Overloaded methods ######################################################
 namespace :deploy do
 
   desc <<-DESC
@@ -111,7 +113,7 @@ namespace :deploy do
   end
 end
 
-# Deployment process ###########################################################
+# Deployment process ######################################################
 after "deploy", "deploy:create_symlinks"
 
 after ('deploy:setup'), :roles => :app do
