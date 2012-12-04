@@ -1,0 +1,330 @@
+{
+	"date"		:	201212022307,
+	"updated"	:	201212022307,
+	"licence"	:	"cc-by",
+	"tags"		:	["dotjs"]
+}
+
+<section>
+
+# dotJS 2012 #
+
+&__TOC__;
+
+In summer 2012 when <dotJS (//www.dotjs.eu/)> was announced I immediately
+bought a ticket.  While JavaScript is not my beloved development language
+it surely can achieve great things if you just bend it to your will.  And
+it sure is resistant when compared with other languages such as Ruby, Python
+or even the C language family.
+
+Two days ago the day of the conference finally arrived and I have to admit:
+I _was_ excited.  While there was a posted schedule, and a list of speakers
+available, and on top of that a few workshops had been announced for free
+on the day after, all of us did not know which topics would actually be
+covered.
+
+## The venue ## (#dotjs-2012-the-venue)
+
+Oh boy, this was one hell of a location.  Or yet better said it was by far
+the most awesome location I've had a conference in.  With the
+<Théâtre des Variétés (//www.theatre-des-varietes.fr/)> a classical location
+had been chosen for such a modern topic, and the combination did not only
+impress me as I could gather from other participants.
+
+fig.	<"" /&__HREF__;/theatre-des-varietes.jpg "Inside of the theatre">
+
+	: ... now is that awesome or not? Your call!
+
+When I arrived for registration the entry already was full with probably a
+hundred participants waiting. A few minutes after eight, the doors opened
+and people dived into the venue being handed badges with their names, and
+a few goodies like <mongodb (//www.mongodb.org/)> mugs.
+
+## The sessions ## (#dotjs-2012-the-sessions)
+
+### JavaScript and Unicode characters ###
+
+<aside>
+	Mathias Bynens: creator of <jsperf.com (//jsperf.com)>.
+</aside>
+
+It all started with a talk given by _Mathias Bynens_ on a rather different
+topic: *JavaScript, and Unicode characters*.  Not quite the popular topic,
+since handling Unicode characters is on of the language aspects not
+really well implemented.
+
+fig.	<"" /&__HREF__;/mathias-bynens.jpg "Mathias Bynens">
+
+	: ... for I shall browse the Unicode character list more often!
+
+The journey included how far Unicode went to implement characters like the
+{snowman|U+2603} and the {pile of poop|U+1F4A9},
+
+•	what the basic multilingual plane covers,
+•	and where the astral plane comes in -- and no, Sam is not there,
+•	how characters from the basic plane may be used, escaped, and counted,
+•	and how that does fail once characters from the astral plane
+	are to be used and counted,
+•	<punycode (//mths.be/punycode)> can help solve the issue, if you have not
+	cooked your own approach yet,
+•	closing with good news: ECMAScript 6 includes a solution for the issue!
+
+### Web components in Enyo ###
+
+<aside>
+	Kevin Schaaf: <Enyo framework (//enyojs.com/)>
+</aside>
+
+_Kevin Schaaf_ continued the track with a talk about componentized JavaScript,
+and how the <Enyo framework (//enyojs.com/)> tries to solve the issue.
+
+In his talk he talked how JavaScript can and should be componentized so
+that it becomes easily extendable, and used Enyo to showcase which solution
+they chose for their project.
+
+While the talk was more of an introduction to _Enyo_ and a rationale for
+using it, it also helped me quite a lot with my own endavours since it
+pretty much confirmed my own roadmap for JavaScript usage in future projects.
+I saw a few similarities with <ExtJS by Sencha (//www.sencha.com/products/extjs)>,
+but I have to admit Enyo is much more than ExtJS. Where ExtJS is more about
+visual components, Enyo is more about reusable components, and mainly being
+able to inherit, extend and build upon components.
+
+What I liked most was how you can extend a simple Enyo component from just
+a form label and input up to a customizable profile view.  Nicely done!
+
+Also interesting to hear that the roots of Enyo are to be found in WebOS,
+where all applications are web applications actually, though the look like
+_native_ applications.
+
+### Tooling for the modern webapp developer ###
+
+<aside>
+	Addy Osmani: created <TodoMVC (//github.com/addyosmani/todomvc)>,
+	<Aura (//github.com/addyosmani/aura)>, <Yeoman (//yeoman.io/)>,
+	and is part of the <jQuery team (//jquery.org/team/)>
+</aside>
+
+What started with an instance of <google Chrome Canary (//tools.google.com/dlpage/chromesxs)>
+quickly turned into a showcase for how you can leverage the goodies
+making their appearance in Chrome with each new release much earlier.
+
+If you have not yet tried Canary, get it and use it.  New features in
+the development tools of Chrome include stuff such as overrides for
+which mobile device your browser should emulate, and Chrome even does
+so with proper font zooming.  Exactly what I was looking for.  Also,
+as a regular user of <SASS (//sass-lang.org/)> and <Compass (//compass-style.org)>
+I noticed the inclusion of Source Mapping for both SASS generated style
+sheets, and also for CoffeeScript generated JavaScript.  Is there more
+to say than *I want this*? I doubt it.
+
+fig.	<"" /&__HREF__;/addy-osmani.jpg "Addy Osmani">
+
+	: Canary -- Chrome unstable -- tools shown by Addy Osmani
+
+And while we are at it, give <Tincr (//tin.cr/)> for Chrome a try.  Live
+reloading is one feature, but what I even liked more:
+
+You can make changes in the loaded site, and even switch between changes.
+
+Since *Addy Osmani* obviously likes what he presented a lot, he took his
+fair share of time for the track, and was probably around 1/3 of the
+topics he wanted to cover, when the track time was up.  As expected he
+quickly mentioned <Yeoman (//yeoman.io/)>, and did a quick showcase.  If
+you do not know Yeoman, go read up, and make use of it.
+
+
+### Where is Node.js 1.0? ###
+
+<aside>
+	Bert Belder: member of the <Node.js core team (//nodejs.org/)>
+</aside>
+
+With Bert Belder on stage, the topic finally switched to Node.js, and
+he tried to answer what is actually missing for Node.js to release a
+version 1.0 -- Obviously a question quite frequently asked.
+
+Well, the answer to that was pretty simple: there are features left,
+to which Node.js needs proper implementations before a 1.0 release
+would be made available.
+
+fig.	<"" /&__HREF__;/bert-belder.jpg "Bert Belder">
+
+	: What is in Node.js 1.0? Boxes, streams, probably awesame sauce!
+
+Streams for one would be getting filters like crypt, or zip, and
+much improve reading and writing. Not much to say here, as it seems
+that the final implementation has not yet been decided on.
+
+Boxes ... those have been a topic in better shape, since it's been
+pretty much decided how they are supposed to work. What boxes are?
+A method to put critical parts of your Node.js application into boxes
+which will no longer crash the whole process, but instead just die
+with an error you can actually handle.
+
+Boxes also promise methodes to dynamically add more stuff to existing
+boxes, among a few other enhancements.  I'm very much looking forward
+to seeing more on those.
+
+### Open Source "like a boss" ###
+
+<aside>
+	Charlie Robbins: CEO / Co-Founder of <nodejitsu (//nodejitsu.com/)>
+</aside>
+
+With *Charlie Robbins* on stage, the topic shifted away from technical
+talks to a more philosopical topic, which at this point really was a
+welcome change.
+
+The track talked about how to manage Open Source projects effectively,
+while improving the participants, and also not going insane.  The later
+one is especially of importance.  I can relate to that from personal
+experience.  Being active in Open Source for almost eight years now,
+I have had my fair share of moments when I felt like going insane.
+
+<aside>
+	Grab the <presentation (//github.com/indexzero/presentations)> now!
+</aside>
+
+Interestingly Charlie Robbins focussed on the importance of people, and
+especially on equality among peers.  Luckily for you, Charlie has put
+the <presentation (//github.com/indexzero/presentations)> up on github
+for you to enjoy, too.  It's rather refreshing to see the other side of
+the development business -- and Open Source definitely _is_ business --
+in a different light.
+
+### Symbiotic languages ###
+
+<aside>
+	Jeremy Ashkenas: creator of <Backbone.js (//documentcloud.github.com/backbone/)>,
+	<Underscore.js (//documentcloud.github.com/underscore/)>, and
+	<CoffeeScript (//coffeescript.org/)>
+</aside>
+
+*Jeremy Ashkenas* talked about <Dart (//www.dartlang.org/)>, <TypeScript (//www.typescriptlang.org/)>,
+and <CoffeeScript (//coffeescript.org/)> and how they abstract the ugly
+parts of JavaScript into something more beautiful.
+
+Each of them has a different approach, and their very one benefits. Where
+CoffeeScript tries hard to stay JavaScript, and only hide the ugly parts,
+
+Dart is more of typed language, and adds language features which JavaScript
+lacks. Also, Dart is more of an approach to building web apps, rather than
+just an abstraction for JavaScript.
+
+TypeScript is pretty similar in that in adds types, and also focusses on
+building apps with it.
+
+Personally I just can't weigh in here, I just started to dig into CoffeeScript
+and still have to decide if there's value in symbiotic languages for me,
+or if there is not.
+
+### WTF JS?! ###
+
+<aside>
+	Brian LeRoux: <PhoneGap (//phonegap.com/)> lead
+</aside>
+
+Much like Mathias Bynens, *Brian LeRoux* introduced quite a few of the
+funnier sides of JavaScript to us, and hell, he gave a fun talk. Basically
+he popped open a console, and showcased where JavaScript gets weird.
+
+Check out <wtfjs (//wtfjs.com/)> yourself.  Quite hilarious, and good
+to know, where things get ugly.  Usually these topics are left "as an
+exercise to the reader".
+
+### Game development in HTML5 ###
+
+<aside>
+	Christian Amor Kvalheim: created the <MongoDB driver (//github.com/mongodb/node-mongodb-native)>
+	for Node.js
+</aside>
+
+Now this was quite different show. *Christian Amor Kvalheim* declared his
+love for <Pacman (//en.wikipedia.org/wiki/Pac-Man)> and describe how he
+ventured into game development in HTML5 with Node.js to build a networked
+version of Pacman, where one becomes Pacman, and connected players would
+become the ghosts.
+
+<Mongoman (//github.com/christkv/mongoman)> is the result of his efforts,
+and I can only recommend to give it a try yourself.
+
+### Stories of inspiring people ###
+
+<aside>
+	Vojta Jína: member of <AngularJS team (//angularjs.org/)>,
+	<Testacular (//vojtajina.github.com/testacular/)>
+</aside>
+
+*Vojta Jína* weighed in on the people talks with his track, and talked
+about the people behind Open Source projects, and how they came to be
+who they are, and how they managed to inspire shit loads of other people,
+and of course himself. Ryan Dahl, John Resig and Dennis Ritchie being
+mentioned here. Pretty good choice!
+
+To sum this up: combine existing projects, solve issues with these in
+new creative ways, and be passionate about it.  Node.js is the result
+of such an effort, and many other famous projects are so, too.
+
+### Tools for designers ###
+
+<aside>
+	Ricardo Cabello: also known as Mr.doob, and creator of <three.js (//mrdoob.github.com/three.js/)>
+</aside>
+
+*Ricardo Cabello* started by showing how tools can help designers to build
+better results by giving a tour on 3D demos over the past decade, and how
+working with tools has changed the process.
+
+Being an ex Commodore 64 user myself, it was quite awesome to see how the
+demo scene has managed to survive and evolve. Charging by the look of the
+demos, professionalism has arrived in the scene quite a long time ago.
+
+Ricardo specifically mentioned that currently it may even take five years
+work to top whats currently on top of the ladder in the demo scene.
+
+That much dedication and effort is truely impressive.
+
+I have to admit, right after the talk I was tempted to install an emulator
+for the Commodore 64 and rewatch some of the old demos.
+
+### History of Open Source ###
+
+<aside>
+	Jacob Thornton aka fat: <Bootstrap (//twitter.github.com/bootstrap/)>,
+	<Hogan.js (//twitter.github.com/hogan.js/), and <Ender (//ender.jit.su/)>
+</aside>
+
+This one was really, really awesome! Handdrawn pictures of various Open
+Source figures like Richard Stallman or Linus Torvalds with a really cute
+touch, and his very own puppy theory on how your own Open Source projects
+evolve over time have been quite the awesome end of the day.
+
+Not to mention that Jacob simply was hilarious, and brought feelings to
+the track which all of us in the audience somehow had experienced with
+Open Source and "our children" released.
+
+## The conference ## (#dotjs-2012-the-conference)
+
+Overall I have to admit that -- while a primer -- the conference really
+was great.  Organization was great, and the team did an awesome job
+during the day, too.
+
+Did I mention the food yet? If not, man... that stuff was so good, I
+have to stay in my kitchen for the next days to try cooking that food
+for myself.
+
+Hilarious choice of smoothies, too. *Nodeberry* and *Backbonana*
+
+Only issue here... we probably had too many smoothies in the end, and
+suffered from brain freeze. But they where so tasty! Couldn't resist.
+
+My final vote: next dotJS will see me going there again!
+
+* * *
+
+P.S. I have to admit, I have not taken any notes during the lightning
+talks where various people got the choice to talk for five minutes,
+and I dearly regret that. Everyone tried hard, and did well. Interesting
+and amusing!
+</section>
