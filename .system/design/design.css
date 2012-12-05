@@ -204,12 +204,13 @@ article > header + figure
 /* use an `<ol>` as the very first element in the blog entry to generate an auto numbered table of contents,
    numbers will be added to all the headings that have IDs */
 section > h1+ol,
-section >h1+ol ol       { margin-right: 0; list-style-type: none;
+section >h1+ol ol       { margin-right: 0; margin-bottom: 0;
+                          list-style-type: none; counter-reset: toc h2 h3;
                           font-family: "Droid Serif", Georgia,
                           Palatino, 'Palatino Linotype',
                           Times, 'Times New Roman',
                           serif, "Hiragino Sans GB", "STXihei", "微软雅黑";
-                          counter-reset: toc h2 h3; }
+                          }
 
 /* add the numbering. `counters` is recursive,giving us “1.1”, “1.1.1” etc. */
 section>h1+ol li:before { counter-increment: toc; content: counters(toc, ".") ". ";}
@@ -791,6 +792,16 @@ article>section:not(:last-child)
   a[href*="php."]:hover
                         {
                           background: url("img/links/phpnet.png") no-repeat 0 0;
+                        }
+
+  a[href*="plus.google."]:hover
+                        {
+                          background: url("img/links/gplus.png") no-repeat 0 0;
+                        }
+
+  a[href*="ubuntu."]:hover
+                        {
+                          background: url("img/links/ubuntu.png") no-repeat 0 -1px;
                         }
 
   /* - desktop: article ------------------------------------------------- */
