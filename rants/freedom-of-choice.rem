@@ -1,0 +1,113 @@
+{
+	"date"		:	201212081749,
+	"updated"	:	201212081749,
+	"licence"	:	"cc-by",
+	"tags"		:	"free software"
+}
+
+<section>
+
+# Free Software -- Freedom of Choice #
+
+&__TOC__;
+
+I am a friend of Free Software, and in my daily life I heavily depend on
+it.  As such, there are times when I am heavily irritated by the attribute
+of people who publicly represent the Free Software movement.
+
+It has always been my understanding that Free Software itself had been
+created to allow people the freedom of choice between proprietary, closed
+software, and free, open sourced software.
+
+## Freedom of Choice ## (#freedom-of-choice)
+
+People running Free Software and especially a Linux distribution of their
+choice can be considered able to make a choice themself.  Obviously by
+running a non Windows or Mac system they already have some experience which
+led to installing one of the many distributions.
+
+Personally I have been using Windows and Mac OS for a few years, and for
+various shortcomings within these, I chose to use <Arch Linux (//archlinux.org)>,
+<Fedora (//fedoraproject.org)>, <openSUSE (//opensuse.org/)>, and also
+<Ubuntu (//ubuntu.com)> -- both server and desktop releases.
+
+It is moments such as reading post like the Free Software foundations
+post on <Ubuntu and Spyware (//www.fsf.org/blogs/rms/ubuntu-spyware-what-to-do)>
+which clearly gives me the creeps.
+
+|	Ubuntu sends that string to one of Canonical's servers. (Canonical is the
+|	company that develops Ubuntu.)
+
+I wonder what the big surprise is here. Canoncial is a company, which does
+invest in the development of Ubuntu and as such, it kind of seems obvious
+that they would would want some kind of digital feedback on their product.
+
+After all, Ubuntu _is_ a product, and not just a distribution. Thus as a
+user I kind of expect to see some kind of connection between the freely
+available Ubuntu releases, and a commercial interest.
+
+The same applies to any other distribution, much like Fedora or openSUSE,
+just to name a few.
+
+|	This is just like the first surveillance practice I learned about in
+|	Windows. My late friend Fravia told me that when he searched for a
+|	string in the files of his Windows system, it sent a packet to some
+|	server, which was detected by his firewall.
+
+Now here I really start to wonder, if people actually read what their
+computer displays to them. Yes, Windows does send back data to Microsoft,
+and it is to be expected. It is a commercial product, and a sensible
+approach to verifying your product works, and to verify which parts of
+your software actually are used and how they are used, is to simply report
+back to the vendor.
+
+When comparing Ubuntu and Windows in this regard, I can only see one
+difference that the article provided by the Free Software foundation
+clearly misses out: Windows actually tells you, that it would like to
+report usage information to Microsoft, which Ubuntu does not tell you.
+
+The real difference here is asking permission from the user. Still,
+Ubuntu does at least allow every user to disable sending information
+to Canonical which from where I stand works for me.
+
+## The point is ## (#the-point)
+
+What really pisses me off here is the reaction posted by the Free Software
+foundation, because it is by far not a honest reaction.
+
+Free Software, and the movement behind it _is driven by_ business interests.
+Say what you want, but you will have a hard time to prove it is not.
+
+People and especially engineers are paid to work on Free Software out of
+the fact that these days providing a free, Open Sourced product is a valid
+approach to showcasing your companies abilities. And as a result of this
+presentation, and availability, you actually make money out of service,
+and extending your offer.
+
+Why is it so hard to just acknowledge the fact of free software, and closed
+software existing on par? Each provide value to people, and I find it
+dishonorable to simply get angry on the simple facts of life.
+
+Free Software does exist because there is someone paying for it. Free
+software does exist because there is a business value behind it, and there
+are people and companies making a living out of it.
+
+Bashing on that is worse to me than connection free and closed software
+because in the end in real life, you chose what works for you. You do
+not use software because it is free or because it is commercial.
+
+You use software because it solves an issue for you.
+
+|	Dear Free Software foundation,
+|	
+|	I want to my freedom of choice, and I want to chose an option that
+|	simply works for me based upon its' inherent quality.
+|	
+|	Being forced to chose only on the state of being free software or
+|	closed software, is as bad a just being able to use closed software
+|	after all.
+|	
+|	With kind regards,¬¬
+|	Daniel S. Reichenbach
+
+</section>
