@@ -634,7 +634,13 @@ article>section:not(:last-child)
                              fixed header at the bottom of the screen a real
                              shadow, whilst better simply kills the CPU so we
                              replicate with a CSS gradient */
+                          background: -webkit-linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
+                          background: -moz-linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
+                          background: -o-linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
+                          background: -ms-linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
                           background: linear-gradient(bottom,#efefef 40%,#fafafa) fixed no-repeat 0 100%;
+                          -webkit-background-size: 100% 240px;
+                          -moz-background-size: 100% 240px;
                           background-size: 100% 240px;
                           /* fix for Firefox 3.5 which doesn’t support the gradient */
                           background-color: #fafafa; }
@@ -895,6 +901,20 @@ article>section:not(:last-child)
   body>ol>li>a          { color: #4271ae; }
   body>ol>li>a:hover    { color: #4d4d4c !important;
                           text-shadow: #d6d6d6 1px 1px 0; }
+}
+
+/* = browser style (width <= 1024px) ==================================== */
+@media only screen and (max-device-width: 1024px) {
+  /* a couple of pixels of the sprite leak on the iPad for some reason.
+     should come up with a better solution */
+  body>header>h1>a      { padding-bottom: 17px; }
+
+  /* no space needed at the bottom of the page */
+  body>footer           { height: 95px !important; }
+}
+
+/* = browser style (width <= 480px) ===================================== */
+@media only screen and (max-device-width: 480px) {
 }
 
 /* = Goodbye, my dear friend. Now clear out this place. ================= */
