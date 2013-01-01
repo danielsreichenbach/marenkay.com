@@ -1,0 +1,104 @@
+{
+	"date"		:	201301012110,
+	"updated"	:	201301012110,
+	"licence"	:	"cc-by",
+	"tags"		:	["propel", "symfony2"]
+}
+
+<section>
+
+# Symfony2 and PropelORM #
+
+<Symfony 2 (//symfony.com)> is quite awesome, and what I really like is the
+ability to switch out any component with another component. Ever since I
+started building applications with Symfony one thing really has bothered
+me, and that was *Doctrine*. It just did not feel natural to use it.
+
+## The switch ##
+
+Lucky me, there is an alternative: <Propel ORM (//propelorm.org/)>. Have a
+look yourself. You can easily migrate existing projects, it does have the
+features needed to build something, and it has it's very own way of forcing
+you into database independent development. On top of that I like the schema
+definitons and fixtures a lot.
+
+Now let us switch the default Symfony project to Propel. First I recommend
+to install <Composer (//getcomposer.org/).
+
+Using Composer we create a project template:
+
+~~~ Bash ~~~>
+$ php composer.phar create-project symfony/framework-standard-edition my-project/ 2.1.6
+<~~~
+
+Next we will remove Doctrine and add Propel to the Composer file. Edit
+``composer.json``
+
+~~~ Diff ~~~>
+-        "doctrine/orm": ">=2.2.3,<2.4-dev",
+-        "doctrine/doctrine-bundle": "1.0.*",
++        "propel/propel-bundle": "1.1.*",
+<~~~
+
+With this we have removed the Doctrine ORM and the Symfony bundle. Now we need to
+edit ``app/AppKernel.php``
+
+~~~ Diff ~~~>
+-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
++            new Propel\PropelBundle\PropelBundle(),
+<~~~
+
+The Symfony configuration in ``app/config/config.yml`` also needs a bit of love
+
+~~~ Diff ~~~>
+-# Doctrine Configuration
+-doctrine:
+-    dbal:
+-        driver:   %database_driver%
+-        host:     %database_host%
+-        port:     %database_port%
+-        dbname:   %database_name%
+-        user:     %database_user%
+-        password: %database_password%
+-        charset:  UTF8
+-
+-    orm:
+-        auto_generate_proxy_classes: %kernel.debug%
+-        auto_mapping: true
++# Propel Configuration
++propel:
++    dbal:
++        driver:     "%database_driver%"
++        user:       "%database_user%"
++        password:   "%database_password%"
++        dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
+<~~~
+
+Last -- but not least -- we need to edit ``app/config/parameters.yml``:
+
+~~~ Diff ~~~>
+parameters:
+     database_driver:   pdo_mysql
+     database_host:     localhost
+-    database_port:     ~
+     database_name:     symfony
+     database_user:     root
+     database_password: ~
++    database_charset:  UTF8
+<~~~
+
+## Final call ##
+
+To finalize the switch to Propel, we run Composer once
+
+~~~ Bash ~~~>
+$ composer update
+<~~~
+
+After a few moments, we are done. You now have a Propel enabled Symfony2
+template. The application console now sports a lot of ``propel`` commands.
+
+Try the <Propel documentation (//propelorm.org/documentation/) for an overview
+of the nifty things Propel can do for you.
+
+</section>
