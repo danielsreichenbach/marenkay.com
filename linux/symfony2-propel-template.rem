@@ -98,7 +98,7 @@ $ composer update
 After a few moments, we are done. You now have a Propel enabled Symfony2
 template. The application console now sports a lot of ``propel`` commands.
 
-Try the <Propel documentation (//propelorm.org/documentation/) for an overview
-of the nifty things Propel can do for you.
+Try the <Propel documentation (//propelorm.org/documentation/)> for an
+overview of the nifty things Propel can do for you.
 
 </section>
