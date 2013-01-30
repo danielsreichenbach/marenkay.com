@@ -1,0 +1,131 @@
+{
+	"date"		:	201301301222,
+	"updated"	:	201301301222,
+	"licence"	:	"cc-by",
+	"tags"		:	["devops"]
+}
+
+<section>
+
+# DevOps with KVM and Puppet - Part 1 #
+
+&__TOC__;
+
+Building your network never has been easier. These days <DevOps (http://en.wikipedia.org/wiki/DevOps)>
+are everwhere, and with tools like <KVM (//en.wikipedia.org/wiki/Kernel-based_Virtual_Machine)>,
+and <Puppet (//puppetlabs.com/puppet/what-is-puppet/)> freely available, you can build your local
+network by only focussing on what each system should do for you.
+
+## Introduction ## (#devops-p1-intro)
+
+Let us wind back time a bit, and consider it was the year 2005. Back then when you wanted to setup
+a network for your office, you would face a truly epic task: that of manually configuring servers.
+If you where lucky, only a few, on a bad day it might have been dozens.
+
+<aside>
+	I'm already freezing...
+</aside>
+
+Back then this meant hideous amounts of planning, documentation, and preparation of configuration
+files, and of course system preparation, including system installation, and basic configuration
+to get started.
+
+This meant tons of identical tasks to fulfill, and every single task had to be done by hand. I've
+been there, and you probably have faint memories of these days, too.
+
+Luckily for us, there is an application for that: <Puppet (//puppetlabs.com/)>. Puppet is IT
+automation software that helps system administrators manage infrastructure throughout its lifecycle,
+from provisioning and configuration to patch management and compliance.
+
+## Building ## (#devops-p1-build)
+
+<aside>
+	Must work, must build stuff!
+</aside>
+
+Based on <Ubuntu 12.04 Server (//www.ubuntu.com/download/server)>, we will create a simple server
+host with KVM enabled.
+
+### ... a KVM server ### (#devops-p1-kvm-server)
+
+~~~ Bash ~~~>
+sudo apt-get install qemu-kvm libvirt-bin bridge-utils python-vm-builder
+<~~~
+
+We are going to build our packages by bootstrapping Ubuntu with the
+original packages. While bandwidth may be cheap, we can spare us the
+time of downloading packages twice by using an apt package caching
+proxy.
+
+Install `apt-cacher-ng` by issuing this command:
+
+~~~ Bash ~~~>
+sudo apt-get install apt-cacher-ng
+<~~~
+
+Once installed edit `/etc/apt-cacher-ng/acng.conf` and replace the
+line containing `Port:3142` with `Port:9999`, and fire up our local
+repository cache by executing
+
+~~~ Bash ~~~>
+sudo service apt-cacher-ng restart
+<~~~
+
+### ... a Puppet master ### (#devops-p1-kvm-puppet-master)
+
+Now, we generate a MAC address by executing
+
+~~~ Bash ~~~>
+MACADDR="52:54:00:$(dd if=/dev/urandom bs=512 count=1 2>/dev/null | md5sum | sed 's/^\(..\)\(..\)\(..\).*$/\1:\2:\3/')"; echo $MACADDR
+<~~~
+
+Next we create an image using our new MAC address for the Puppet master
+by issuing the following parameters:
+
+~~~ Bash ~~~>
+sudo vmbuilder kvm ubuntu -o --libvirt qemu:///system \
+	--suite precise --flavour server --arch amd64 -m 512 --cpus=1 \
+	--mac=52:54:00:ba:a9:17 --ip=192.168.100.10 --gw=192.168.100.1 --dns=192.168.100.1 \
+	--hostname code --domain kogitoapp.rocks \
+	--user kogitoapp --pass rocks \
+	--addpkg unattended-upgrades --addpkg acpid --addpkg facter \
+	--addpkg puppet --addpkg puppetmaster \
+	--mirror http://localhost:9999/ubuntu
+<~~~
+
+### ... a KVM / puppet client ### (#devops-p1-kvm-host-puppet-client)
+
+The default host will contain the only the Puppet agent. Again, a new
+MAC adress is created using the command from earlier. Thus we
+will modify the command as follows:
+
+~~~ Bash ~~~>
+sudo vmbuilder kvm ubuntu -o --libvirt qemu:///system \
+	--suite precise --flavour server --arch amd64 -m 512 --cpus=1 \
+	--mac=52:54:00:ca:12:e3 --ip=192.168.100.11 --gw=192.168.100.1 --dns=192.168.100.1 \
+	--hostname code --domain kogitoapp.rocks \
+	--user kogitoapp --pass rocks \
+	--addpkg unattended-upgrades --addpkg acpid --addpkg facter --addpkg puppet \
+	--mirror http://localhost:9999/ubuntu
+<~~~
+
+## Up next! ## (#devops-p1-up-next)
+
+<aside>
+	If you have suggestions for additional topics, send a tweet to <@marenkay (//twitter.com/marenkay)>.
+</aside>
+
+Since we now have a Puppet master and a first client running, we will learn how easy
+we can schedule and deploy system changes to both our client and our server.  The good
+news is: in Puppet, the master server can also be a client. The following list is what
+came to my mind while writing this, so it surely is not complete.
+
+•	tracking Puppet configuration changes,
+•	creating clients with Puppet preconfigured,
+•	administering Puppet with <Puppet Dashboard (//puppetlabs.com/puppet/related-projects/dashboard/)>
+	or <The Foreman (//theforeman.org/)>.
+
+There are quite a few intersting things which we can achieve with Puppet, and I'll be
+covering these step by step.
+
+</section>
