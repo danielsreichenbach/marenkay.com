@@ -1,0 +1,113 @@
+{
+    "date"      :   201303021736,
+    "updated"   :   201303021803,
+    "licence"   :   "cc-by",
+    "tags"      :   ["wine"]
+}
+
+<section>
+
+# Wine on Ubuntu #
+
+Ever since I left the Windows world completely two years ago, there
+have been occasions where I had to test or temporarily use a Windows
+only application.
+
+<Wine (//winehq.org/)> is quite the awesome piece of software. It
+emulates both 32-bit and 64-bit Windows API, and lets you run your
+Windows only applications under Linux.
+
+## Installing Wine ##
+
+By default Ubuntu does include a default Wine version from the stable
+branch of Wine. Given the steady improvements in Wine allowing you to
+run current Windows applications, it though is desirable to have a
+recent development version.
+
+There is a Ubuntu PPA available which provides up to date versions of
+Wine. You can install it by executing this command:
+
+~~~ Bash ~~~>
+sudo add-apt-repository ppa:ubuntu-wine/ppa && sudo apt-get update
+<~~~
+
+This will add the Wine PPA to your system, and ask you to accept the
+PPA's signing key. Once done, you may install Wine using:
+
+~~~ Bash ~~~>
+sudo apt-get install wine winetricks
+<~~~
+
+<aside>
+    Winetricks is incredibly helpful for when Wine has not implemented
+    the complete API required by an application.
+</aside>
+
+This will install Wine, and Winetricks. Winetricks is a helper which
+lets you install common Windows libraries and applications to improve
+your experience with running Windows applications.
+
+This includes libraries such as DirectX or .NET, but also includes
+applications like the Internet Explorer. Executing Winetricks will
+
+E.g. to list all options for installing original Microsoft libraries
+instead of Wine replacements, you can run
+
+~~~ Bash ~~~>
+winetricks dlls list
+<~~~
+
+You will recognize a few suspects there, such as codes, fonts, or
+even the Windows Script Host.
+
+## How to use Wine ##
+
+One of the amazing things about Wine is the ability to create a
+sandboxed environment for your Windows applications.
+
+Wine does so by supporting an environment variable named `WINEPREFIX`.
+By specifying a different prefix for each application or use-case
+you could seperate applications from each other, and finetune every
+prefix to the applications needs.
+
+Here is my default starting point for creating a Wine environment.
+
+~~~ Bash ~~~>
+WINEARCH=win32 WINEPREFIX=$HOME/.wine winecfg
+WINEPREFIX=$HOME/.wine winetricks ddr=opengl fontsmooth=rgb sound=alsa hosts winxp
+WINEPREFIX=$HOME/.wine winetricks corefonts mfc42 msxml3 msxml6 riched20 riched30 vcrun2005 vcrun2008 vcrun2010
+<~~~
+
+The first line will create a data directory for Wine, and open the
+Wine configuration utility where I usually check the *Desktop Integration*
+tab to correct the Wine mapping for the *My Documents* folder. It
+seems like Wine always sets this to your HOME directory.
+
+The second line will set the DirectDraw renderer to OpenGL, which
+does help with performance. I also select font smoothing for RGB
+LCDs, and select the ALSA sound driver. Also, I prefer to have an
+empty hosts file in my Wine sandboxes since some applications check
+for its' existence. Last I set the Windows version to Windows XP,
+since programs usually run fine there. Never Windows versions come
+with wonderful features such as requiring administrator permissions
+for installing applications and that - in many cases - will go oh so
+wrong under Wine.
+
+Finally, the third line will install the original Microsoft Windows
+fonts, the MFC, MS-XML, two versions of MS RichText editor, and three
+common Visual C++ runtime libraries.
+
+With that you are set for most applications.
+
+## What else? ##
+
+For newer applications that use HTML views, you may require to
+install Internet Explorer 8 using winetricks.
+
+~~~ Bash ~~~>
+WINEPREFIX=$HOME/.wine winetricks ie8
+<~~~
+
+Further hints may be added later.
+
+</section>
