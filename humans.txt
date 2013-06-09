@@ -10,7 +10,7 @@ Site: http://camendesign.com/
 For: ReMarkable syntax
 
 /* SITE */
-Last update: 2012/11/27
+Last update: 2013/06/09
 Standards: HTML5, CSS3
 Components: Modernizr, MooTools, Prettify
 Software: Sublime Text 2
