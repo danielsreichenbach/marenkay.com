@@ -2,7 +2,7 @@
 	"date"		:	201212081749,
 	"updated"	:	201212081851,
 	"licence"	:	"cc-by",
-	"tags"		:	"free software"
+	"tags"		:	["free software"]
 }
 
 <section>
@@ -99,14 +99,14 @@ not use software because it is free or because it is commercial.
 You use software because it solves an issue for you.
 
 |	Dear Free Software foundation,
-|	
+|
 |	I want my freedom of choice, and I want to chose an option that
 |	simply works for me based upon its' inherent quality.
-|	
+|
 |	Being forced to chose only on the state of being free software or
 |	closed software, is as bad a just being able to use closed software
 |	after all.
-|	
+|
 |	With kind regards,¬¬
 |	Daniel S. Reichenbach
 

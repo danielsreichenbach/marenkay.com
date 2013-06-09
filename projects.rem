@@ -2,13 +2,13 @@
 
 # Projects #
 
-:: The Coppermine!
-	<The Coppermine (//the-coppermine.com)> is a World of Warcraft database site
-	focussed on game history.  The project aims towards showing how <World of
-	Warcraft (//worldofwarcraft.com)> has evolved since its' release in 2004,
+:: The Goblin Workshop!
+	<The Goblin Workshop (//goblinworkshop.org)> is a World of Warcraft database
+	site focussed on game history.  The project aims towards showing how <World
+	of Warcraft (//worldofwarcraft.com)> has evolved since its' release in 2004,
 	and initially will look back at game content from patch 1.1 up to patch
-	1.12.¬¬ All <Coppermine code (//github.com/the-coppermine)> is open source
-	and freely available, including documentation.
+	1.12.¬¬ All <Goblin Workshop code (//bitbucket.org/goblin-workshop)> is open
+	source and freely available, including documentation.
 
 	The projects' goal is to describe, and reveal the full process behind the
 	development of a real world game.  If you are interested in C++, Python,
