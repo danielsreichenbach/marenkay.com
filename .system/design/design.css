@@ -1,7 +1,7 @@
 /* ====================================================================== */
 /* [Marenkay](http://marenkay.com)       ·       © http://kogitoapp.com/  */
 /*                                                                        */
-/* Colour palette:                                                          */
+/* Colour palette:                                                        */
 /* foreground = #4d4d4c                                                   */
 /* background = #fafafa                                                   */
 /* selection  = #d6d6d6                                                   */
@@ -874,6 +874,16 @@ article>section:not(:last-child)
 
 /* = browser style (width <= 480px) ===================================== */
 @media only screen and (max-device-width: 480px) {
+}
+
+/* = iPhone portrait only =============================================== */
+@media only screen and (max-device-width: 480px) and (max-width: 320px) {
+
+}
+
+/* = iPhone landscape only ============================================== */
+@media only screen and (max-device-width: 480px) and (min-width: 321px) {
+
 }
 
 /* = Goodbye, my dear friend. Now clear out this place. ================= */
