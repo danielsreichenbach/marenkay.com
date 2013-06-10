@@ -1,0 +1,87 @@
+{
+    "draft"     :   201306081617,
+    "updated"   :   201306092347,
+    "licence"   :   "cc-by",
+    "tags"      :   ["arm"],
+    "draft"     :   true
+}
+
+<section>
+
+# Debian 7 on Pandaboard ES #
+
+&__TOC__;
+
+I must have been living silently enjoying the fruits of the <ARM architecture (//en.wikipedia.org/wiki/ARM_architecture)>
+without considering what possible use cases for a nerd it might have.
+
+<"ARM powered" /&__HREF__;/arm-powered-200.png "Have your seen the ARM powered badge?">
+
+<aside>
+    Nerdy benefits, nothing questionable.
+</aside>
+
+Much like anybody else I have been using an Android powered smartphone, and --
+of course -- it is powered by an ARM powered board.  I would not have considered
+the architecture for anything else, if my good friend Christian hadn't started
+talking about those "mini computers", and their possible benefits.
+
+Give an introduction to the <Pandaboard (//pandaboard.org)>, and why we chose it.
+
+## Preparations ## (#preparations)
+
+Summarize what work needs to be done.
+
+### Build the bootloader ### (#preparations-build-bootloader)
+
+Introduce U-boot, and describe how it is built, and prepared
+for the Pandaboard.
+
+### Build a kernel image ### (#preparations-kernel-image)
+
+Why are we building a custom boot image, and why kernel 3.9?
+Also, a bit of an estimate would be nice.
+
+### Download pre-installed Debian 7 ### (#preparations-download-debian-7)
+
+Describe the pre-built Debian file system, and how to get hold of it.
+
+## Installation ## (#installation)
+
+Describe what the process includes, and requires.
+
+### Setup the SD card ### (#installation-setup-sd-card)
+
+Describe the different decive names, and what we are going to do
+with the SD card, then manipulate it.
+
+### Mount the SD card ### (#installation-mount-sd-card)
+
+Make the prepared SD card available to the system.
+
+### Install the bootloader ### (#installation-bootloader)
+
+Install the built bootloader.
+
+### Configure the bootloader ### (#installation-bootloader-configure)
+
+Add a configuration file, and describe what it actually does.
+
+### Install the kernel image ### (#installation-kernel-image)
+
+Install the built kernel image to the boot partition.
+
+### Install the Debian 7 file system ### (#installation-debian-7)
+
+Copy the pre-built Debian file system to the SD card.
+
+### Configure the Pandaboard ### (#installation-configure-pandaboard)
+
+Describe which configuration steps to take before booting up the
+board.
+
+## First boot ## (#booting)
+
+... and end with the configuration steps recommended after first boot.
+
+</section>
