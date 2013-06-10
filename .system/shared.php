@@ -271,18 +271,19 @@ function indexSite()
     /* rebuild sitemap?
       -------------------------------------------------------------------------------------------------------------- */
     clearstatcache();
-    $date = reset(explode('|', $list[0]));
+    $article_metadata = explode('|', $list[0]);
+    $date = reset($article_metadata);
     if (!file_exists(APP_SYSTEM . 'sitemap.xml') || filemtime(APP_SYSTEM . 'sitemap.xml') < mktime(
         (integer) substr($date, 8, 2), (integer) substr($date, 10, 2), 0, (integer) substr($date, 4, 2), (integer) substr($date, 6, 2), (integer) substr($date, 0, 4)
     )
     ) {
-        //save the cache
-        file_put_contents(APP_SYSTEM . 'sitemap.xml', template_tag(template_load('base.xml'), 'URLS', $xml), LOCK_EX
-        ) or errorPage(
-            'denied_cache.rem', 'Error: Permission Denied', array('PATH' => APP_CACHE)
-        );
-        //ping Google with the update
-        if (DEVELOPMENT === true)
+        if (DEVELOPMENT === false)
+            //save the cache
+            file_put_contents(APP_SYSTEM . 'sitemap.xml', template_tag(template_load('base.xml'), 'URLS', $xml), LOCK_EX
+            ) or errorPage(
+                'denied_cache.rem', 'Error: Permission Denied', array('PATH' => APP_CACHE)
+            );
+            //ping Google with the update
             get_headers(
                 "http://www.google.com/webmasters/tools/ping?sitemap=" .
                     urlencode('http://' . APP_HOST . '/sitemap.xml')
