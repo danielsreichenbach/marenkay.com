@@ -1,9 +1,9 @@
 {
-    "draft"     :   201306081617,
-    "updated"   :   201306092347,
-    "licence"   :   "cc-by",
-    "tags"      :   ["arm"],
-    "draft"     :   true
+	"draft"     :   201306081617,
+	"updated"   :   201306101653,
+	"licence"   :   "cc-by",
+	"tags"      :   ["arm"],
+	"draft"     :   true
 }
 
 <section>
@@ -18,13 +18,28 @@ without considering what possible use cases for a nerd it might have.
 <"ARM powered" /&__HREF__;/arm-powered-200.png "Have your seen the ARM powered badge?">
 
 <aside>
-    Nerdy benefits, nothing questionable.
+	Nerdy benefits, nothing questionable.
 </aside>
 
 Much like anybody else I have been using an Android powered smartphone, and --
 of course -- it is powered by an ARM powered board.  I would not have considered
 the architecture for anything else, if my good friend Christian hadn't started
 talking about those "mini computers", and their possible benefits.
+
+I started to look for boards which could probably serve as more than just a
+technical playground. Yeah <Raspberry Pi (//raspberrypi.org)> is cool, and it
+certainly is a great tool, to learn stuff, but I do not see that turning into
+a low power, tiny server appliance.
+
+But: Wikipedia to the rescue, they have a list of <single board computers (//en.wikipedia.org/wiki/List_of_single-board_computers)>
+available for the curious minds out there.
+
+After a few hours of reading, searching, and lingering in the Linux kernel
+sources I found a candidate for my tiny server appliance:
+
+fig.	<"" /&__HREF__;/pandaboard-es-top-view.png "Pandaboard ES rev. B1">
+
+	: The <Pandaboard ES (//pandaboard.org)>, revision B1
 
 Give an introduction to the <Pandaboard (//pandaboard.org)>, and why we chose it.
 
