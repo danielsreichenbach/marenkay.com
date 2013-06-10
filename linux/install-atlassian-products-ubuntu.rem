@@ -1,0 +1,70 @@
+{
+	"date"      :   201305290853,
+	"updated"   :   201306100753,
+	"licence"   :   "cc-by",
+	"tags"      :   ["atlassian"],
+	"draft"		:	true
+}
+
+<section>
+
+# Atlassian Products on Ubuntu #
+
+&__TOC__;
+
+Just in case you do not yet know <Atlassian (//www.atlassian.com)>, and happen to be a developer, now
+is the time to get to know them.  _Atlassian_ is living proof that development, a healthy culture,
+ideals, and business can be combined into something great.  They produce software for you, and me.
+
+That is if you happen to be a developer, product owner, manager, whatever ... as long as you are
+involved in something that is built with a plan, and in some cases involving the development of
+software.
+
+<aside>
+	To sum things up, Atlassian provides <awesome tools (//www.atlassian.com/software)> built
+	in Java for every part of a projects' workflow.
+</aside>
+
+•	product and issue tracking: <JIRA (//www.atlassian.com/software/jira)>, <GreenHopper (//www.atlassian.com/software/greenhopper)>,
+	and <Bonfire (//www.atlassian.com/software/bonfire)>,
+•	collaboration and content sharing: <Confluence (//www.atlassian.com/software/confluence)>,
+	<Team Calendars (//www.atlassian.com/software/team-calendars)>, and
+	<SharePoint Connector (//www.atlassian.com/software/sharepoint-connector)>,
+•	distributed version control systems: <Stash (//www.atlassian.com/software/stash)>,
+	and <BitBucket (//www.atlassian.com/software/bitbucket)>,
+•	code quality: <FishEye (//www.atlassian.com/software/fisheye)>, <Crucible (//www.atlassian.com/software/crucible)>,
+	<Bamboo (//www.atlassian.com/software/bamboo)>, and <Clover (//www.atlassian.com/software/clover)>
+
+Atlassian provides <complete documentation (//confluence.atlassian.com/)> using their own product
+*Confluence*, which covers the basic requirements and tasks needed to get their product up, and
+also maintained when running.
+
+fig.	<"" /&__HREF__;/1wohi.jpg "Yeah, right?">
+
+	: ... Puppet, Chef, anyone?!
+
+Now here is the thing: _those are all Java based products_. How do we integrate them
+nicely into our Ubuntu stack? There is the ugly solution, and I am pretty sure, there
+is an awesome alternative.  Shall we find out?
+
+## One scheme to rule them all ## (#atlassian-products-template)
+
+Here is to Java, and the funny was we have to walk for running Java applications.
+
+We need Oracle JDK 7, and we need it badly.  Or do we not?
+
+### Installing an Atlassian product ### (#atlassian-products-installing)
+
+Here is to extracting and placing archives in good places. Memorable, at best.
+
+### Configuring an Atlassian product ### (#atlassian-products-configuring)
+
+You may want to have each product run under its' own user, and seperate them, even
+though Atlassian products live from being conencted.
+
+## Icing on the cake ## (#atlassian-products-icing)
+
+Yes, there is more, you can raise the level of awesome! Hook up Apache, or nginx,
+or even haproxy for SSH connections.
+
+</section>
