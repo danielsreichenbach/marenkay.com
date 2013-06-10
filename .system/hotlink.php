@@ -18,7 +18,6 @@ $requested = (preg_match('/^(\.(?!\.)|[-a-z0-9_\/])+\.(jpe?g|png)$/i', @$_GET['i
 if (!file_exists(APP_ROOT . $requested))
     errorPageHTTP(404);
 
-
 /* ========================================================================================================== process === */
 
 $info = getimagesize(APP_ROOT . $requested);
@@ -71,7 +70,6 @@ if ($info[0] > $widths[0])
     imagestring($buffer, 3, $info[0] - $widths[0], 15, $text[0], 0xFFFFFF);
 if ($info[0] > $widths[1])
     imagestring($buffer, 1, $info[0] - $widths[1], 30, $text[1], 0xFFFFFF);
-
 
 /* =========================================================================================================== output === */
 

@@ -10,18 +10,17 @@ date_default_timezone_set('Europe/Berlin');
 
 //“ReMarkable” is a Markdown-like syntax for writing in plain text and converting to HTML
 //see the ReMarkable folder for documentation, or the website <camendesign.com/code/remarkable>
-include "remarkable/remarkable.php";
+include 'remarkable/remarkable.php';
 
 // Configure the system.
 define('APP_SYSTEM', dirname(__FILE__) . '/'); //full .system path for absolute references
 define('APP_ROOT', realpath(APP_SYSTEM . '../') . '/'); //full path to webroot
 define('APP_CACHE', APP_ROOT . '.cache/'); //full path to cache folder
 
-require_once "config.php";
+require_once 'config.php';
 
 //<uk3.php.net/manual/en/function.is-dir.php#70005>
 chdir(APP_ROOT);
-
 
 /* === templating: “crocodile skin” ===================================================================================== */
 
@@ -42,6 +41,7 @@ function template_tags($s_template, $a_values)
 {
     foreach ($a_values as $key => &$value)
         $s_template = template_tag($s_template, $key, $value);
+
     return $s_template;
 }
 
@@ -152,6 +152,7 @@ function getArticle($s_article)
     list ($meta, $content) = explode("\n\n", $_, 2);
     //if the file does not carry a header, it’s not an article (like ‘/projects.rem’, and ‘/imprint.rem’)
     if ($meta[0] != '{')
+
         return false;
 
     //the header is a JSON object containing the meta-information (date, tags, enclosure &c.)
@@ -160,6 +161,7 @@ function getArticle($s_article)
         //if the JSON did not decode, there must be a typo--exit here
             'json.rem', 'Error: Malformed JSON Header', array('PATH' => $s_article)
         );
+
     return array(
         $meta,
         //if a title is provided in the meta use that, else search for the first ReMarkable H1 and use that
@@ -271,7 +273,7 @@ function indexSite()
     clearstatcache();
     $date = reset(explode('|', $list[0]));
     if (!file_exists(APP_SYSTEM . 'sitemap.xml') || filemtime(APP_SYSTEM . 'sitemap.xml') < mktime(
-        (integer)substr($date, 8, 2), (integer)substr($date, 10, 2), 0, (integer)substr($date, 4, 2), (integer)substr($date, 6, 2), (integer)substr($date, 0, 4)
+        (integer) substr($date, 8, 2), (integer) substr($date, 10, 2), 0, (integer) substr($date, 4, 2), (integer) substr($date, 6, 2), (integer) substr($date, 0, 4)
     )
     ) {
         //save the cache
@@ -293,8 +295,10 @@ function getTypes()
 {
     if (!is_array($types = unserialize(@file_get_contents(APP_CACHE . 'index.types')))) {
         indexSite();
+
         return getTypes();
     }
+
     return $types;
 }
 
@@ -302,8 +306,10 @@ function getTags()
 {
     if (!is_array($tags = unserialize(@file_get_contents(APP_CACHE . 'index.tags')))) {
         indexSite();
+
         return getTags();
     }
+
     return $tags;
 }
 
@@ -311,8 +317,10 @@ function getIndex()
 {
     if (!is_array($list = unserialize(@file_get_contents(APP_CACHE . 'index.list')))) {
         indexSite();
+
         return getIndex();
     }
+
     return $list;
 }
 
@@ -392,7 +400,8 @@ function templateArticle(&$a_meta, $type, $href, &$s_content, $category)
     //flatten the meta data array into variable scope
     //(saves having to write `$a_meta['...']` a million times)
     extract($a_meta, EXTR_PREFIX_ALL, 'm');
-    $name = end(explode('/', $href, 2));
+    $a_meta_flat = explode('/', $href, 2);
+    $name = end($a_meta_flat);
 
     /* an image enclosure gets a preview image
       -------------------------------------------------------------------------------------------------------------- */
@@ -467,8 +476,9 @@ function templateArticle(&$a_meta, $type, $href, &$s_content, $category)
 
     //convert timestamp for the date formatting functions below
     $date = mktime(
-        (integer)substr($m_updated > $m_date ? $m_updated : $m_date, 8, 2), (integer)substr($m_updated > $m_date ? $m_updated : $m_date, 10, 2), 0, (integer)substr($m_updated > $m_date ? $m_updated : $m_date, 4, 2), (integer)substr($m_updated > $m_date ? $m_updated : $m_date, 6, 2), (integer)substr($m_updated > $m_date ? $m_updated : $m_date, 0, 4)
+        (integer) substr($m_updated > $m_date ? $m_updated : $m_date, 8, 2), (integer) substr($m_updated > $m_date ? $m_updated : $m_date, 10, 2), 0, (integer) substr($m_updated > $m_date ? $m_updated : $m_date, 4, 2), (integer) substr($m_updated > $m_date ? $m_updated : $m_date, 6, 2), (integer) substr($m_updated > $m_date ? $m_updated : $m_date, 0, 4)
     );
+
     return template_tags(template_load('article.html'), array(
         /* --- time --------------------------------------------------------------------------------------------- */
         'MON'        => date('M', $date), //“A short textual representation of a month, three letters”

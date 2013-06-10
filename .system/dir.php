@@ -24,6 +24,7 @@ $dir = preg_grep('/^_/', array_diff(
 //sort folders first, then by type, then alphabetically
 //<camendesign.com/code/php_directory_sorting>
 usort($dir, create_function('$a,$b', '
+
         return        is_dir ($a)
                 ? (is_dir ($b) ? strnatcasecmp ($a, $b) : -1)
                 : (is_dir ($b) ? 1 : (
@@ -33,7 +34,6 @@ usort($dir, create_function('$a,$b', '
                 ))
         ;
 '));
-
 
 /* ========================================================================================================== process === */
 
@@ -174,13 +174,11 @@ foreach ($dir as &$dir_item) {
     ));
 }
 
-
 /* =========================================================================================================== output === */
 
 exit(templatePage(template_tags(template_load('dir.html'), array(
     'TITLE' => $path,
     'DIR'   => $html
 )), $path, templateHeader($path)));
-
 
 /* =================================================================================================== code is art === */

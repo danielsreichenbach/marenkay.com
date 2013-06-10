@@ -40,7 +40,7 @@ foreach (array_slice($category ? array_values(array_filter(getIndex(), create_fu
             'LINK'        => $domain . ($category ? "$category/" : '') . $name,
             'PERMALINK'   => $domain . $href,
             'DATE'        => gmdate('r', mktime(
-                (integer)substr($meta['updated'], 8, 2), (integer)substr($meta['updated'], 10, 2), 0, (integer)substr($meta['updated'], 4, 2), (integer)substr($meta['updated'], 6, 2), (integer)substr($meta['updated'], 0, 4)
+                (integer) substr($meta['updated'], 8, 2), (integer) substr($meta['updated'], 10, 2), 0, (integer) substr($meta['updated'], 4, 2), (integer) substr($meta['updated'], 6, 2), (integer) substr($meta['updated'], 0, 4)
             )),
             'DESCRIPTION' => htmlspecialchars(preg_replace(
                 '/(href|src)="?\//', "$1=\"$domain", reMarkable(template_tags($content
@@ -70,7 +70,6 @@ $rss = template_tags(template_load('base.rss'), array(
     'TITLE'    => $category ? " · $category" : '',
     'ITEMS'    => $rss
 ));
-
 
 /* =========================================================================================================== output === */
 if (DEVELOPMENT === false) {

@@ -48,11 +48,14 @@ $data = $category ? array_values(
 ) : $index_array;
 
 //if viewing an index page, retrieve the latest article from the top of the stack
-if ($is_latest)
-    $article = end(explode('|', $data[0]));
+if ($is_latest) {
+    $article_metadata = explode('|', $data[0]);
+    $article = end($article_metadata);
+}
 
 //locate the index for the article
-$index = reset(preg_grep("/\|$article$/", $index_array));
+$article_metadata = preg_grep("/\|$article$/", $index_array);
+$index = reset($article_metadata);
 
 //is the article name not in the index?
 if (!$index) {
@@ -88,7 +91,8 @@ if (!$index) {
 } else {
     //extrapolate the info from the article’s index
     //(which looks like this: “datetime|type|tag|tag|tag|name”)
-    $type = reset(array_slice(explode('|', $index), 1, 1));
+    $article_category = array_slice(explode('|', $index), 1, 1);
+    $type = reset($article_category);
     $tags = count($index) == 3 ? array() : array_slice(explode('|', $index), 2, -1);
     $href = "$type/$article";
 
@@ -103,8 +107,12 @@ if (!$index) {
     list ($meta, $title, $content) = getArticle($href);
 
     //find the article’s relative position in the index so that we can link to the previous and next articles
-    $key = reset(array_keys($data, $index));
+    $article_index = array_keys($data, $index);
+    $key = reset($article_index);
 
+    // find metadata for previous/next article
+    if (isset ($data[$key + 1])) {$previous_article = explode('|', $data[$key + 1]);}
+    if (isset ($data[$key - 1])) {$next_article = explode('|', $data[$key - 1]);}
     //template the full page
     $html = templatePage(
     //article HTML
@@ -119,16 +127,15 @@ if (!$index) {
         templateHeader($requested,
             //next, prev article links
             isset ($data[$key + 1]) ? template_tags(template_load('article-prev.html'), array(
-                'HREF' => ($category ? "/$category/" : '/') . end(explode('|', $data[$key + 1]))
+                'HREF' => ($category ? "/$category/" : '/') . end($previous_article)
             )) : '', isset($data[$key - 1]) ? template_tags(template_load('article-next.html'), array(
-                'HREF' => ($category ? "/$category/" : '/') . end(explode('|', $data[$key - 1]))
+                'HREF' => ($category ? "/$category/" : '/') . end($next_article)
             )) : '',
             //canonical URL
             $href
         ), templateFooter($href)
     );
 }
-
 
 /* =============================================================== output === */
 
