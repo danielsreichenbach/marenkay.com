@@ -26,6 +26,8 @@ of course -- it is powered by an ARM powered board.  I would not have considered
 the architecture for anything else, if my good friend Christian hadn't started
 talking about those "mini computers", and their possible benefits.
 
+## Pandaboard anyone ?! ## (#choices-choices-choices)
+
 I started to look for boards which could probably serve as more than just a
 technical playground. Yeah <Raspberry Pi (//raspberrypi.org)> is cool, and it
 certainly is a great tool, to learn stuff, but I do not see that turning into
@@ -41,16 +43,89 @@ fig.	<"" /&__HREF__;/pandaboard-es-top-view.png "Pandaboard ES rev. B1">
 
 	: The <Pandaboard ES (//pandaboard.org)>, revision B1
 
-Give an introduction to the <Pandaboard (//pandaboard.org)>, and why we chose it.
+In the end I chose the <Pandaboard (//pandaboard.org)>, and not just for its'
+good looks.  Reasons included
+
+<aside>
+	<Android Open Source project (//source.android.com/)>? Wait, what?!
+	Simply plain Android without any vendor extensions.
+</aside>
+
+•	it is *not* new. There already have been several board reveisions, and each
+	included a slight, or larger improvement.
+•	the OMAP4430 {SoC|System on a chip} is supported by the Linux kernel, and it
+	works with Android Jelly Bean. No Windows RT support, but who cares?
+•	and it connects to the world via Ethernet, wireless Ethernet.
+•	Finally, it does have multiple USB and HDMI ports.
+
+Other benefits include 1 GiB memory, Bluetooth, and a GPU supporting OpenGL ES 2.0.
+I liked the memory size, but the rest not so much for running a development appliance.
+
+A thing which should not be forgotten here is the community surrounding the Pandaboard,
+and the wealth of documentation for this board. I really like that.
 
 ## Preparations ## (#preparations)
 
-Summarize what work needs to be done.
+If you are still with me, that probably means a) my writing style is entertaining, or
+b) you bought a Pandaboard ES, and want to use this thing like *NOW*.
+
+In that case you will need a few items -- all of which this <YouTube video (//youtube.com/watch?v=DZUwUm6Srg0)> mentions --
+and probably an hour of spare time to do the dirty work. Personally I did not buy
+the full stack of accessories, since I already own a sufficient amount of USB and
+HDMI cables, and also have a computer (the <Zotac ZBOX ID83 (//www.zotacusa.com/zbox-id83.html)>)
+which can write to SD cards.
+
+What I did buy though was an <acryl case by Axiris (//www.axiris.eu/en/index.php/enclosures/case-for-pandaboard-es)>,
+a 32 GiB SanDisk SD card, and 5V AC/DC adapter (extra slim).
+
+In the end, you will *need* a system which has a working SD card writer -- both
+internal and external work fine -- and at least a Linux partition to boot into.
+
+If you have not, I recommend to install <Ubuntu (//ubuntu.com)> which is by far
+the easiest route if your a Windows user currently. Once installed open a terminal
+and install a few packages to ease the process:
+
+~~~ Bash ~~~>
+$ sudo apt-get install -y autoconf automake clang cmake cmake-curses-gui gcc g++ libtool make patch
+$ sudo apt-get install -y git-core
+<~~~
+
+In theory you could install the `build-essential` package, but sadly that seems to
+leave you with an incomplete build chain.
+
+Now let's get dirty, and create a base of operations:
+
+~~~ Bash ~~~>
+$ mkdir -p ~/Downloads/Pandaboard/
+$ cd ~/Downloads/Pandaboard/
+<~~~
+
+We will work from here in every step.
+
+### Pickup the GCC toolchain ### (#preparations-gcc-toolchain)
+
+<Linaro (//linaro.org)> is a not-for-profit organization providing modifications to run
+Linux and related tools on the ARM architecture. Lucky for us they provide a compiler /
+linker toolchain which creates code running on ARM.
+
+<aside>
+	Attention: the export of *`CC`* is required for all builds.
+
+	Export again, if you close your terminal, and continue later.
+</aside>
+
+~~~ Bash ~~~>
+$ cd ~/Downloads/Pandaboard/
+$ wget https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
+$ tar xjf gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
+$ export CC=`pwd`/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux-gnueabihf-
+<~~~
 
 ### Build the bootloader ### (#preparations-build-bootloader)
 
-Introduce U-boot, and describe how it is built, and prepared
-for the Pandaboard.
+<Das U-Boot (//www.denx.de/wiki/U-Boot)> -- a clever double pun {BTW|by the way} --
+is used to load the system. Without it, you would just have a piece of trash in your
+hands instead of a fine development appliance.
 
 ### Build a kernel image ### (#preparations-kernel-image)
 
