@@ -127,6 +127,35 @@ $ export CC=`pwd`/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux
 is used to load the system. Without it, you would just have a piece of trash in your
 hands instead of a fine development appliance.
 
+<aside>
+	*U-Boot* is a fast moving project, which is why we use their <git repository (//git.denx.de/?p=u-boot.git;a=summary)>
+	to pickup the code, and build it ourselves.
+</aside>
+
+~~~ Bash ~~~>
+$ cd ~/Downloads/
+$ git clone git://git.denx.de/u-boot.git
+$ cd u-boot/
+$ git checkout v2013.04 -b tmp
+<~~~
+
+Noticed that I checked out a tag? If not, or if git and tagging is not your world: the
+U-Boot repository marks useable states of their bootloader with _git tags_. Think of
+named bookmarks for a version. As of writing this guide, *v2013.04* is the most recent
+_tag_.
+
+Check their <git web interface (//git.denx.de/?p=u-boot.git;a=summary)> for a more recent
+version if you desire. The available _tags_ are listed there.
+
+We are not done yet, though. Robert Nelson provided a patch which sets a few sane
+defaults in U-Boot.
+
+~~~ Bash ~~~>
+$ cd ~/Downloads/u-boot/
+$ wget https://raw.github.com/eewiki/u-boot-patches/master/v2013.04/0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
+$ patch -p1 0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
+<~~~
+
 ### Build a kernel image ### (#preparations-kernel-image)
 
 Why are we building a custom boot image, and why kernel 3.9?
