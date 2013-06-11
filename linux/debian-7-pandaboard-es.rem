@@ -109,9 +109,9 @@ Linux and related tools on the ARM architecture. Lucky for us they provide a com
 linker toolchain which creates code running on ARM.
 
 <aside>
-	Attention: the export of *`CC`* is required for all builds.
+	Attention: the export of *`CC`* is required for all build steps.
 
-	Export again, if you close your terminal, and continue later.
+	Export *`CC`* again, if you close your terminal, and continue later.
 </aside>
 
 ~~~ Bash ~~~>
@@ -155,6 +155,17 @@ $ cd ~/Downloads/u-boot/
 $ wget https://raw.github.com/eewiki/u-boot-patches/master/v2013.04/0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
 $ patch -p1 0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
 <~~~
+
+With the patch applied we can finally make use of the GCC toolchain, and compile the
+bootloader:
+
+~~~ Bash ~~~>
+$ make ARCH=arm CROSS_COMPILE=${CC} distclean
+$ make ARCH=arm CROSS_COMPILE=${CC} omap4_panda_config
+$ make ARCH=arm CROSS_COMPILE=${CC}
+<~~~
+
+Depending on the system you are building on this process may take a few minutes.
 
 ### Build a kernel image ### (#preparations-kernel-image)
 
