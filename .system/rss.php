@@ -26,8 +26,10 @@ if ($category && !in_array($category, $categories))
 foreach (array_slice($category ? array_values(array_filter(getIndex(), create_function('$v', "return (strpos(\$v,'|$category|')!==false);"))) : getIndex(), 0, 10) as $index) {
     //extrapolate the info from the article’s index
     //(which looks like this: “updated|type|tag|tag|tag|name”)
-    $type = reset(array_slice(explode('|', $index), 1, 1));
-    $name = end(explode('|', $index));
+    $article_metadata = explode('|', $index);
+    $article_primarytag = array_slice($article_metadata, 1, 1);
+    $type = reset($article_primarytag);
+    $name = end($article_metadata);
     $href = "$type/$name";
 
     //load the article; retrieve metadata and content

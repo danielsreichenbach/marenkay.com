@@ -27,6 +27,10 @@ preg_match(
     'malformed_request.rem', 'Error: Malformed Request', array('URL' => '?file=path/to/script.php')
 );
 
+if(!isset($_[1])) {
+    $_[1] = '';
+}
+
 switch ($_[1]) {
     case 'php':
         $html = str_replace(
@@ -41,9 +45,12 @@ switch ($_[1]) {
     case 'rem': // find the permalink location
         $article     = pathinfo($requested, PATHINFO_FILENAME);
         $index_array = getIndex();
-        $index       = reset(preg_grep("/\|$article$/", $index_array));
+        $xyz         = preg_grep("/\|$article$/", $index_array);
+        $index       = reset($xyz);
         if ($index) {
-            $type = reset(array_slice(explode('|', $index), 1, 1));
+            $article_metadata = explode('|', $index);
+            $article_primarytag = array_slice($article_metadata, 1, 1);
+            $type = reset($article_primarytag);
             if ($requested != "$type/$article.rem") {
                 header('Location: http://' . APP_HOST . "/$type/$article.rem", true, 301);
                 die();
