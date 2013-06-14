@@ -86,8 +86,8 @@ the easiest route if your a Windows user currently. Once installed open a termin
 and install a few packages to ease the process:
 
 ~~~ Bash ~~~>
-$ sudo apt-get install -y autoconf automake clang cmake cmake-curses-gui gcc g++ libtool make patch
-$ sudo apt-get install -y git-core
+sudo apt-get install -y autoconf automake clang cmake cmake-curses-gui gcc g++ libtool make patch
+sudo apt-get install -y git-core
 <~~~
 
 In theory you could install the `build-essential` package, but sadly that seems to
@@ -96,8 +96,8 @@ leave you with an incomplete build chain.
 Now let's get dirty, and create a base of operations:
 
 ~~~ Bash ~~~>
-$ mkdir -p ~/Downloads/Pandaboard/
-$ cd ~/Downloads/Pandaboard/
+mkdir -p ~/Downloads/Pandaboard/
+cd ~/Downloads/Pandaboard/
 <~~~
 
 We will work from here in every step.
@@ -115,10 +115,10 @@ linker toolchain which creates code running on ARM.
 </aside>
 
 ~~~ Bash ~~~>
-$ cd ~/Downloads/Pandaboard/
-$ wget https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
-$ tar xjf gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
-$ export CC=`pwd`/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux-gnueabihf-
+cd ~/Downloads/Pandaboard/
+wget https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
+tar xjf gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.bz2
+export CC=`pwd`/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux/bin/arm-linux-gnueabihf-
 <~~~
 
 ### Build the bootloader ### (#preparations-build-bootloader)
@@ -133,10 +133,10 @@ hands instead of a fine development appliance.
 </aside>
 
 ~~~ Bash ~~~>
-$ cd ~/Downloads/
-$ git clone git://git.denx.de/u-boot.git
-$ cd u-boot/
-$ git checkout v2013.04 -b tmp
+cd ~/Downloads/
+git clone git://git.denx.de/u-boot.git
+cd u-boot/
+git checkout v2013.04 -b tmp
 <~~~
 
 Noticed that I checked out a tag? If not, or if git and tagging is not your world: the
@@ -147,71 +147,410 @@ _tag_.
 Check their <git web interface (//git.denx.de/?p=u-boot.git;a=summary)> for a more recent
 version if you desire. The available _tags_ are listed there.
 
-We are not done yet, though. Robert Nelson provided a patch which sets a few sane
+We are not done yet, though. <Robert Nelson (//plus.google.com/106813818225399872098)> provided a patch which sets a few sane
 defaults in U-Boot.
 
 ~~~ Bash ~~~>
-$ cd ~/Downloads/u-boot/
-$ wget https://raw.github.com/eewiki/u-boot-patches/master/v2013.04/0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
-$ patch -p1 0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
+cd ~/Downloads/u-boot/
+wget https://raw.github.com/eewiki/u-boot-patches/master/v2013.04/0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
+patch -p1 0001-omap4_common-uEnv.txt-bootz-n-fixes.patch
 <~~~
 
 With the patch applied we can finally make use of the GCC toolchain, and compile the
 bootloader:
 
+<aside>
+	Cross compiling for ARM took _~ 15 minutes on an Intel i3 CPU_. Your mileage may vary
+	depending on the CPU powers available to you.
+</aside>
+
 ~~~ Bash ~~~>
-$ make ARCH=arm CROSS_COMPILE=${CC} distclean
-$ make ARCH=arm CROSS_COMPILE=${CC} omap4_panda_config
-$ make ARCH=arm CROSS_COMPILE=${CC}
+make ARCH=arm CROSS_COMPILE=${CC} distclean
+make ARCH=arm CROSS_COMPILE=${CC} omap4_panda_config
+make ARCH=arm CROSS_COMPILE=${CC}
 <~~~
 
-Depending on the system you are building on this process may take a few minutes.
+Depending on the system you are building on, this process may take a few minutes.
 
 ### Build a kernel image ### (#preparations-kernel-image)
 
-Why are we building a custom boot image, and why kernel 3.9?
-Also, a bit of an estimate would be nice.
+The Linux kernel and supported architectures in the ARM world can safely be considered
+a moving target. Yes, ARM architecture in general is supported but all those ARM based
+boards released to the masses of us nerds these days ship with quite a few quirks and
+come with different chipsets attached for everything.
+
+<aside>
+	Stable really means _stable_, I currently have 10 days uptime since my last reboot.
+</aside>
+
+Thus we will be building our own kernel using a <build system provided on github (https://github.com/RobertCNelson/stable-kernel)>
+by <Robert Nelson (//plus.google.com/106813818225399872098)>, specifically the branch
+for kernel 3.9.x releases which is stable.
+
+~~~ Bash ~~~>
+cd ~/Downloads/
+git clone git://github.com/RobertCNelson/stable-kernel.git
+cd stable-kernel/
+git checkout origin/v3.9.x -b tmp
+./build_kernel.sh
+<~~~
+
+Now this will either build a Linux kernel image, including modules in `stable-kernel/deploy/`,
+or the script will abort, telling you that some dependency is missing to build the kernel on
+your machine. Missing dependencies can usually be installed using your systems package manager
+such as *apt*, *yum*, *zypper*, etc.
+
+Be aware that the build script will checkout the original Linux kernel source tree. This
+will take time. I would recommend to have diner or take a walk while the process is running.
+On my build host (Intel i3 based) the first build run with a git clone of the kernel took
+more than 30 minutes.
+
+Once the kernel build is complete you will see a line like this on your terminal:
+
+~~~ Bash ~~~>
+export kernel_version=3.X.Y-Z
+<~~~
+
+Execute this command, and note it. You may need it again later.
 
 ### Download pre-installed Debian 7 ### (#preparations-download-debian-7)
 
-Describe the pre-built Debian file system, and how to get hold of it.
+While there are many other Linux distributions out there, I can recommend Debian 7, if you
+intend to use your Pandaboard as a server applicance. Debian is very conservative when it
+comes to packages, and <ARM images are available (//www.debian.org/distrib/netinst)>.
+
+Considering the somewhat limited firepower of an ARM board, you may want to consider a
+pre-installed package of Debian.
+
+<aside>
+	If you consider to run a full installation of using installation media, please
+	remember to use ARM {HF|hard float} images.
+</aside>
+
+We will use a packaged file system for an installed Debian 7 system.
+
+~~~ Bash ~~~>
+cd ~/Downloads/
+wget -c http://rcn-ee.net/deb/minfs/wheezy/debian-7.0.0-minimal-armhf-2013-05-05.tar.xz
+md5sum debian-7.0.0-minimal-armhf-2013-05-05.tar.xz
+7378ac1f20ca4857ac1994e22fd20277  debian-7.0.0-minimal-armhf-2013-05-05.tar.xz
+<~~~
+
+Please double check that the md5sum is identical. If you your downloaded archive may be
+corrupt. Now we extract the image. The contents will be copied to our SD card at a later
+point.
+
+~~~ Bash ~~~>
+tar xJf debian-7.0.0-minimal-armhf-2013-05-05.tar.xz
+<~~~
+
+The image includes two users, a normal user and -- of course -- a root user. Do not forget
+to change the passwords once your system is installed and running.
+
+:: Default user
+	•	Username: `debian`
+	•	Password: `temppwd`
+
+:: Root user
+	•	Username: `root`
+	•	Password: `root`
 
 ## Installation ## (#installation)
 
-Describe what the process includes, and requires.
+The good news is: the hardest part is over! All that is left is a bunch of copy and
+paste actions, and a bit of file copying, but no further compilation is required
+for the final steps.
 
 ### Setup the SD card ### (#installation-setup-sd-card)
 
-Describe the different decive names, and what we are going to do
-with the SD card, then manipulate it.
+I hope you have your SD card ready. Now plug it into your SD card slot, and open
+a terminal to execute:
+
+~~~ Bash ~~~>
+sudo fdisk -l
+<~~~
+
+If your SD card was already formatted, you could also execute
+
+~~~ Bash ~~~>
+lsblk
+<~~~
+
+In both cases you will see device names. For SD cards there are two options here:
+
+•	a device name like `/dev/mmcblkX`
+•	or a device name following the standard `sdX` pattern
+
+where X is the device number.
+
+Since we will need the device name for the following steps, it is best to export it:
+
+~~~ Bash ~~~>
+export DISK=/dev/sdX
+<~~~
+
+Of course, replace `sdX` with your device name. If your device is already formatted
+it may have a paritition on `/dev/sdX1`. Do not export the partition number! Just use
+`/dev/sdX`.
+
+Now we  will erase the SD card:
+
+~~~ Bash ~~~>
+sudo dd if=/dev/zero of=${DISK} bs=1024 count=1024
+sudo parted --script ${DISK} mklabel msdos
+<~~~
+
+Setup a boot partition:
+
+<aside>
+	Wait! What are you doing here? Is this <Pac-man (//en.wikipedia.org/wiki/Pac-Man)>?
+	*No*, breathe lightly. We are just piping commands into `fdisk`.
+</aside>
+
+~~~ Bash ~~~>
+sudo fdisk ${DISK} << __EOF__
+n
+p
+1
+
++64M
+t
+e
+p
+w
+__EOF__
+<~~~
+
+Setup the boot flag:
+
+~~~ Bash ~~~>
+sudo parted --script ${DISK} set 1 boot on
+<~~~
+
+<aside>
+	Notice that the instructions below are duplicated for the different device name variants.
+</aside>
+
+Format the boot partion as VFAT:
+
+~~~ Bash ~~~>
+DISK=/dev/mmcblk0
+sudo mkfs.vfat -F 16 ${DISK}p1 -n boot
+<~~~
+
+or
+
+~~~ Bash ~~~>
+DISK=/dev/sdX
+sudo mkfs.vfat -F 16 ${DISK}1 -n boot
+<~~~
+
+Setup the root filesystem:
+
+<aside>
+	Again, we are just piping commands into `fdisk`.
+</aside>
+
+~~~ Bash ~~~>
+sudo fdisk ${DISK} << __EOF__
+n
+p
+2
+
+
+w
+__EOF__
+<~~~
+
+Format the root filesystem as ext4:
+
+~~~ Bash ~~~>
+DISK=/dev/mmcblk0
+sudo mkfs.ext4 ${DISK}p2 -L rootfs
+<~~~
+
+or
+
+~~~ Bash ~~~>
+DISK=/dev/sdX
+sudo mkfs.ext4 ${DISK}2 -L rootfs
+<~~~
+
+That was something. Our partitions are prepared, and we can turn to the final steps.
 
 ### Mount the SD card ### (#installation-mount-sd-card)
 
-Make the prepared SD card available to the system.
+With everything built, it is time to mount the devices. On most current Linux desktops
+the partitions should already be mounted. If so, `lsblk` will list the mount points
+and you can <skip this section (#installation-bootloader)>.
+
+~~~ Bash ~~~>
+sudo mkdir -p /media/boot/
+sudo mkdir -p /media/rootfs/
+<~~~
+
+If the device name is similar to `/dev/mmcblk0`
+
+~~~ Bash ~~~>
+sudo mount ${DISK}p1 /media/boot/
+sudo mount ${DISK}p2 /media/rootfs/
+<~~~
+
+or if the device name is similar to `/dev/sdX`
+
+~~~ Bash ~~~>
+sudo mount ${DISK}1 /media/boot/
+sudo mount ${DISK}2 /media/rootfs/
+<~~~
 
 ### Install the bootloader ### (#installation-bootloader)
 
-Install the built bootloader.
+~~~ Bash ~~~>
+sudo cp -v ./u-boot/MLO /media/boot/
+sudo cp -v ./u-boot/u-boot.img /media/boot/
+<~~~
 
 ### Configure the bootloader ### (#installation-bootloader-configure)
 
-Add a configuration file, and describe what it actually does.
+First we need to create a configruation file for our bootloader, e.g. `nano uEnv.txt`.
+
+<aside>
+	Note the device name. If your SD drive is mounted under a different device name,
+	change `#mmcroot=/dev/sdb2 ro` e.g. to `#mmcroot=/dev/mmcblk0p2 ro`.
+</aside>
+
+~~~ Bash ~~~>
+#SPI: enable for userspace spi access on expansion header
+#buddy=spidev
+
+#Video Resolution:
+#dvimode=1280x720MR-16@60
+
+#Partitions: default settings:
+#mmcroot=/dev/sdb2s ro
+#mmcrootfstype=ext4 rootwait fixrtc
+<~~~
+
+Next we copy the configuration to our boot partition:
+
+~~~ Bash ~~~>
+sudo cp -v ./uEnv.txt /media/boot/
+<~~~
 
 ### Install the kernel image ### (#installation-kernel-image)
 
-Install the built kernel image to the boot partition.
+Remember that we wrote down an `export` command when <building the kernel (#preparations-kernel-image)>?
+
+Execute it now, exactly as printed originally by the build script.
+
+~~~ Bash ~~~>
+export kernel_version=3.X.Y-Z
+<~~~
+
+Now we copy our built kernel image to the VFAt parition on the SD card.
+
+~~~ Bash ~~~>
+sudo cp -v ./stable-kernel/deploy/${kernel_version}.zImage /media/boot/zImage
+<~~~
+
+Next we copy the kernel device tree.
+
+~~~ Bash ~~~>
+sudo mkdir -p /media/boot/dtbs/
+sudo tar xofv ./stable-kernel/deploy/${kernel_version}-dtbs.tar.gz -C /media/boot/dtbs/
+<~~~
 
 ### Install the Debian 7 file system ### (#installation-debian-7)
 
-Copy the pre-built Debian file system to the SD card.
+Now we will copy our previously extracted Debian image to the ext4 partition on our SD card.
+
+~~~ Bash ~~~>
+sudo tar xfvp ./*-*-minimal-arm*-*/arm*-rootfs-*.tar -C /media/rootfs/
+<~~~
+
+After this is done, we need to copy the kernel modules, too.
+
+~~~ Bash ~~~>
+sudo tar xfv ./stable-kernel/deploy/${kernel_version}-modules.tar.gz -C /media/rootfs/
+<~~~
 
 ### Configure the Pandaboard ### (#installation-configure-pandaboard)
 
-Describe which configuration steps to take before booting up the
-board.
+To make our board actually work, we will have to configure
+
+•	the file system in `/etc/fstab`
+•	WiFi firmware
+•	network interfaces in `/etc/network/interfaces`
+•	serial login in `/etc/inittab`
+
+before we can finally unmount the SD card and boot from the Pandaboard with it.
+
+:: Configure the file system
+	~~~ Bash ~~~>
+	sudo nano /media/rootfs/etc/fstab
+	<~~~
+
+	Depending on your device name it should either be
+
+	~~~>
+	/dev/mmcblk0p2   /           auto   errors=remount-ro   0   1
+	/dev/mmcblk0p1   /boot/uboot auto   defaults            0   0
+	<~~~
+
+	or
+
+	~~~>
+	/dev/sdX2   /           auto   errors=remount-ro   0   1
+	/dev/sdX1   /boot/uboot auto   defaults            0   0
+	<~~~
+:: WiFi firmware
+	~~~ Bash ~~~>
+	git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+	sudo mkdir -p /media/rootfs/lib/firmware/ti-connectivity
+	sudo cp -v ./linux-firmware/ti-connectivity/* /media/rootfs/lib/firmware/ti-connectivity
+	<~~~
+:: Network interfaces
+	~~~ Bash ~~~>
+	sudo nano /media/rootfs/etc/network/interfaces
+	<~~~
+
+	~~~>
+	auto lo
+	iface lo inet loopback
+
+	auto eth0
+	iface eth0 inet dhcp
+
+	auto wlan0
+	iface wlan0 inet dhcp
+    	wpa-ssid "essid"
+    	wpa-psk  "password"
+	<~~~
+:: serial login
+	~~~ Bash ~~~>
+	sudo nano /media/rootfs/etc/inittab
+	<~~~
+
+	Add this line on the end
+
+	~~~>
+	T2:23:respawn:/sbin/getty -L ttyO2 115200 vt102
+	<~~~
 
 ## First boot ## (#booting)
 
-... and end with the configuration steps recommended after first boot.
+*We are done!*
+
+Sync and unmount the SD partitions, and insert the SD card into your Pandaboard.
+
+~~~ Bash ~~~>
+sudo sync
+sudo umount /media/boot
+sudo umount /media/rootfs
+<~~~
+
+... have patience, and remember that by default
+
+## References ## (#references)
 
 </section>
