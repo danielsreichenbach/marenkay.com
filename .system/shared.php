@@ -149,10 +149,9 @@ function getArticle($s_article)
     $_ = trim(preg_replace('/\r\n?/', "\n", @file_get_contents("$s_article.rem")));
 
     //open the file and read the header and HTML
-    list ($meta, $content) = explode("\n\n", $_, 2);
+    @list ($meta, $content) = explode("\n\n", $_, 2);
     //if the file does not carry a header, it’s not an article (like ‘/projects.rem’, and ‘/imprint.rem’)
-    if ($meta[0] != '{')
-
+    if (!isset($meta[0]) || $meta[0] != '{')
         return false;
 
     //the header is a JSON object containing the meta-information (date, tags, enclosure &c.)
