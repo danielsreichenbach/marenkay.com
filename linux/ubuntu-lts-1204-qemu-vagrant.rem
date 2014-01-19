@@ -44,14 +44,103 @@ with version 1.2.
 
 ## The solution ##
 
+Lucky for me -- and you -- Hiroshi Miura provides a PPA with the current QEMU
+version packaged for Ubuntu 12.04 LTS at <https://launchpad.net/~miurahr/+archive/vagrant>.
+
+We will add this PPA and use QEMU and a few other packages from here:
+
 ~~~ Bash ~~~>
 $ sudo add-apt-repository ppa:miurahr/vagrant && sudo apt-get update
 $ sudo apt-get install -y bridge-utils libvirt-bin python-vm-builder qemu-kvm qemu-system
+<~~~
+
+If you have a previous installation of QEMU and related packages, I would recommend
+to purge them from your system, and then add the PPA and install the new packages.
+
+Now that we have a recent QEMU version -- 1.4 as of writing this article -- we can
+grab <Vagrant (//vagrantup.com)>. It should be noted that I explicitly use Vagrant
+*1.3.5* here, since there is a bug in the Vagrant plugin for libvirt which prevents
+using it with the Vagrant 1.4 (see <this issue (//github.com/pradels/vagrant-libvirt/issues/105)>).
+
+~~~ Bash ~~~>
 $ wget -q http://files.vagrantup.com/packages/a40522f5fabccb9ddabad03d836e120ff5d14093/vagrant_1.3.5_x86_64.deb
 $ sudo dpkg --install vagrant_1.3.5_x86_64.deb
+<~~~
+
+With Vagrant installed a quick `vagrant -v` should print out `Vagrant 1.3.5`.
+
+We're not done yet, let us add the mutate and libvirt plugins.
+
+<aside>
+    libvirt-dev is installed as we need it to install the vagrant-libvirt plugin.
+</aside>
+
+~~~ Bash ~~~>
 $ sudo apt-get install -y libvirt-dev
 $ vagrant plugin install vagrant-mutate && vagrant plugin install vagrant-libvirt
 $ vagrant mutate http://files.vagrantup.com/precise64.box libvirt
 <~~~
+
+Once this is done we are almost ready to go. Since *VirtualBox* is the default
+hypervisor for Vagrant we have to tell Vagrant about our love for *libvirt*.
+
+This can be done individually when starting a Vagrant deployment using
+`vagrant up --provider libvirt` which IMHO is tedious if you work on multiple
+projects and often have to up and destroy machines.
+
+Thus you can also edit your `.bashrc` file, and export the default Vagrant provider:
+
+~~~>
+export VAGRANT_DEFAULT_PROVIDER=libvirt
+<~~~
+
+With this done, relog and you can simply use `vagrant up` to start machines using
+*libvirt*.
+
+## Is that all? ##
+
+In a perfect world this would be everything but in reality there is a tiny addendum.
+The `Vagrantfile` created by `vagrant init` usually comes with a section to configure
+VirtualBox, and there is a similar section required for *libvirt*.
+
+<aside>
+    The vagrant libvirt plugins has <a few more options (//github.com/pradels/vagrant-libvirt#libvirt-configuration-options)>.
+    Note that I skipped the *libvirt.host* setting to that libvirt directly calls `qemu://`.
+</aside>
+
+~~~>
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "precise64"
+
+  # The url from where the 'config.vm.box' box will be fetched if it
+  # doesn't already exist on the user's system.
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = "qemu"
+    libvirt.connect_via_ssh = false
+    libvirt.username = "root"
+    libvirt.storage_pool_name = "default"
+  end
+
+  ...
+end
+<~~~
+
+With this done, we can use <Vagrant (//vagrantup.com)> for our projects. Enjoy
+the pretty development environments, and make good use of them.
 
 </section>
