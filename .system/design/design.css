@@ -874,15 +874,161 @@ article>section:not(:last-child)
 
 /* = browser style (width <= 480px) ===================================== */
 @media only screen and (max-device-width: 480px) {
+  /* important: this stops the iPhone from scaling the portrait display to
+     fit the landscape display so that the text reflows for the greater
+     width */
+  html, body            { overflow: none; width: 100%; margin: 0; padding: 0;
+                          font-size: 13px; background-color: #718c00; }
+
+  /* no logo, just use “all” to get back to the home page */
+  body>header h1        { display: none !important; }
+
+  /* the menu: we have to override and remove a lot of stuff here and it gets complicated. the menu will contain just the
+     “all” and “projects” links, and _only_ the current category, if there is one */
+  body>header nav       { padding: 0; }
+  body>header ul        { position: static; float: left; clear: none !important;
+                          height: 38px; font-size: 14px; line-height: 38px;
+                          margin: 0; }
+  body>header li        { float: left; padding: 0; text-align: center; }
+  body>header a         { padding: 0 5px; color: white; text-shadow: 0 -1px 0 #4d4d4c; }
+
+  /* hide all the categories, show only the one in use */
+  body>header ul+ul a   { display: none;}
+  body>header ul+ul
+    a[rel=tag]          { display: inline-block; }
+  /* prefix the current category with “in: ” */
+  body>header ul+ul
+    a[rel=tag]:before   { content: "in: "; color: #d6d6d6;
+                          text-shadow: #efefef 0 -1px 0, white 0 1px 0; }
+
+  /* the back / forward buttons */
+  body>header a[rel=previous], body>header a[rel=next]
+                        { overflow: hidden; top: 0; width: 40px; height: 38px;
+                          padding: 0; }
+  body>header a[rel=next]
+                        { right: 40px;}
+
+  /* no images needed, we do this with unicode and CSS */
+  /* (Unicode only has an up and down filled arrow head, so we rotate them) */
+  body>header a[rel=previous]:before,
+  body>header a[rel=next]:before
+                        { display: block; width: 40px; height: 38px;
+                          text-indent: 0; text-align: center;
+                          font-size: 32px; line-height: 38px;
+                          color: white; text-shadow: 1px 0 0 #4d4d4c;
+                          -webkit-transform: rotate(-90deg); }
+  body>header
+    a[rel=next]:before  { content: "\25B2";}
+  body>header
+    a[rel=previous]:before
+                        { content: "\25BC"; }
+
+  /* --- article ---------------------------------------------------------------------------------------------------------- */
+  article               { border: none; padding: 37px 20px 0; overflow: hidden;
+                          color: #431; text-shadow: #b61 0 -1px 0, rgba(255,255,255,.2) 0 1px 0; }
+  article>*             { margin-left: 0; margin-right: 0; }
+  article>header        { display: none; }
+
+  /* headings */
+  h1                    { font-size: 18px; line-height: 19px; }
+  article>h1            { padding-top: 19px; color: white; text-shadow: 0 -1px 0 #431; }
+  article>h1+a          { display: block !important; word-wrap: break-word; white-space: pre; }
+  article>h1+a+*        { margin-top: 19px; }
+
+  /* links in the article areas */
+  article>a, article>:not(section):not(figure) a
+                        { color: #431; text-decoration: underline; }
+  article>a:hover, article>:not(section):not(figure) a:hover,
+  article>a:focus, article>:not(section):not(figure) a:focus
+                        { color: #eee !important; text-shadow: #431 1px 1px 0; }
+
+  /* lists. in this design we don’t hang the markers to save margin space on content */
+  ul, ol                { margin-left: 20px; }
+  dd                    { margin-left: 20px; }
+
+  /* blockquotes in the background area */
+  blockquote            { text-shadow: #ddd 0 -1px 0, white 0 1px 0; }
+  article>blockquote    { color: #eee; text-shadow: #431 0 -1px 0; }
+  article>header+blockquote
+                        { margin: 19px 25px 57px; }
+
+  /* links in blockquotes within the article area */
+  article>blockquote a, article>header+blockquote a
+                        { text-shadow: #b61 0 -1px 0, #d94 0 1px 0; }
+
+  /* --- section ---------------------------------------------------------------------------------------------------------- */
+  :not(section)>section, figure
+                        { margin: 0 -20px; padding: 18px 19px;
+                          border: 1px solid white;
+                          color: #333; text-shadow: none; background: #eee;
+                          box-shadow: 0 0 8px rgba(0,0,0,.5); }
+
+  /* the page notes, usually in the third column in the desktop design */
+  aside                 { position: static; width: 100%;
+                          margin: 0 0 19px -10px; padding: 10px;
+                          font-size: 10px; outline: 1px dotted #666;
+                          background: #ddd; }
+
+  /* adjust the drop-cap to an iPhone-friendly size size */
+  section > p:first-of-type:first-letter
+                        { padding: 6px 2px 0 0;
+                          font: 38px/26px "Droid Serif",
+                         Georgia, Palatino, 'Palatino Linotype',
+                         Times, 'Times New Roman',
+                         serif, "Hiragino Sans GB", "STXihei", "微软雅黑"; }
+
+  section blockquote,
+    figure blockquote   { margin: 0 25px 0; font-size: 15px; }
+
+  pre                   { background-color: #ddd; font-size: 12px; }
+
+  /* force images to fit the width */
+  video, iframe         { width: 100%; height: auto;}
+  article>img, section>img,
+    dd>img, li>img      { max-width: 100%; height: auto !important;
+                          box-sizing: border-box; }
+
+  section>img:not([width="640"]),
+       dd>img:not([width="640"]),
+       li>img:not([width="640"])
+                        { background-color: #eee; border-width: 8px;
+                          border-style: solid; border-color: white;
+                          box-shadow: 0 2px 5px rgba(0,0,0,.3); }
+
+  /* --- figure ----------------------------------------------------------------------------------------------------------- */
+  figure                { margin: 0 -20px; padding: 8px; }
+  figure h1             { color: black; text-shadow: white 0 1px 0;
+                          padding-top: 19px; }
+  figure img            { max-width: 100%; height: auto !important; margin: 0;
+                          outline: 1px inset rgba(255,255,255,.6);
+                          outline-offset: -1px; }
+  figure~*              { width: auto; }
+
+  /* --- footer ----------------------------------------------------------------------------------------------------------- */
+  footer                { display: none !important; }
 }
 
 /* = iPhone portrait only =============================================== */
 @media only screen and (max-device-width: 480px) and (max-width: 320px) {
+  /* screen is a bit too thin to be stretching the text */
+  article>blockquote    { text-align: left; }
 
+  /* portrait mode is not wide enough to show the table of contents on the right */
+  /* override the default style (floated on the right) */
+ /* and make it look better for single-column */
+  section>h1+ol         { float: none; margin-left: 0; font-size: 12px;
+                          margin-bottom: 38px; padding: 0 0 18px;
+                          border: 1px dotted #666; border-width: 0 0 1px; }
 }
 
 /* = iPhone landscape only ============================================== */
 @media only screen and (max-device-width: 480px) and (min-width: 321px) {
+  /* in landscape we have enough space to fit the page notes on the side (much like table of contents) */
+  aside                 { float: right; width: 120px; margin: 0 -10px 10px 20px; }
+  h1+ol+aside           { float: none; width: 180px; margin: 0 0 20px 0; }
+
+  /* avoid the table of contents completely blocking out the text to the left */
+  section>h1+ol         { max-width: 200px; }
 
 }
 
