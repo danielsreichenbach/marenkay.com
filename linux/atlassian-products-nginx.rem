@@ -2,13 +2,14 @@
 	"date"      :   201305290853,
 	"updated"   :   201306100753,
 	"licence"   :   "cc-by",
+	"title"		:	"Running Atlassian Products behind nginx",
 	"tags"      :   ["atlassian"],
 	"draft"		:	true
 }
 
 <section>
 
-# Atlassian Products on Ubuntu #
+# Atlassian Products on nginx #
 
 &__TOC__;
 

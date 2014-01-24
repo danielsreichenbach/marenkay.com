@@ -1,0 +1,14 @@
+{
+    "date"      :   201401241934,
+    "updated"   :   201401241934,
+    "licence"   :   "cc-by",
+    "title"     :   "Creating Vagrant boxes with QEMU and Packer",
+    "tags"      :   ["vagrant", "packer"],
+    "draft"     :   true
+}
+
+<section>
+
+# From Packer to QEMU all for shiny Vagrant boxes #
+
+</section>

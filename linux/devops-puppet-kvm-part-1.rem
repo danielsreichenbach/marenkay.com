@@ -2,6 +2,7 @@
 	"date"		:	201301301222,
 	"updated"	:	201301301222,
 	"licence"	:	"cc-by",
+	"title"		:	"DevOps with KVM and Puppet (1)",
 	"tags"		:	["devops"]
 }
 

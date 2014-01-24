@@ -2,6 +2,7 @@
 	"date"		:	201301012110,
 	"updated"	:	201301012110,
 	"licence"	:	"cc-by",
+    "title"     :   "Using Propel as ORM in Symfony2 applications",
 	"tags"		:	["symfony2"]
 }
 

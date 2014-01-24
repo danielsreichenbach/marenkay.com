@@ -1,8 +1,9 @@
 {
-	"date"      :   201401192129,
-	"updated"   :   201401192129,
-	"licence"   :   "cc-by",
-	"tags"      :   ["vagrant"]
+	"date"		:	201401192129,
+	"updated"	:	201401241945,
+	"licence"	:	"cc-by",
+	"title"		:	"Running Vagrant and QEMU 1.4 on Ubuntu 12.04 LTS aka. Precise Pangolin",
+	"tags"		:	["vagrant"]
 }
 
 <section>
@@ -15,6 +16,19 @@ C++ or in PHP to build <Symfony 2 (//symfony.com)> applications.
 
 Now if you happen to use <PhpStorm (//jetbrains.com/phpstorm/)> you may have noticed
 there was a feature introduced to use <Vagrant (//vagrantup.com)> with your projects.
+
+
+fig.	<"" /&__HREF__;/i-heart-vagrant.png "Portable development environments">
+
+	: ... You should try out <Vagrant (//vagrantup.com)>.
+
+
+The basic premise of Vagrant is that you should and now can easily can test whatever
+software you build. With Vagrant you can either chose from existing system templates
+or craft your own, to test your projects on a fresh, clean system environment. And
+the best thing is: you can configure the environment using <Puppet (//puppetlabs.com)>
+or <Chef (//getchef.com/)>, and whatever you break on it, you can always bring up
+a clean system within seconds.
 
 But as with all interesting features this comes with a price. You have the choice
 to use either VirtualBox or libvirt based hypervisor to create and run virtual
@@ -72,7 +86,7 @@ With Vagrant installed a quick `vagrant -v` should print out `Vagrant 1.3.5`.
 We're not done yet, let us add the mutate and libvirt plugins.
 
 <aside>
-    libvirt-dev is installed as we need it to install the vagrant-libvirt plugin.
+		libvirt-dev is installed as we need it to install the vagrant-libvirt plugin.
 </aside>
 
 ~~~ Bash ~~~>
@@ -104,8 +118,8 @@ The `Vagrantfile` created by `vagrant init` usually comes with a section to conf
 VirtualBox, and there is a similar section required for *libvirt*.
 
 <aside>
-    The vagrant libvirt plugins has <a few more options (//github.com/pradels/vagrant-libvirt#libvirt-configuration-options)>.
-    Note that I skipped the *libvirt.host* setting to that libvirt directly calls `qemu://`.
+		The vagrant libvirt plugins has <a few more options (//github.com/pradels/vagrant-libvirt#libvirt-configuration-options)>.
+		Note that I skipped the *libvirt.host* setting to that libvirt directly calls `qemu://`.
 </aside>
 
 ~~~>
@@ -116,27 +130,27 @@ VirtualBox, and there is a similar section required for *libvirt*.
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+	# All Vagrant configuration is done here. The most common configuration
+	# options are documented and commented below. For a complete reference,
+	# please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
+	# Every Vagrant virtual environment requires a box to build off of.
+	config.vm.box = "precise64"
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+	# The url from where the 'config.vm.box' box will be fetched if it
+	# doesn't already exist on the user's system.
+	config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  config.vm.provider :libvirt do |libvirt|
-    libvirt.driver = "qemu"
-    libvirt.connect_via_ssh = false
-    libvirt.username = "root"
-    libvirt.storage_pool_name = "default"
-  end
+	# Provider-specific configuration so you can fine-tune various
+	# backing providers for Vagrant. These expose provider-specific options.
+	config.vm.provider :libvirt do |libvirt|
+		libvirt.driver = "qemu"
+		libvirt.connect_via_ssh = false
+		libvirt.username = "root"
+		libvirt.storage_pool_name = "default"
+	end
 
-  ...
+	...
 end
 <~~~
 

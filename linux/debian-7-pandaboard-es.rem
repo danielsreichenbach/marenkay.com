@@ -2,6 +2,7 @@
 	"date"      :   201306081617,
 	"updated"   :   201306101653,
 	"licence"   :   "cc-by",
+	"title"		:	"Installing Debian 7 on ARM Pandaboard ES",
 	"tags"      :   ["arm"],
 	"draft"     :   true
 }
