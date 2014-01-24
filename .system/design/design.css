@@ -885,6 +885,7 @@ article>section:not(:last-child)
 
   /* the menu: we have to override and remove a lot of stuff here and it gets complicated. the menu will contain just the
      “all” and “projects” links, and _only_ the current category, if there is one */
+  body>header           { margin: 0; }
   body>header nav       { padding: 0; }
   body>header ul        { position: static; float: left; clear: none !important;
                           height: 38px; font-size: 14px; line-height: 38px;
