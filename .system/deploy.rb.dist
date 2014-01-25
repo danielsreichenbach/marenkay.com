@@ -2,9 +2,11 @@
 # Capistrano recipe for deploying to MediaTemple                               #
 ################################################################################
 
-# - Source control settings -----------------------------------------------
+logger.level = Capistrano::Logger::IMPORTANT  # MAX_LEVEL
 
-# the source control ssh user
+# Source control settings ------------------------------------------------------
+
+# the source control ssh nuser
 set :git_user, "git"
 
 # the source control host
@@ -25,16 +27,16 @@ set :branch, "master"
 # tell capistrano to init and update submodules
 set :git_enable_submodules, 1
 
-# - Target server structure -----------------------------------------------
-
-# The name of the application.
-set :application, "sUSERID.gridserver.com"
-
-# The name of the user to use when logging into the remote host(s).
-set :user, "your-domain.com"
+# ------------------------------------------------------------------------------
 
 # the user id of your (mt) account
 set :mt_id, "USERID"
+
+# The name of the application.
+set :application, "s#{mt_id}.gridserver.com"
+
+# The name of the user to use when logging into the remote host(s).
+set :user, "your-domain.com"
 
 # The root of the directory tree on the remote host(s) that the
 # application should be deployed to
@@ -46,8 +48,6 @@ set :version_dir, "releases"
 # The name to use (relative to deploy_to) for the symlink that points at
 # the current release
 set :current_dir, "html"
-
-# - EDIT BELOW ONLY IF YOU KNOW CAPISTRANO WELL ---------------------------
 
 # The name of the directory under deploy_to that will contain directories and
 # files to be shared between all releases.
@@ -82,7 +82,7 @@ role :app, "#{application}"
 role :web, "#{application}"
 role :db,  "#{application}", :primary => true
 
-# Overloaded methods ######################################################
+# Overloaded methods ###########################################################
 namespace :deploy do
 
   desc <<-DESC
@@ -113,7 +113,7 @@ namespace :deploy do
   end
 end
 
-# Deployment process ######################################################
+# Deployment process ###########################################################
 after "deploy", "deploy:create_symlinks"
 
 after ('deploy:setup'), :roles => :app do
@@ -122,4 +122,3 @@ after ('deploy:setup'), :roles => :app do
     top.upload(".system/config.php", "#{deploy_to}/#{shared_dir}/.system/config.php", :via => :scp)
   end
 end
-
