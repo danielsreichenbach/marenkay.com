@@ -1,14 +1,64 @@
 {
-    "date"      :   201401241934,
-    "updated"   :   201401241934,
-    "licence"   :   "cc-by",
-    "title"     :   "Creating Vagrant boxes with QEMU and Packer",
-    "tags"      :   ["vagrant", "packer"],
-    "draft"     :   true
+	"date"      :   201401241934,
+	"updated"   :   201401241934,
+	"licence"   :   "cc-by",
+	"title"     :   "Creating Vagrant boxes with QEMU and Packer",
+	"tags"      :   ["vagrant", "packer"]
 }
 
 <section>
 
 # From Packer to QEMU all for shiny Vagrant boxes #
+
+Follwing right on the heels of my post on <Ubuntu 12.04 and Vagrant (/linux/ubuntu-lts-1204-qemu-vagrant)>,
+there is more to be had.
+
+Once I started started to play around with <Vagrant (//vagrantup.com)>, I quickly noticed
+that -- while many pre-built boxes are available -- they all come with a price:
+
+You do not know *how* they were built, and *what* is inside. That alone might be
+tolerable but then there is my damn curiosity which almost drives me mad. I have
+to build boxes myself, and there is more to it:
+
+<aside>
+	Devs / admins can only benefit from a dose of lazyness ... effectve use of technology!
+</aside>
+
+•	the <Vagrant documentation (//docs.vagrantup.com/)> does include a section on
+	rolling your own base boxes, but it leaves out a few details. Mostly, what
+	should be configured for a box, once you have a user with root privileges,
+	and SSH properly configured.
+•	when you use Vagrant, you will want to tailor your boxes as much as possible
+	to your needs, and reduce the work overhead for your team or just yourself.
+
+## Rolling boxes ##
+
+You now could fire up a virtual machine in KVM/QEMU/Xen or VirtualBox, base it on
+a minimal installation for your system, as e.g. Debian or Ubuntu provide them,
+then turn the created disk image into a Vagran box but that would *cost* quite
+some time.
+
+Doing this once, or twice ... yeah I can live with that. Doing that ten times,
+or worse ... not so much my idea of fun. That is why I would like to introduce
+<Packer (//www.packer.io/)> to you.
+
+<aside>
+	<Packer documentation (//www.packer.io/docs)> is quite well done, btw.
+</aside>
+
+*Packer* is a tool for creating identical machine images for multiple platforms
+from a single source configuration. That source configuration is usually a
+JSON file, with a few settings for
+
+:: Builders
+	... create machine images for a specific target type, e.g. _VirtualBox_,
+	_QEMU_.
+
+:: Provisioners
+	... allow you to install and configure software of your choice prior to
+	creating a final machine image.
+
+:: Post-processors
+	... can be considerd to be conversions on the created machine images.
 
 </section>
