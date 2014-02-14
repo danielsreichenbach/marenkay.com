@@ -1,0 +1,17 @@
+{
+    "date"      :   201402121903,
+    "updated"   :   201402121903,
+    "licence"   :   "cc-by",
+    "title"     :   "Getting started with Symfony2 and PHPSpec",
+    "tags"      :   ["PHPSpec", "symfony2"],
+    "draft"     :   true
+}
+
+<section>
+
+# Start your Symfony2 projects with specs #
+
+A few days ago, I wrote about <adding PHPSpec to your projects (/linux/symfony2-switch-phpspec)>.
+Let us expand on that and go into <PHPSpec (//phpspec.net)> in detail.
+
+</section>

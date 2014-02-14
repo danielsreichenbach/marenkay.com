@@ -1,9 +1,10 @@
 {
 	"date"      :   201401241934,
-	"updated"   :   201401241934,
+	"updated"   :   201401261245,
 	"licence"   :   "cc-by",
 	"title"     :   "Creating Vagrant boxes with QEMU and Packer",
-	"tags"      :   ["vagrant", "packer"]
+	"tags"      :   ["vagrant", "packer"],
+	"draft"     :   true
 }
 
 <section>
@@ -60,5 +61,21 @@ JSON file, with a few settings for
 
 :: Post-processors
 	... can be considerd to be conversions on the created machine images.
+
+
+## Resources ##
+
+I can highly recommend to experiment with <Packer (//packer.io)> and roll your
+own disk images for development or actual production machines.
+
+Here are a few pointers to get you started:
+
+•	<My packer repository (//bitbucket.org/goblin-workshop/packer-vagrant)>:
+	includes a build recipe for a QEMU disk image using Ubuntu 12.04 LTS
+	server with a (documented) preseed for a few tweaks here and there.
+•	Of course there is the <Packer website (//packer.io)> itself, which has
+	a few goodies in stock, too.
+•	a <Codeship blog post (//blog.codeship.io/2013/11/07/building-vagrant-machines-with-packer.html)>
+•	a <Pretengineer blog post (//pretengineer.com/post/packer-vagrant-infra/)>
 
 </section>

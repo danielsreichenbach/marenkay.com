@@ -1,14 +1,14 @@
 {
     "date"      :   201402102345,
-    "updated"   :   201402102345,
+    "updated"   :   201402142000,
     "licence"   :   "cc-by",
-    "title"     :   "Use phpspec NOW",
-    "tags"      :   ["phpspec", "symfony2"]
+    "title"     :   "Use PHPSpec NOW",
+    "tags"      :   ["PHPSpec", "symfony2"]
 }
 
 <section>
 
-# Drive your code by specification  #
+# Drive your code by specification with PHPSpec #
 
 <Symfony 2 (//symfony.com)> based applications usually should be built driven
 by tests. But given the nature of such applications I found myself wondering,
@@ -19,11 +19,11 @@ level.
 
 Thus after browsing through <Building Quality into a Symfony app (//speakerdeck.com/jakzal/using-phpspec-to-build-quality-into-a-symfony-app)>
 I decided to take the jump, and specify my implementation rather than to
-just cover functionality. This is done easily.
+just cover functionality. This is done easily with <PHPSpec (//phpspec.net)>.
 
 ## The switch ##
 
-Now let us switch the default Symfony project to phpspec. First I recommend
+Now let us switch the default Symfony project to PHPSpec. First I recommend
 to install <Composer (//getcomposer.org/)>.
 
 Using Composer we create a project template:
@@ -36,18 +36,18 @@ Using Composer we create a project template:
 $ php composer.phar create-project symfony/framework-standard-edition path/ 2.3.9
 <~~~
 
-Next we will add phpspec and friends:
+Next we will add PHPSpec and friends:
 
 ~~~ Bash ~~~>
 $ php composer.phar require --dev "phpspec/phpspec:2.0.*@dev" "phpspec/prophecy:1.0.*@dev" "henrikbjorn/phpspec-code-coverage:1.0.*@dev"
 <~~~
 
-This will add <phpspec (//phpspec.net)> along with the mocking framework prophecy,
+This will add <PHPSpec (//phpspec.net)> along with the mocking framework prophecy,
 and the extension for generating coverage reports -- which you may want to see, right?
 
 ## Final call ##
 
-You can -- and should -- add a custom configuration for *phpspec* to your project,
+You can -- and should -- add a custom configuration for *PHPSpec* to your project,
 since it allows you to tune output, enable extensions, and also allows to call
 spec suites for specific bundles.
 
@@ -77,11 +77,11 @@ the bundle, and once done, you can run the test suite:
 $ php bin/phpspec run
 <~~~
 
-Check out the <phpspec manual (//phpspec.net/docs/introduction.html)>, and make
+Check out the <PHPSpec manual (//phpspec.net/docs/introduction.html)>, and make
 friends with it. It might take a while, but you will sooner or later notice that
 you switch from mass producing code to only producing what is really needed.
 
-Expect to see more about phpspec soon. One hint ahead of time: do not try to
+Expect to see more about PHPSpec soon. One hint ahead of time: do not try to
 spec abstract classes, spec the implementations only!
 
 </section>
