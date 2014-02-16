@@ -120,10 +120,10 @@ if (!$index) {
         //HTML title
         ($category ? $category . ($is_latest ? '' : ' · ') : '') .
             ($is_latest ? ($category ? '' : APP_HOST) : (
-                //if there’s a title use that, if not use the article name
+                //if there is a title use that, if not use the article name
             $title ? rssTitle(reMarkable("# $title #")) : $article
             )),
-        //website header—contains the previous / next article links
+        //website header — contains the previous / next article links
         templateHeader($requested,
             //next, prev article links
             isset ($data[$key + 1]) ? template_tags(template_load('article-prev.html'), array(
