@@ -2,7 +2,7 @@
 	"date"		:	201301012110,
 	"updated"	:	201301012110,
 	"licence"	:	"cc-by",
-    "title"     :   "Using Propel as ORM in Symfony2 applications",
+	"title"		:	"Using Propel as ORM in Symfony2 applications",
 	"tags"		:	["symfony2"]
 }
 
@@ -79,12 +79,12 @@ Last -- but not least -- we need to edit ``app/config/parameters.yml``:
 
 ~~~ Diff ~~~>
 parameters:
-     database_driver:   pdo_mysql
-     database_host:     localhost
+	 database_driver:   pdo_mysql
+	 database_host:     localhost
 -    database_port:     ~
-     database_name:     symfony
-     database_user:     root
-     database_password: ~
+	 database_name:     symfony
+	 database_user:     root
+	 database_password: ~
 +    database_charset:  UTF8
 <~~~
 

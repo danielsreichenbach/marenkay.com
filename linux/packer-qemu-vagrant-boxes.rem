@@ -1,10 +1,10 @@
 {
-	"date"      :   201401241934,
-	"updated"   :   201401261245,
-	"licence"   :   "cc-by",
-	"title"     :   "Creating Vagrant boxes with QEMU and Packer",
-	"tags"      :   ["vagrant", "packer"],
-	"draft"     :   true
+	"date"		:	201401241934,
+	"updated"	:	201401261245,
+	"licence"	:	"cc-by",
+	"title"		:	"Creating Vagrant boxes with QEMU and Packer",
+	"tags"		:	["vagrant", "packer"],
+	"draft"		:	true
 }
 
 <section>

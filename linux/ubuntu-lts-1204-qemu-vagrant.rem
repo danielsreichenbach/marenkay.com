@@ -17,7 +17,6 @@ C++ or in PHP to build <Symfony 2 (//symfony.com)> applications.
 Now if you happen to use <PhpStorm (//jetbrains.com/phpstorm/)> you may have noticed
 there was a feature introduced to use <Vagrant (//vagrantup.com)> with your projects.
 
-
 fig.	<"" /&__HREF__;/i-heart-vagrant.png "Portable development environments">
 
 	: ... You should try out <Vagrant (//vagrantup.com)>.

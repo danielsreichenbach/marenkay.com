@@ -1,10 +1,10 @@
 {
-	"date"      :   201402121903,
-	"updated"   :   201402142129,
-	"licence"   :   "cc-by",
-	"title"     :   "Getting started with Symfony2 and PHPSpec",
-	"tags"      :   ["PHPSpec", "symfony2"],
-	"draft"     :   true
+	"date"		:	201402121903,
+	"updated"	:	201402142129,
+	"licence"	:	"cc-by",
+	"title"		:	"Getting started with Symfony2 and PHPSpec",
+	"tags"		:	["PHPSpec", "symfony2"],
+	"draft"		:	true
 }
 
 <section>
@@ -23,6 +23,6 @@ fig.	<"" /&__HREF__;/phpspec-logo.png "PHPSpec">
 
 	: ... <PHPSpec (//phpspec.net)> is so good
 
-## How we test these days ## (#phpspec-how-we-test-now)
+## Principles of Testing ## (#phpspec-principles-of-testing)
 
 </section>

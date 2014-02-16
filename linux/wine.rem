@@ -1,8 +1,8 @@
 {
-    "date"      :   201303021736,
-    "updated"   :   201303021803,
-    "licence"   :   "cc-by",
-    "tags"      :   ["wine"]
+	"date"		:	201303021736,
+	"updated"	:	201303021803,
+	"licence"	:	"cc-by",
+	"tags"		:	["wine"]
 }
 
 <section>
@@ -39,8 +39,8 @@ sudo apt-get install wine winetricks
 <~~~
 
 <aside>
-    Winetricks is incredibly helpful for when Wine has not implemented
-    the complete API required by an application.
+	Winetricks is incredibly helpful for when Wine has not implemented
+	the complete API required by an application.
 </aside>
 
 This will install Wine, and Winetricks. Winetricks is a helper which

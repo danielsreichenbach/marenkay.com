@@ -1,9 +1,9 @@
 {
-    "date"      :   201402102345,
-    "updated"   :   201402142000,
-    "licence"   :   "cc-by",
-    "title"     :   "Use PHPSpec NOW",
-    "tags"      :   ["PHPSpec", "symfony2"]
+	"date"		:	201402102345,
+	"updated"	:	201402142000,
+	"licence"	:	"cc-by",
+	"title"		:	"Use PHPSpec NOW",
+	"tags"		:	["PHPSpec", "symfony2"]
 }
 
 <section>
@@ -29,7 +29,7 @@ to install <Composer (//getcomposer.org/)>.
 Using Composer we create a project template:
 
 <aside>
-    Note that I prefer to use the LTS version of Symfony here.
+	Note that I prefer to use the LTS version of Symfony here.
 </aside>
 
 ~~~ Bash ~~~>
@@ -56,7 +56,7 @@ bundle, and enables the code coverage extension with a default configuration.
 
 ~~~ YAML ~~~>
 extensions:
-    - PhpSpec\Extension\CodeCoverageExtension
+	- PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
   format: html
@@ -66,8 +66,8 @@ formatter.name: pretty
 
 suites:
   AcmeDemoBundle:
-    namespace: Acme\DemoBundle
-    spec_path: src/Acme/DemoBundle
+	namespace: Acme\DemoBundle
+	spec_path: src/Acme/DemoBundle
 <~~~
 
 Now you can start creating specs in `src/Acme/DemoBundle/spec/` for each par of
